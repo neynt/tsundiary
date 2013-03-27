@@ -1,0 +1,1 @@
+web: python maidairy.py
