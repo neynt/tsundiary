@@ -45,28 +45,32 @@ def valid_login(username, password):
     # Will return a null value if user does not exist
     return cur.fetchone()
 
-########################
-# App oriented functions
+#############
+# App routes
 
 # Route static files
 @app.route('/static/<path:filename>')
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
 
-# Temp testing troll
-@app.route('/donate')
-def donate():
-    set_gold("Neynt")
-    return "I AM RICH!"
+# Updating content
+@app.route('/confess', methods=['POST'])
+def confess():
+    d = request.form['date']
+    c = request.form['content']
+    if valid_date(d):
+        return "Thanks."
+    else:
+        return "Invalid date, baka."
 
-# Login
+# Login attempts
 @app.route('/attempt_login', methods=['POST'])
 def attempt_login():
     u = request.form['username']
     p = request.form['password']
     if valid_login(u, p):
         session['username'] = u
-        return "Welcome, %s." % u
+        return "Welcome, %s-sama." % u
     return "Dude, you have no soul."
 
 # Logout

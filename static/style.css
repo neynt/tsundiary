@@ -18,6 +18,7 @@ div#edit_area
 
 .cloud_top
 {
+    border-radius: 10pt 10pt 0 0;
 }
 
 .cloud_mid
@@ -26,6 +27,7 @@ div#edit_area
 
 .cloud_bot
 {
+    border-radius: 0 0 10pt 10pt;
 }
 
 /* Post editing components */
