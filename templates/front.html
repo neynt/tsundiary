@@ -2,11 +2,49 @@
 
 {% block content %}
 
-{% if num %}
-<p>maidairy ni youkoso! numero {{ num }} desu!</p>
-{% else %}
-<p>yo!</p>
-{% endif %}
+<div id='login_form'>
+    <div id='login_status'>
+    </div>
+    <input type='text' id='username' placeholder="username" /><br />
+    <input type='password' id='password' placeholder="password" /><br />
+    <input type='submit' id='submitbutton' value="enter" />
+</div>
+
+<script>
+
+var wait_messages = ['one sec', 'please wait', 'brb', 'stay right there', 'chotto matte kudasai'];
+
+function attempt_login() {
+    var username = $('#username').val();
+    var password = $('#password').val();
+
+    $('#submitbutton').addClass('active');
+    $.post('attempt_login', { username: username, password: password },
+        function(data) {
+            $('#login_status').html(data);
+            if (data.substr(0, 7) == 'Welcome') {
+                document.location.reload(true);
+            }
+            else {
+                $('#submitbutton').removeClass('active');
+            }
+        });
+
+    var rand = Math.floor(Math.random()*wait_messages.length);
+    $('#login_status').html(wait_messages[rand]);
+}
+
+function check_key(e) {
+    if (e.keyCode == 13) {
+        attempt_login();
+    }
+}
+
+$('#username').keyup(check_key);
+$('#password').keyup(check_key);
+$('#submitbutton').click(attempt_login);
+
+</script>
 
 {% endblock %}
 

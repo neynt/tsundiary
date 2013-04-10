@@ -1,0 +1,38 @@
+body
+{
+    background: #888;
+}
+
+/* Things to center */
+div#edit_area
+{
+    margin: 0 auto;
+}
+
+/* Unified "cloud" look */
+.cloud_top, .cloud_mid, .cloud_bot
+{
+    background-color: #fff;
+    padding: 10pt;
+}
+
+.cloud_top
+{
+}
+
+.cloud_mid
+{
+}
+
+.cloud_bot
+{
+}
+
+/* Post editing components */
+div#edit_area
+{
+    width: 70%;
+    height: 200px;
+    overflow-y: scroll;
+    word-wrap: break-word;
+}
