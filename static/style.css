@@ -1,40 +1,64 @@
 body
 {
-    background: #888;
 }
 
-/* Things to center */
-div#edit_area
+/* Colors */
+body {       background-color: #888; }
+.post_date {            color: #888; }
+.cloud {     background-color: #fff;
+                 border-color: #222; }
+
+/* Fonts */
+div#wrap,
+input,
+textarea
 {
+    font-family: Dosis;
+}
+
+input
+{
+    font-size: 14pt;
+}
+
+/* Wrapper for main content */
+div#wrap
+{
+    width: 90%;
+    min-width: 250px;
+    max-width: 500px;
     margin: 0 auto;
 }
 
-/* Unified "cloud" look */
-.cloud_top, .cloud_mid, .cloud_bot
+/* "cloud" container */
+.cloud
 {
-    background-color: #fff;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 8pt;
     padding: 10pt;
-}
-
-.cloud_top
-{
-    border-radius: 10pt 10pt 0 0;
-}
-
-.cloud_mid
-{
-}
-
-.cloud_bot
-{
-    border-radius: 0 0 10pt 10pt;
+    margin: 0 auto;
 }
 
 /* Post editing components */
-div#edit_area
+#edit_area
 {
-    width: 70%;
-    height: 200px;
-    overflow-y: scroll;
+    border: 0;
+    width: 100%;
+    min-height: 50px;
     word-wrap: break-word;
+    cursor: text;
+}
+
+/* Post decoration */
+.post_date
+{
+    font-size: 16pt;
+}
+
+/* Get rid of focus outlines */
+input,
+div#edit_area:focus
+{
+    outline: none;
 }

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="float:right">
+    <a href="/logout">logout</a>
+</div>
+
+<p>{{ username }} no baka. don't get the wrong idea.</p>
+
+<div class='cloud'>
+    <span class='post_date'>Today</span>
+    <br />
+    <textarea id='edit_area'>{{ current_content }}</textarea>
+    <br />
+    <span id='char_count'>You are.</span>
+    <span id='save_status' style='float:right'></span>
+</div>
+
+<script>
+
+var content = "ATASHI WA ... KIMI GA SUKI NO DE ..."
+var timer = null;
+
+// Don't bother trying to hack this
+var DECABYTE_LIMIT = 50; 
+
+function confess() {
+    $('#save_status').html('saving...');
+    written = $('#edit_area').val();
+    $.post('/confess', { date: new Date().toDateString(), content: written },
+        function () {
+            $('#save_status').html('saved!');
+        }
+    );
+};
+
+function prime_update() {
+    $('#save_status').html('...')
+    timer = setTimeout(function() {
+        $('#save_status').html('saving...')
+        confess();
+    }, 2000);
+}
+
+function update_char_count() {
+    count = unescape(encodeURIComponent($('#edit_area').val())).length;
+    count = Math.ceil(count / 10);
+    $('#char_count').html(count + '/' + DECABYTE_LIMIT + ' UTF-8 decabytes');
+    return count;
+}
+
+function content_changed() {
+    count = update_char_count();
+    clearTimeout(timer);
+
+    if (count <= DECABYTE_LIMIT) {
+        // Just right.
+        prime_update();
+    }
+    else {
+        // Too long.
+        $('#char_count').addClass('error');
+        $('#save_status').html('too long');
+    }
+};
+
+$('#edit_area').bind('input propertychange', content_changed);
+update_char_count();
+
+</script>
+
+{% endblock %}
