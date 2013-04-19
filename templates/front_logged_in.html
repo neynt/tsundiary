@@ -2,11 +2,19 @@
 
 {% block content %}
 
-<div style="float:right">
-    <a href="/logout">logout</a>
-</div>
+{% if old_entries %}
+    <p>{{ login_name }}... here are your diary entries from specially chosen intervals ago.</p>
 
-<p>{{ username }} no baka. don't get the wrong idea.</p>
+    {% for day, content in old_entries %}
+    <div class='cloud'>
+        <span class='post_date'>{{ day }}</span>
+        <br />
+        <div id='post_body'>{{ content }}</div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<p>... what did you manage to accomplish today?</p>
 
 <div class='cloud'>
     <span class='post_date'>Today</span>
@@ -36,11 +44,11 @@ function confess() {
 };
 
 function prime_update() {
-    $('#save_status').html('...')
+    $('#save_status').html('writing...')
     timer = setTimeout(function() {
         $('#save_status').html('saving...')
         confess();
-    }, 2000);
+    }, 500);
 }
 
 function update_char_count() {

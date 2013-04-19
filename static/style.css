@@ -3,10 +3,11 @@ body
 }
 
 /* Colors */
-body {       background-color: #888; }
+body {       background-color: #FFEFE8; }
 .post_date {            color: #888; }
 .cloud {     background-color: #fff;
                  border-color: #222; }
+a {                    color: #ff4800; }
 
 /* Fonts */
 div#wrap,

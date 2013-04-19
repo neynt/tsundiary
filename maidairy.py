@@ -1,23 +1,10 @@
 import os
-import psycopg2
-import psycopg2.extras
-from flask import Flask, render_template, send_from_directory, redirect, session, request
+import datetime
+from flask import Flask, render_template, send_from_directory, redirect, session, request, g
+import maidb
 
 ########################
 # Initialization vectors
-
-# Config
-USE_POSTGRES = True
-
-if USE_POSTGRES:
-    # Set up database
-    conn_string = "host='ec2-107-22-182-174.compute-1.amazonaws.com' dbname='d7lda6chqa8526' user='gnfcfjnsbihezp' password='7jvgKFTp6p09KuiQdf0-rDHnT8'"
-    conn = psycopg2.connect(conn_string)
-    #cur = conn.cursor('the_only_cursor', cursor_factory=psycopg2.extras.DictCursor)
-    cur = conn.cursor()
-else:
-    db = {t: {} for t in ['users', 'posts']}
-    db['users']['Neynt'] = {'password': 'ke-ki', 'favour':690}
 
 # Set up Flask app
 app = Flask(__name__)
@@ -31,78 +18,19 @@ def valid_date(d):
     return True
 
 def datestamp_today():
-    return 'Tue Apr 16 2013'
+    utc_time = datetime.datetime.utcnow()
+    their_time = utc_time - datetime.timedelta(hours=int(g.timezone)/60)
+    result = their_time.strftime("%a %b %d %Y")
+    print("Our time is", utc_time, ". After taking into account", g.timezone, ", their time is %s." % (result))
+    return result
 
-def post_id(username, date):
-    return "%s %s" % (username, date)
+############
+# App funcs
 
-####################
-# Database functions
-
-def init_db():
-    cur.execute('DROP TABLE IF EXISTS users')
-    cur.execute('CREATE TABLE users ( username varchar(24), password varchar(24), favour integer )')
-    cur.execute('INSERT INTO users VALUES ( %s, %s, %s )', ["Neynt", "ke-ki", 69])
-    cur.execute('DROP TABLE IF EXISTS posts')
-    cur.execute('CREATE TABLE posts ( username varchar(24), datestamp varchar(24), content varchar(500) )')
-    conn.commit()
-    return
-
-if USE_POSTGRES:
-    def get_gold(username):
-        cur.execute("SELECT favour FROM users WHERE username=%s", [username])
-        result = cur.fetchone()
-        if result:
-            return result[0]
-
-    def set_gold(username):
-        cur.execute("UPDATE users SET favour = favour + 1 WHERE username=%s", [username])
-        conn.commit()
-
-    def valid_login(username, password):
-        cur.execute("SELECT username FROM users WHERE username=%s AND password=%s", [username, password])
-        if cur.fetchone():
-            return True
-        else:
-            return False
-
-    def get_post(username, datestamp):
-        cur.execute("SELECT content FROM posts WHERE username=%s AND datestamp=%s", [username, datestamp])
-        result = cur.fetchone()
-        if result:
-            return result[0]
-        else:
-            return ''
-
-    def set_post(username, datestamp, content):
-        if get_post(username, datestamp):
-            cur.execute("UPDATE posts SET content=%s WHERE username=%s AND datestamp=%s",
-                    [content, username, datestamp])
-        else:
-            cur.execute("INSERT INTO posts (username, datestamp, content) VALUES (%s, %s, %s)",
-                    [username, datestamp, content])
-        conn.commit()
-else:
-    def get_gold(username):
-        return db['users'][username]['favour']
-
-    def set_gold(username):
-        db['users'][username]['favour'] += 1
-
-    def valid_login(username, password):
-        try:
-            return db['users'][username]['password'] == password
-        except KeyError:
-            return False
-
-    def get_post(username, datestamp):
-        try:
-            return db['posts'][(username, datestamp)]
-        except KeyError:
-            return None
-
-    def set_post(username, datestamp, content):
-        db['posts'][(username, datestamp)] = content
+@app.before_request
+def before_request():
+    g.username = session.get('username')
+    g.timezone = request.cookies.get('timezone')
 
 #############
 # App routes
@@ -112,30 +40,31 @@ else:
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
 
-# Updating content
+# Updating content (aka AI NO KOKUHAKU SURU)
 @app.route('/confess', methods=['POST'])
 def confess():
-    d = request.form['date']
-    c = request.form['content']
+    d = request.form.get('date')
+    c = request.form.get('content').strip()
+    print("Received %s for %s." % (c, d))
     if valid_date(d):
-        if len(c) <= 500:
-            set_post(session['username'], d, c)
+        if 1 <= len(c) <= 500:
+            maidb.set_post(session['username'], d, c)
             print(d, c)
             return "saved!"
         else:
-            return "too long, baka."
+            return "bad length, baka."
     else:
-        return "bad date, baka."
+        return "... you want to go on a date with me, baka!?"
 
 # Login attempts
 @app.route('/attempt_login', methods=['POST'])
 def attempt_login():
     u = request.form['username']
     p = request.form['password']
-    if valid_login(u, p):
+    if maidb.valid_login(u, p):
         session['username'] = u
-        return "Welcome, %s-sama." % u
-    return "Dude, you have no soul."
+        return "Oh... welcome back, %s-sama." % u
+    return "Idiot. Can't you at least get your login right?"
 
 # Logout
 @app.route('/logout')
@@ -143,14 +72,23 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+# Dump a user's entire diary.
+@app.route('/diary/<author>')
+def diary(author):
+    entries = list(maidb.get_all_posts(author))
+    return render_template('dump.html',
+            login_name = g.username,
+            username = author,
+            entries = entries)
+
 # Index/home!
 @app.route('/')
 def index():
-    if 'username' in session:
-        current_content = get_post(session['username'], datestamp_today())
+    if g.username:
+        current_content = maidb.get_post(g.username, datestamp_today())
         return render_template('front_logged_in.html',
-                username=session['username'],
-                current_content=current_content)
+                login_name = g.username,
+                current_content = current_content)
     else:
         return render_template('front.html')
 

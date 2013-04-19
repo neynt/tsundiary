@@ -7,12 +7,37 @@
     <!-- Include the excellent Dosis font. -->
     <link href='http://fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>
     <link href='/static/style.css' rel='stylesheet' />
+
+    <!-- Set timezone in a cookie. -->
+    <script type='text/javascript'>
+        document.cookie = 'timezone=' + new Date().getTimezoneOffset();
+    </script>
 </head>
 <body>
 <div id="wrap">
-<h1>tsundiary</h1>
+<div id="top">
+    <div style="float:left">
+        <a href='/'>
+        <img src='/static/logo.png' width=150 height=150 />
+        </a>
+    </div>
+    <div style="float:right; text-align:right;">
+        {% if login_name %}
+        ... hi, {{ login_name }}.<br />
+        <a href="/">write</a>
+        |
+        <a href="/diary/{{ login_name }}">diary</a>
+        |
+        <a href="/logout">logout</a>
+        {% endif %}
+        {% block nav %}
+        {% endblock %}
+    </div>
+</div>
+<div style="clear:both">
 {% block content %}
 {% endblock %}
+</div>
 </div>
 </body>
 </html>

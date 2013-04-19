@@ -11,7 +11,7 @@
 
 <script>
 
-var wait_messages = ['one sec', 'please wait', 'brb', 'stay right there', 'chotto matte kudasai'];
+var wait_messages = ['Wait one sec...', "I'll just make sure...", 'Stay right there...', 'Chotto matte...'];
 
 function attempt_login() {
     var username = $('#username').val();
@@ -21,8 +21,8 @@ function attempt_login() {
     $.post('attempt_login', { username: username, password: password },
         function(data) {
             $('#login_status').html(data);
-            if (data.substr(0, 7) == 'Welcome') {
-                document.location.reload(true);
+            if (data.substr(0, 18) == 'Oh... welcome back') {
+                setTimeout(function() { document.location.reload(true); }, 500);
             }
             else {
                 $('#submitbutton').removeClass('active');

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if entries %}
+<p>Here's {{ username }}'s complete diary. D-don't get the wrong idea, I didn't get this for <i>you</i>, idiot.</p>
+
+{% for day, content in entries %}
+<div class='cloud'>
+    <span class='post_date'>{{ day }}</span>
+    <br />
+    <div id='post_body'>{{ content }}</div>
+</div>
+{% endfor %}
+{% else %}
+<p>... sorry, I couldn't find {{ username }}'s diary. Are you sure that person exists?</p>
+{% endif %}
+
+{% endblock %}
