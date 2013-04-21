@@ -2,19 +2,7 @@
 
 {% block content %}
 
-{% if old_entries %}
-    <p>{{ login_name }}... here are your diary entries from specially chosen intervals ago.</p>
-
-    {% for day, content in old_entries %}
-    <div class='cloud'>
-        <span class='post_date'>{{ day }}</span>
-        <br />
-        <div id='post_body'>{{ content }}</div>
-    </div>
-    {% endfor %}
-{% endif %}
-
-<p>... what did you manage to accomplish today?</p>
+<p>{{ prompt }}</p>
 
 <div class='cloud'>
     <span class='post_date'>Today</span>
@@ -24,6 +12,18 @@
     <span id='char_count'>You are.</span>
     <span id='save_status' style='float:right'></span>
 </div>
+
+{% if old_entries %}
+    <p>Here are some of your diary entries from specially chosen intervals.</p>
+
+    {% for day, content in old_entries %}
+    <div class='cloud'>
+        <span class='post_date'>{{ day }}</span>
+        <br />
+        <div id='post_body'>{{ content }}</div>
+    </div>
+    {% endfor %}
+{% endif %}
 
 <script>
 
@@ -36,9 +36,9 @@ var DECABYTE_LIMIT = 50;
 function confess() {
     $('#save_status').html('saving...');
     written = $('#edit_area').val();
-    $.post('/confess', { date: new Date().toDateString(), content: written },
-        function () {
-            $('#save_status').html('saved!');
+    $.post('/confess', { content: written },
+        function (data) {
+            $('#save_status').html(data);
         }
     );
 };

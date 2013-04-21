@@ -1,25 +1,40 @@
 body
 {
+    text-rendering: optimizeLegibility;
 }
 
 /* Colors */
 body {       background-color: #FFEFE8; }
-.post_date {            color: #888; }
+.post_date,
+#char_count,
+#save_status
+{
+                        color: #888;
+}
 .cloud {     background-color: #fff;
-                 border-color: #222; }
-a {                    color: #ff4800; }
+                 border-color: rgba(18, 18, 18, 0.5); }
+a {                     color: #ff4800; }
+textarea {              color: #000; }
 
 /* Fonts */
 div#wrap,
 input,
 textarea
 {
+    font-size: 12pt;
     font-family: Dosis;
 }
 
 input
 {
     font-size: 14pt;
+}
+
+h1
+{
+    font-size: 24pt;
+    font-weight: normal;
+    text-align: center;
 }
 
 /* Wrapper for main content */
@@ -34,7 +49,7 @@ div#wrap
 /* "cloud" container */
 .cloud
 {
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-radius: 8pt;
     padding: 10pt;
@@ -45,9 +60,12 @@ div#wrap
 #edit_area
 {
     border: 0;
+    min-width: 100%;
+    max-width: 100%;
     width: 100%;
-    min-height: 50px;
+    min-height: 100px;
     word-wrap: break-word;
+    overflow: hidden;
     cursor: text;
 }
 
@@ -62,4 +80,17 @@ input,
 div#edit_area:focus
 {
     outline: none;
+}
+
+/* Login box */
+#login_box
+{
+    width: 50%;
+    min-width: 200px;
+}
+
+#login_box input
+{
+    width: 100%;
+    border: none;
 }

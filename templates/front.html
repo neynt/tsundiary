@@ -2,11 +2,13 @@
 
 {% block content %}
 
-<p id='login_status'>... and who are you?</p>
-<div class='cloud'>
+<div style="text-align: center">
+<p id='login_status'>... who are you?</p>
+<div id='login_box' class='cloud' style='width:50%; min-width: 200px'>
     <input id='username' type='text' placeholder="username" /><br />
     <input id='password' type='password' placeholder="password" /><br />
-    <input id='submitbutton' type='submit' value="enter" />
+</div>
+<input id='submitbutton' type='submit' value="enter" />
 </div>
 
 <script>

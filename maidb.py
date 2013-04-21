@@ -1,8 +1,9 @@
+# coding=utf-8
 import psycopg2
 import psycopg2.extras
 
 # Config
-USE_POSTGRES = True
+USE_POSTGRES = False
 
 if USE_POSTGRES:
     # Set up database
@@ -13,6 +14,9 @@ if USE_POSTGRES:
 else:
     db = {t: {} for t in ['users', 'posts']}
     db['users']['Neynt'] = {'password': 'ke-ki', 'favour':690}
+    db['users']['guest'] = {'password': 'guest', 'favour':690}
+    db['posts'][('Neynt', '20130419')] = u'The day it all started.'
+    db['posts'][('Neynt', '20130418')] = u'The dawn of the storm. がんばってね！'
 
 def init_db():
     cur.execute('DROP TABLE IF EXISTS users')
@@ -59,7 +63,7 @@ if USE_POSTGRES:
         conn.commit()
 
     def get_all_posts(username):
-        cur.execute("SELECT datestamp, content FROM posts WHERE username=%s ORDER BY datestamp", [username])
+        cur.execute("SELECT datestamp, content FROM posts WHERE username=%s ORDER BY datestamp DESC", [username])
         for r in cur:
             yield (r[0].decode('utf-8'), r[1].decode('utf-8'))
 
@@ -85,3 +89,7 @@ else:
     def set_post(username, datestamp, content):
         db['posts'][(username, datestamp)] = content
 
+    def get_all_posts(username):
+        for key, content in db['posts'].items():
+            username, datestamp = key
+            yield (datestamp, content)
