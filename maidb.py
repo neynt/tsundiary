@@ -54,6 +54,7 @@ if USE_POSTGRES:
             return []
 
     def set_post(username, datestamp, content):
+        #content_enc = content.encode('utf-8')
         if get_post(username, datestamp) != []:
             cur.execute("UPDATE posts SET content=%s WHERE username=%s AND datestamp=%s",
                     [content, username, datestamp])

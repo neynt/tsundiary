@@ -131,7 +131,7 @@ def import_raw_dump_action():
     for date, content in zip(c[0::2], c[1::2]):
         y, m, d = map(int, date.split('-'))
         ds = datestamp(datetime.date(year=y, month=m, day=d))
-        print ds, content
+        #print ds, content
         maidb.set_post(session['username'], ds, content)
     return 'Done.'
 
