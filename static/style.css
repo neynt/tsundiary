@@ -1,3 +1,9 @@
+/* Keep vertical scrollbar visible to prevent centering jumps */
+html
+{
+    overflow-y: scroll
+}
+
 body
 {
     text-rendering: optimizeLegibility;

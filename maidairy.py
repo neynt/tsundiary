@@ -109,11 +109,7 @@ def selected_old_entries():
 @app.before_request
 def before_request():
     g.username = session.get('username')
-    try:
-        g.timezone = int(request.cookies.get('timezone'))
-    except ValueError:
-        # First time visiting and cookie not set, or cookies blocked.
-        g.timezone = 0
+    g.timezone = int(request.cookies.get('timezone') or '0')
 
 #############
 # App routes
