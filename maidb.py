@@ -3,7 +3,7 @@ import psycopg2
 import psycopg2.extras
 
 # Config
-USE_POSTGRES = False
+USE_POSTGRES = True
 
 if USE_POSTGRES:
     # Set up database

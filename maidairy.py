@@ -23,6 +23,7 @@ prompts = [
 # Topic-specific prompts
 "How did it go? You got rejected, right?",
 "So when are you finally going to realize?",
+"Don't get me wrong, it's not like I'm worried about you.",
 ]
 
 # Set up Flask app
@@ -198,4 +199,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
