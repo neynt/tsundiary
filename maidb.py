@@ -1,12 +1,10 @@
 # coding=utf-8
+import maiconfig
 import psycopg2
 import psycopg2.extras
 
-# Config
-USE_POSTGRES = True
-
-if USE_POSTGRES:
-    # Set up database
+# Set up database
+if maiconfig.USE_POSTGRES:
     conn_string = "host='ec2-107-22-182-174.compute-1.amazonaws.com' dbname='d7lda6chqa8526' user='gnfcfjnsbihezp' password='7jvgKFTp6p09KuiQdf0-rDHnT8'"
     conn = psycopg2.connect(conn_string)
     #cur = conn.cursor('the_only_cursor', cursor_factory=psycopg2.extras.DictCursor)
@@ -18,6 +16,7 @@ else:
     db['posts'][('Neynt', '20130419')] = u'The day it all started.'
     db['posts'][('Neynt', '20130418')] = u'The dawn of the storm. がんばってね！'
 
+# Database functions
 def init_db():
     cur.execute('DROP TABLE IF EXISTS users')
     cur.execute('CREATE TABLE users ( username varchar(24), password varchar(24), favour integer )')
@@ -27,7 +26,8 @@ def init_db():
     conn.commit()
     return
 
-if USE_POSTGRES:
+# There are two variations: one using python dicts (for testing), one using postgres.
+if maiconfig.USE_POSTGRES:
     def get_gold(username):
         cur.execute("SELECT favour FROM users WHERE username=%s", [username])
         result = cur.fetchone()

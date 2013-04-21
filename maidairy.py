@@ -2,7 +2,8 @@
 import os
 import random
 import datetime
-from flask import Flask, render_template, send_from_directory, redirect, session, request, g
+from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
+import maiconfig
 import maidb
 
 ########################
@@ -15,7 +16,7 @@ insults = [
 prompts = [
 # Normal "'sup" prompts
 "... what did you manage to accomplish today?",
-"Tell me what happened today. Not that I care or anything...",
+"What was your day like? Not that I care or anything...",
 "What kind of stupid stuff were you up to today, idiot?",
 "What trouble did you get in today, moron?",
 "What did you do today? As if that would impress me...",
@@ -103,6 +104,9 @@ def selected_old_entries():
         # It's March 29, probably.
         pass
 
+def my_render_template(template_name, **kwargs):
+    return render_template(template_name, login_name=g.username, **kwargs)
+
 ############
 # App funcs
 
@@ -119,21 +123,28 @@ def before_request():
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
 
-# Import a raw dump.
+# Dialog for importing a raw dump.
 @app.route('/import_raw_dump')
 def import_raw_dump():
-    return render_template('import_raw_dump.html')
+    return my_render_template('import_raw_dump.html')
 
 # Action performed for the above.
 @app.route('/import_raw_dump', methods=['POST'])
 def import_raw_dump_action():
-    c = request.form.get('content').splitlines()
-    for date, content in zip(c[0::2], c[1::2]):
-        y, m, d = map(int, date.split('-'))
-        ds = datestamp(datetime.date(year=y, month=m, day=d))
-        #print ds, content
-        maidb.set_post(session['username'], ds, content)
+    c = request.form.get('content')
+    for line in (l.strip() for l in c.split('<br />')):
+        if line:
+            datestamp, content = line.split('\t')
+            maidb.set_post(g.username, datestamp, Markup(content).unescape())
     return 'Done.'
+
+    # Old deprecated format.
+    #for date, content in zip(c[0::2], c[1::2]):
+    #    y, m, d = map(int, date.split('-'))
+    #    ds = datestamp(datetime.date(year=y, month=m, day=d))
+    #    #print ds, content
+    #    maidb.set_post(session['username'], ds, content)
+    #return 'Done.'
 
 # Raw dump for data liberation.
 @app.route('/raw_dump')
@@ -166,7 +177,7 @@ def attempt_login():
         session['username'] = u
         return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
-        return "H-hontō baka! Did you really think that would work?!"
+        return "H-hontou baka! Did you really think that would work?!"
     return "Idiot. Can't you at least get your login right?"
 
 # Logout
@@ -179,8 +190,8 @@ def logout():
 @app.route('/diary/<author>')
 def diary(author):
     entries = sorted(maidb.get_all_posts(author), reverse=True)
-    return render_template('dump.html',
-            login_name = g.username,
+    return my_render_template(
+            'dump.html',
             username = author,
             entries = entries)
 
@@ -189,8 +200,8 @@ def diary(author):
 def index():
     if g.username:
         current_content = maidb.get_post(g.username, datestamp_today())
-        return render_template('front_logged_in.html',
-                login_name = g.username,
+        return my_render_template(
+                'front_logged_in.html',
                 old_entries = selected_old_entries(),
                 prompt = random.choice(prompts),
                 current_content = current_content)
@@ -199,4 +210,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=maiconfig.TESTING)
