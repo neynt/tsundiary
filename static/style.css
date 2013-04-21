@@ -10,17 +10,28 @@ body
 }
 
 /* Colors */
-body {       background-color: #FFEFE8; }
+body {
+    background-color: #FFEFE8;
+}
 .post_date,
 #char_count,
 #save_status
 {
-                        color: #888;
+    color: #888;
 }
-.cloud {     background-color: #fff;
-                 border-color: rgba(18, 18, 18, 0.5); }
-a {                     color: #ff4800; }
-textarea {              color: #000; }
+.cloud
+{
+    background-color: #fff;
+    border-color: rgba(18, 18, 18, 0.5);
+}
+a
+{
+    color: #ff4800;
+}
+textarea
+{
+    color: #000;
+}
 
 /* Fonts */
 div#wrap,
@@ -59,7 +70,7 @@ div#wrap
     border-style: solid;
     border-radius: 8pt;
     padding: 10pt;
-    margin: 0 auto;
+    margin: 2pt auto;
 }
 
 /* Post editing components */
