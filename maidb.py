@@ -64,7 +64,8 @@ if maiconfig.USE_POSTGRES:
         conn.commit()
 
     def get_all_posts(username):
-        cur.execute("SELECT datestamp, content FROM posts WHERE username=%s ORDER BY datestamp DESC", [username])
+        # Actually, only gets five posts.
+        cur.execute("SELECT datestamp, content FROM posts WHERE username=%s ORDER BY datestamp DESC LIMIT 5", [username])
         for r in cur:
             yield (r[0].decode('utf-8'), r[1].decode('utf-8'))
 
