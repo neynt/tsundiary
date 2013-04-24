@@ -14,15 +14,17 @@
 </div>
 
 {% if old_entries %}
-    <p>Here are some of your diary entries from specially chosen intervals.</p>
+    <p>Here are some of your old entries.</p>
 
     {% for day, content in old_entries %}
     <div class='cloud'>
         <span class='post_date'>{{ day }}</span>
         <br />
-        <div id='post_body'>{{ content }}</div>
+        <div class='post_body'>{{ content }}</div>
     </div>
     {% endfor %}
+{% else %}
+    <p>Once you have a history of old entries, I'll show them to you at special intervals...</p>
 {% endif %}
 
 <script>

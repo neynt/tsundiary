@@ -19,7 +19,7 @@ else:
 # Database functions
 def init_db():
     cur.execute('DROP TABLE IF EXISTS users')
-    cur.execute('CREATE TABLE users ( username varchar(24), password varchar(24), favour integer )')
+    cur.execute('CREATE TABLE users ( username varchar(24), password varchar(24), email varchar(48), invitekey varchar(24) )')
     cur.execute('INSERT INTO users VALUES ( %s, %s, %s )', ["Neynt", "ke-ki", 69])
     cur.execute('DROP TABLE IF EXISTS posts')
     cur.execute('CREATE TABLE posts ( username varchar(24), datestamp varchar(24), content varchar(500) )')
@@ -28,22 +28,22 @@ def init_db():
 
 # There are two variations: one using python dicts (for testing), one using postgres.
 if maiconfig.USE_POSTGRES:
-    def get_gold(username):
-        cur.execute("SELECT favour FROM users WHERE username=%s", [username])
-        result = cur.fetchone()
-        if result:
-            return result[0]
-
-    def set_gold(username):
-        cur.execute("UPDATE users SET favour = favour + 1 WHERE username=%s", [username])
-        conn.commit()
-
     def valid_login(username, password):
         cur.execute("SELECT username FROM users WHERE username=%s AND password=%s", [username, password])
-        if cur.fetchone():
-            return True
-        else:
-            return False
+        return cur.fetchone() or False
+
+    def user_exists(username):
+        cur.execute("""SELECT username FROM users WHERE LOWER(username)=LOWER(%s)""", [username])
+        return cur.fetchone() or False
+
+    def create_new_user(username, password, email, invite_key):
+        cur.execute("""INSERT INTO users (username, password, email, invitekey) VALUES (%s, %s, %s, %s)""", [username, password, email, invite_key])
+        return
+
+    def get_all_usernames():
+        cur.execute("""SELECT username FROM users""")
+        for r in cur:
+            yield r[0]
 
     def get_post(username, datestamp):
         cur.execute("SELECT content FROM posts WHERE username=%s AND datestamp=%s", [username, datestamp])
@@ -69,12 +69,6 @@ if maiconfig.USE_POSTGRES:
             yield (r[0].decode('utf-8'), r[1].decode('utf-8'))
 
 else:
-    def get_gold(username):
-        return db['users'][username]['favour']
-
-    def set_gold(username):
-        db['users'][username]['favour'] += 1
-
     def valid_login(username, password):
         try:
             return db['users'][username]['password'] == password

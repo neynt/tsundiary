@@ -25,6 +25,8 @@ prompts = [
 "How did it go? You got rejected, right?",
 "So when are you finally going to realize?",
 "Don't get me wrong, it's not like I'm worried about you.",
+"So how have you been wasting your time lately?",
+"Hey - found any new ways to make a fool of yourself?",
 ]
 
 # Set up Flask app
@@ -103,6 +105,18 @@ def selected_old_entries():
     except ValueError:
         # It's March 29, probably.
         pass
+
+# Make a post HTML-pretty.
+# Currently does nothing, but may do markdown in the future.
+def prettify(text):
+    return text
+
+# Process a list of entry tuples.
+def format_entries(entries):
+    new_list = []
+    for title, content in entries:
+        new_list.append((title, prettify(content)))
+    return new_list
 
 def my_render_template(template_name, **kwargs):
     return render_template(template_name, login_name=g.username, **kwargs)
@@ -189,11 +203,39 @@ def logout():
 # Dump a user's entire diary.
 @app.route('/diary/<author>')
 def diary(author):
-    entries = sorted(maidb.get_all_posts(author), reverse=True)
+    entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
     return my_render_template(
             'dump.html',
             username = author,
             entries = entries)
+
+# User registration form.
+@app.route('/register')
+def register():
+    return my_render_template('register.html')
+
+# registration action
+@app.route('/register', methods=['POST'])
+def register_action():
+    invite_key = request.form.get('invite_key')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    email = request.form.get('email') or ''
+    if invite_key != 'koi dorobou':
+        return 'bad invite key.'
+    elif maidb.user_exists(username):
+        return 'that person already exists.'
+    else:
+        print('%s %s %s' % (username, password, email))
+        maidb.create_new_user(username, password, email, invite_key)
+        session['username'] = username
+        return 'she blossomed for him like a flower and the incarnation was complete.'
+
+# List of users.
+@app.route('/userlist')
+def userlist():
+    all_users = list(maidb.get_all_usernames())
+    return my_render_template('userlist.html', all_users=all_users)
 
 # Index/home!
 @app.route('/')
@@ -202,7 +244,7 @@ def index():
         current_content = maidb.get_post(g.username, datestamp_today())
         return my_render_template(
                 'front_logged_in.html',
-                old_entries = selected_old_entries(),
+                old_entries = format_entries(selected_old_entries()),
                 prompt = random.choice(prompts),
                 current_content = current_content)
     else:

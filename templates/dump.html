@@ -5,17 +5,17 @@
 {% if entries %}
 <p>D-don't get the wrong idea, I didn't retrieve this from my database for <i>you</i>.</p>
 
-<h1>{{ username }}'s diary</h1>
+<h1>{{ username }}</h1>
 
 {% for day, content in entries %}
 <div class='cloud'>
     <span class='post_date'>{{ day }}</span>
     <br />
-    <div id='post_body'>{{ content }}</div>
+    <div class='post_body'>{{ content }}</div>
 </div>
 {% endfor %}
 {% else %}
-<p>... sorry, I couldn't find {{ username }}'s diary. Are you sure that person exists?</p>
+<p>... sorry, I couldn't find anything written by {{ username }}. Are you sure that person exists?</p>
 {% endif %}
 
 {% endblock %}

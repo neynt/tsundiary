@@ -2,13 +2,15 @@
 
 {% block content %}
 
-<div style="text-align: center">
-<p id='login_status'>... who are you?</p>
-<div id='login_box' class='cloud' style='width:50%; min-width: 200px'>
-    <input id='username' type='text' placeholder="username" /><br />
-    <input id='password' type='password' placeholder="password" /><br />
-</div>
-<input id='submitbutton' type='submit' value="enter" />
+<div style="text-align: center; margin: 0 auto;">
+    <span id='login_status'>... so who are you, anyway?</span>
+    <div id='login_box' class='cloud'>
+        <input id='username' type='text' placeholder="username" style='padding-top: 10pt' /><br />
+        <input id='password' type='password' placeholder="password" style='padding-bottom: 10pt' /><br />
+        <hr />
+        <input id='submitbutton' type='submit' value='enter' style='padding-top: 10pt; padding-bottom: 10pt' />
+    </div>
+    or <a href='/register'>register</a>
 </div>
 
 <script>
@@ -19,20 +21,22 @@ function attempt_login() {
     var username = $('#username').val();
     var password = $('#password').val();
 
-    $('#submitbutton').addClass('active');
-    $.post('attempt_login', { username: username, password: password },
-        function(data) {
-            $('#login_status').html(data);
-            if (data.substr(0, 18) == 'Oh... welcome back') {
-                setTimeout(function() { document.location.reload(true); }, 500);
-            }
-            else {
-                $('#submitbutton').removeClass('active');
-            }
-        });
+    if (username && password) {
+        $('#submitbutton').addClass('active');
+        $.post('attempt_login', { username: username, password: password },
+            function(data) {
+                $('#login_status').html(data);
+                if (data.substr(0, 18) == 'Oh... welcome back') {
+                    setTimeout(function() { document.location.reload(true); }, 500);
+                }
+                else {
+                    $('#submitbutton').removeClass('active');
+                }
+            });
 
-    var rand = Math.floor(Math.random()*wait_messages.length);
-    $('#login_status').html(wait_messages[rand]);
+        var rand = Math.floor(Math.random()*wait_messages.length);
+        $('#login_status').html(wait_messages[rand]);
+    }
 }
 
 function check_key(e) {

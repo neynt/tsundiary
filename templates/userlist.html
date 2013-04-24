@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>What of it?</p>
+
+{% for user in all_users %}<a href='/diary/{{ user }}'>{{ user }}</a> </div>
+{% endfor %}
+
+{% endblock %}

@@ -21,12 +21,12 @@
         <img src='/static/logo.png' width=150 height=60 />
         </a>
     </div>
-    <div style="float:right; text-align:right;">
+    <div style="float:right; text-align:right; margin: 5pt 0;">
         {% if login_name %}
         hi, {{ login_name }}.<br />
         <a href="/">write</a>
         |
-        <a href="/diary/{{ login_name }}">diary</a>
+        <a href="/diary/{{ login_name }}">view</a>
         |
         <a href="/logout">logout</a>
         {% endif %}

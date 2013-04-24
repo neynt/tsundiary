@@ -58,7 +58,7 @@ h1
 div#wrap
 {
     width: 90%;
-    min-width: 250px;
+    min-width: 150px;
     max-width: 500px;
     margin: 0 auto;
 }
@@ -71,6 +71,7 @@ div#wrap
     border-radius: 8pt;
     padding: 10pt;
     margin: 2pt auto;
+
 }
 
 /* Post editing components */
@@ -92,6 +93,13 @@ div#wrap
     font-size: 16pt;
 }
 
+/* Post body */
+.post_body
+{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
 /* Get rid of focus outlines */
 input,
 div#edit_area:focus
@@ -103,11 +111,53 @@ div#edit_area:focus
 #login_box
 {
     width: 50%;
-    min-width: 200px;
+    min-width: 150px;
+    max-width: 250px;
+    text-align: center;
+    padding: 0;
+    margin: 10pt auto;
+    border-radius: 5pt;
 }
 
-#login_box input
+#login_box input[type="text"],
+#login_box input[type="email"],
+#login_box input[type="password"]
 {
-    width: 100%;
-    border: none;
+    width: 90%;
+    border: 0;
+}
+
+/* Submit button of login box */
+#submitbutton
+{
+    width: 90%;
+    margin: 0;
+    border: 0;
+    border-radius: 0pt;
+    background: transparent;
+}
+
+.login_box_active
+{
+    background: #fff;
+    border-color: #000;
+}
+
+/* First item in a form. */
+.first
+{
+    padding-top: 10pt;
+}
+/* Last item in a form. */
+.last
+{
+    padding-bottom: 10pt;
+}
+
+/* The horizontal line */
+hr
+{
+    margin: 0;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,0.5);
 }
