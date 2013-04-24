@@ -83,7 +83,6 @@ div#wrap
     width: 100%;
     min-height: 100px;
     word-wrap: break-word;
-    overflow: hidden;
     cursor: text;
 }
 
