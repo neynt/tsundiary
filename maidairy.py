@@ -14,19 +14,30 @@ insults = [
 "moron", "idiot"
 ]
 prompts = [
-# Normal "'sup" prompts
-"... what did you manage to accomplish today?",
-"What was your day like? Not that I care or anything...",
-"What kind of stupid stuff were you up to today, idiot?",
-"What trouble did you get in today, moron?",
-"What did you do today? As if that would impress me...",
+# The cold shoulder
+"...",
 "... well?",
-# Topic-specific prompts
-"How did it go? You got rejected, right?",
-"So when are you finally going to realize?",
-"Don't get me wrong, it's not like I'm worried about you.",
-"So how have you been wasting your time lately?",
+# Normal "'sup" prompts
+"... did you manage to accomplish anything today?",
+"How was your day? Not that I care or anything...",
+"How have you been wasting your time lately?",
+"What kind of stupid stuff were you up to today, idiot?",
+"What kind of trouble did you get in today, moron?",
+"What did you do today? As if that would impress me...",
+"It's your privilege that I'm wasting my time listening to you...",
 "Hey - found any new ways to make a fool of yourself?",
+# Topic-specific prompts
+"How did it go? ... you got rejected, right?",
+"Can you be any more clueless?"
+"Don't get me wrong, it's not like I'm worried about you.",
+"If you think I'm gonna miss you, think again.",
+"I'll forgive you, but just this time, got it?",
+"I-it's not like I'm listening to you because I like you or anything...",
+# Calling the end user an idiot
+"バカバカバカ！",
+"Baka baka baka!",
+"Idiot!",
+"Ba~ka.",
 ]
 
 # Set up Flask app
