@@ -11,33 +11,33 @@ import maidb
 
 # Lovable diary prompts!
 insults = [
-"moron", "idiot"
+"moron", "idiot", "fool"
 ]
 prompts = [
-# The cold shoulder
+# The BELOVED cold shoulder
 "...",
 "... well?",
 # Normal "'sup" prompts
 "... did you manage to accomplish anything today?",
+"Hey - found any new ways to make a fool of yourself?",
 "How was your day? Not that I care or anything...",
 "How have you been wasting your time lately?",
 "What kind of stupid stuff were you up to today, idiot?",
 "What kind of trouble did you get in today, moron?",
 "What did you do today? As if that would impress me...",
 "It's your privilege that I'm wasting my time listening to you...",
-"Hey - found any new ways to make a fool of yourself?",
 # Topic-specific prompts
 "How did it go? ... you got rejected, right?",
-"Can you be any more clueless?"
 "Don't get me wrong, it's not like I'm worried about you.",
 "If you think I'm gonna miss you, think again.",
 "I'll forgive you, but just this time, got it?",
 "I-it's not like I'm listening to you because I like you or anything...",
 # Calling the end user an idiot
 "バカバカバカ！",
-"Baka baka baka!",
-"Idiot!",
+"AAAAAH, you idiot-idiot-idiot!",
 "Ba~ka.",
+"Baka baka baka!",
+"Can you be any more clueless?",
 ]
 
 # Set up Flask app
