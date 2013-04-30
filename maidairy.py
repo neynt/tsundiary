@@ -26,13 +26,13 @@ prompts = [
 "What kind of trouble did you get in today, moron?",
 "What did you do today? As if that would impress me...",
 "It's your privilege that I'm wasting my time listening to you...",
-# Topic-specific prompts
+# More specific prompts
 "How did it go? ... you got rejected, right?",
 "Don't get me wrong, it's not like I'm worried about you.",
 "If you think I'm gonna miss you, think again.",
 "I'll forgive you, but just this time, got it?",
 "I-it's not like I'm listening to you because I like you or anything...",
-# Calling the end user an idiot
+# Calling the end-user an idiot
 "バカバカバカ！",
 "AAAAAH, you idiot-idiot-idiot!",
 "Ba~ka.",
@@ -53,7 +53,7 @@ def valid_date():
     return (-1440 <= g.timezone <= 1440)
 
 def their_time():
-    # Return a datetime object with the user's local time.
+    # Gets the user's local time based on timezone cookie.
     utc_time = datetime.datetime.utcnow()
     their_time = utc_time - datetime.timedelta(minutes=g.timezone)
     return their_time
@@ -96,7 +96,7 @@ def selected_old_entries():
             orig_m = d.month
             d += datetime.timedelta(days=1)
             while d.month == orig_m:
-                yield ('%s' % d.strftime("%A, %B %d, %Y"))
+                yield ('%s' % d.strftime("%A, %B %d, %Y"), p)
     except ValueError:
         # This month has more days than the last month.
         pass
