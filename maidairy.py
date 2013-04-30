@@ -96,7 +96,9 @@ def selected_old_entries():
             orig_m = d.month
             d += datetime.timedelta(days=1)
             while d.month == orig_m:
+                p = maidb.get_post(g.username, datestamp(d))
                 yield ('%s' % d.strftime("%A, %B %d, %Y"), p)
+                d += datetime.timedelta(days=1)
     except ValueError:
         # This month has more days than the last month.
         pass
