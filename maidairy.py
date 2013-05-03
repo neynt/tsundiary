@@ -27,13 +27,13 @@ prompts = [
 "What did you do today? As if that would impress me...",
 "It's your privilege that I'm wasting my time listening to you...",
 # More specific prompts
-"How did it go? ... you got rejected, right?",
+"How did it go? ... not that I'm expecting much!",
 "Don't get me wrong, it's not like I'm worried about you.",
 "If you think I'm gonna miss you, think again.",
 "I'll forgive you, but just this time, got it?",
 "I-it's not like I'm listening to you because I like you or anything...",
 # Calling the end-user an idiot
-"バカバカバカ！",
+#"バカバカバカ！",
 "AAAAAH, you idiot-idiot-idiot!",
 "Ba~ka.",
 "Baka baka baka!",
