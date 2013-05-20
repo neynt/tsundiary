@@ -78,6 +78,7 @@ div#wrap
 #edit_area
 {
     border: 0;
+    background-color: #fff;
     min-width: 100%;
     max-width: 100%;
     width: 100%;

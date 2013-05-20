@@ -3,9 +3,11 @@
 {% block content %}
 
 {% if entries %}
-<p>D-don't get the wrong idea, I didn't retrieve this from my database for <i>you</i>.</p>
+<p>(D-don't get the wrong idea, I didn't retrieve this from my database for <i>you</i>.)</p>
 
 <h1>{{ username }}</h1>
+
+<p>{{ username }} started a tsundiary on {{ date_of_start }}. It now has {{ num_entries }} entries{% if combo > 1 %}, including one every day for the past {{ combo }} days{% endif %}.</p>
 
 {% for day, content in entries %}
 <div class='cloud'>

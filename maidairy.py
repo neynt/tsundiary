@@ -220,7 +220,11 @@ def diary(author):
     return my_render_template(
             'dump.html',
             username = author,
-            entries = entries)
+            date_of_start = min(x[0] for x in entries),
+            num_entries = len(entries),
+            combo = 9001,
+            entries = entries
+            )
 
 # User registration form.
 @app.route('/register')
@@ -242,7 +246,7 @@ def register_action():
         print('%s %s %s' % (username, password, email))
         maidb.create_new_user(username, password, email, invite_key)
         session['username'] = username
-        return 'she blossomed for him like a flower and the incarnation was complete.'
+        return 'Welcome to the club.'
 
 # List of users.
 @app.route('/userlist')
