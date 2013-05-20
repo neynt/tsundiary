@@ -220,7 +220,7 @@ def diary(author):
     return my_render_template(
             'dump.html',
             username = author,
-            date_of_start = min(x[0] for x in entries),
+            date_of_start = min(x[0] for x in entries) if entries else "an unknown day",
             num_entries = len(entries),
             combo = 9001,
             entries = entries
