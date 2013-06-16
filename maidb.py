@@ -22,7 +22,7 @@ def init_db():
     cur.execute('CREATE TABLE users ( username varchar(24), password varchar(24), email varchar(48), invitekey varchar(24) )')
     cur.execute('INSERT INTO users VALUES ( %s, %s, %s )', ["Neynt", "ke-ki", 69])
     cur.execute('DROP TABLE IF EXISTS posts')
-    cur.execute('CREATE TABLE posts ( username varchar(24), datestamp varchar(24), content varchar(500) )')
+    cur.execute('CREATE TABLE posts ( username varchar(24), datestamp varchar(24), content varchar(5000) )')
     conn.commit()
     return
 

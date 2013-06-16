@@ -2,6 +2,8 @@
 
 # vim swaps
 *.swp
+# vim undos
+*.un~
 
 # C extensions
 *.so

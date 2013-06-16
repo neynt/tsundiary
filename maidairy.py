@@ -66,58 +66,37 @@ def datestamp_today():
 
 # Selected old entries from special time intervals.
 def selected_old_entries():
-    t = their_time()
+    today = their_time()
 
     # Yesterday
-    d = t - datetime.timedelta(days=1)
+    d = today - datetime.timedelta(days=1)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
         yield ('Yesterday', p)
 
     # Same day last week
-    d = t - datetime.timedelta(days=7)
+    d = today - datetime.timedelta(days=7)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
         yield ('%s (one week ago)' % d.strftime("%A, %B %d"), p)
 
-    # Same day# of last month
-    try:
-        if t.month == 1:
-            d = t.replace(year=t.year-1, month=12)
-        else:
-            d = t.replace(month=t.month-1)
-
-        p = maidb.get_post(g.username, datestamp(d))
-        if p:
-            yield ('%s (one month ago)' % d.strftime("%A, %B %d, %Y"), p)
-
-        if (t + datetime.timedelta(days=1)).month != t.month:
-            # This is the last day of the month, do all the days that would be missed.
-            orig_m = d.month
-            d += datetime.timedelta(days=1)
-            while d.month == orig_m:
-                p = maidb.get_post(g.username, datestamp(d))
-                yield ('%s' % d.strftime("%A, %B %d, %Y"), p)
-                d += datetime.timedelta(days=1)
-    except ValueError:
-        # This month has more days than the last month.
-        pass
+    # 30 days ago
+    d = today - datetime.timedelta(days=30)
+    p = maidb.get_post(g.username, datestamp(d))
+    if p:
+        yield ('%s (30 days ago)' % d.strftime("%A, %B %d"), p)
 
     # 90 days ago
-    d = t - datetime.timedelta(days=90)
+    d = today - datetime.timedelta(days=90)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
         yield ('%s (90 days ago)' % d.strftime("%A, %B %d"), p)
 
-    # Same day last year
-    try:
-        d = t.replace(year=t.year-1)
-        p = maidb.get_post(g.username, datestamp(d))
-        if p:
-            yield ('%s (this day last year)' % d.strftime("%A, %B %d, %Y"), p)
-    except ValueError:
-        # It's March 29, probably.
-        pass
+    # 365 days ago
+    d = today - datetime.timedelta(days=365)
+    p = maidb.get_post(g.username, datestamp(d))
+    if p:
+        yield ('%s (365 days ago)' % d.strftime("%A, %B %d"), p)
 
 # Make a post HTML-pretty.
 # Currently does nothing, but may do markdown in the future.
