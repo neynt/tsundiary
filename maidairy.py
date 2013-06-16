@@ -187,7 +187,7 @@ def raw_dump():
 def confess():
     c = request.form.get('content').strip()
     if valid_date():
-        if 1 <= len(c) <= 500:
+        if 1 <= len(c) <= 1000:
             maidb.set_post(session['username'], datestamp_today(), c)
             return "saved!"
         else:
