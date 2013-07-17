@@ -58,6 +58,10 @@ def their_time():
     their_time = utc_time - datetime.timedelta(minutes=g.timezone)
     return their_time
 
+def time_from_datestamp(d):
+    yyyy, mm, dd = map(int, [d[0:4], d[4:6], d[6:8])
+    return datetime.date(yyyy, mm, dd)
+
 def datestamp(d):
     return d.strftime("%Y%m%d")
 
@@ -198,14 +202,14 @@ def diary(author):
     entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
     day = their_time()
     consec = 0
-    while datestamp(day) in entries:
+    while datestamp(day) in entries.keys():
         day = day - datetime.timedelta(days=1)
         consec += 1
 
     return my_render_template(
             'dump.html',
             username = author,
-            date_of_start = min(x[0] for x in entries) if entries else "an unknown day",
+            date_of_start = time_from_datestamp(min(x[0] for x in entries)).strftime("%x") if entries else "an unknown day",
             num_entries = len(entries),
             combo = consec,
             entries = entries
