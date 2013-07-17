@@ -196,12 +196,18 @@ def logout():
 @app.route('/diary/<author>')
 def diary(author):
     entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
+    day = their_time()
+    consec = 0
+    while datestamp(day) in entries:
+        day = day - datetime.timedelta(days=1)
+        consec += 1
+
     return my_render_template(
             'dump.html',
             username = author,
             date_of_start = min(x[0] for x in entries) if entries else "an unknown day",
             num_entries = len(entries),
-            combo = 9001,
+            combo = consec,
             entries = entries
             )
 
