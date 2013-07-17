@@ -200,9 +200,10 @@ def logout():
 @app.route('/diary/<author>')
 def diary(author):
     entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
+    written_dates  = set(e[0] for e in entries)
     day = their_time()
     consec = 0
-    while datestamp(day) in entries.keys():
+    while datestamp(day) in written_dates:
         day = day - datetime.timedelta(days=1)
         consec += 1
 
