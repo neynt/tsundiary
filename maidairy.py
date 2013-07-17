@@ -209,8 +209,10 @@ def diary(author):
     else:
         consec = 0
 
+    day -= datetime.timedelta(days=1)
+
     while datestamp(day) in written_dates:
-        day = day - datetime.timedelta(days=1)
+        day -= datetime.timedelta(days=1)
         consec += 1
 
     return my_render_template(
