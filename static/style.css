@@ -107,6 +107,11 @@ div#edit_area:focus
     outline: none;
 }
 
+input
+{
+    background-color: #fff;
+}
+
 /* Login box */
 #login_box
 {
