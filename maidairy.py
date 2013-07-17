@@ -59,7 +59,7 @@ def their_time():
     return their_time
 
 def time_from_datestamp(d):
-    yyyy, mm, dd = map(int, [d[0:4], d[4:6], d[6:8])
+    yyyy, mm, dd = map(int, [d[0:4], d[4:6], d[6:8]])
     return datetime.date(yyyy, mm, dd)
 
 def datestamp(d):
