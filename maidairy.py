@@ -202,7 +202,13 @@ def diary(author):
     entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
     written_dates  = set(e[0] for e in entries)
     day = their_time()
-    consec = 0
+
+    # Don't break combo for missing current day
+    if datestamp(day) in written_dates:
+        consec = 1
+    else:
+        consec = 0
+
     while datestamp(day) in written_dates:
         day = day - datetime.timedelta(days=1)
         consec += 1
