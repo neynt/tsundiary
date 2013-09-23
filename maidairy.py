@@ -238,9 +238,9 @@ def register_action():
     email = request.form.get('email') or ''
     if invite_key != 'koi dorobou':
         return 'bad invite key, baka.'
-    elif len(username) > 0:
+    elif len(username) <= 0:
         return 'please enter a username, baka.'
-    elif len(password) > 3:
+    elif len(password) <= 3:
         return 'please enter a password at least 3 characters long, baka.'
     elif maidb.user_exists(username):
         return 'that person already exists, baka.'
