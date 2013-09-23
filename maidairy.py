@@ -237,14 +237,18 @@ def register_action():
     password = request.form.get('password')
     email = request.form.get('email') or ''
     if invite_key != 'koi dorobou':
-        return 'bad invite key.'
+        return 'bad invite key, baka.'
+    elif len(username) > 0:
+        return 'please enter a username, baka.'
+    elif len(password) > 3:
+        return 'please enter a password at least 3 characters long, baka.'
     elif maidb.user_exists(username):
-        return 'that person already exists.'
+        return 'that person already exists, baka.'
     else:
         print('%s %s %s' % (username, password, email))
         maidb.create_new_user(username, password, email, invite_key)
         session['username'] = username
-        return 'Welcome to the club.'
+        return 'welcome to the club~'
 
 # List of users.
 @app.route('/userlist')
