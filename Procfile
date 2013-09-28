@@ -1,1 +1,1 @@
-web: python maidairy.py
+web: gunicorn tsundiary:app

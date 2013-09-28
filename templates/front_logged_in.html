@@ -5,12 +5,13 @@
 <p>{{ prompt }}</p>
 
 <div class='cloud'>
-    <span class='post_date'>Today</span>
-    <br />
+    <div class='post_date faded'>Today</div>
     <textarea id='edit_area' placeholder="I..." >{% if current_content %}{{ current_content }}{% endif %}</textarea>
+    <div class='faded'>
     <br />
-    <span id='char_count'>You are.</span>
-    <span id='save_status' style='float:right'></span>
+        <span id='char_count'></span>
+        <span id='save_status' style='float:right'></span>
+    </div>
 </div>
 
 {% if old_entries %}
@@ -18,8 +19,7 @@
 
     {% for day, content in old_entries %}
     <div class='cloud'>
-        <span class='post_date'>{{ day }}</span>
-        <br />
+        <div class='post_date faded'>{{ day }}</div>
         <div class='post_body'>{{ content }}</div>
     </div>
     {% endfor %}
@@ -32,8 +32,8 @@
 var content = "ATASHI WA ... KIMI GA SUKI NO DE ..."
 var timer = null;
 
-// Don't bother trying to hack this
-var DECABYTE_LIMIT = 100; 
+// Don't bother trying to hack this, it's checked server-side too~ ;)
+var BYTE_LIMIT = 1000; 
 
 function confess() {
     $('#save_status').html('saving...');
@@ -55,16 +55,21 @@ function prime_update() {
 
 function update_char_count() {
     count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    count = Math.ceil(count / 10);
-    $('#char_count').html(count + '/' + DECABYTE_LIMIT + ' UTF-8 decabytes');
+    $('#char_count').html(count + '/' + BYTE_LIMIT + ' UTF-8 bytes');
+
+    // Scale textarea
+    var textarea = $('#edit_area');
+    textarea.css("height", "");
+    textarea.css("height", Math.max(textarea[0].scrollHeight, 100) + "px");
+
     return count;
 }
 
 function content_changed() {
-    count = update_char_count();
+    var count = update_char_count();
     clearTimeout(timer);
 
-    if (count <= DECABYTE_LIMIT) {
+    if (count <= BYTE_LIMIT) {
         // Just right.
         prime_update();
     }

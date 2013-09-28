@@ -58,12 +58,19 @@ def their_time():
     their_time = utc_time - datetime.timedelta(minutes=g.timezone)
     return their_time
 
-def time_from_datestamp(d):
-    yyyy, mm, dd = map(int, [d[0:4], d[4:6], d[6:8]])
+def time_from_datestamp(ds):
+    yyyy, mm, dd = map(int, [ds[0:4], ds[4:6], ds[6:8]])
     return datetime.date(yyyy, mm, dd)
 
 def datestamp(d):
     return d.strftime("%Y%m%d")
+
+def pretty_date(d):
+    return d.strftime("%A, %B %d, %Y")
+
+@app.template_filter('prettydate')
+def pretty_date_from_stamp(ds):
+    return pretty_date(time_from_datestamp(ds))
 
 def datestamp_today():
     return datestamp(their_time())
@@ -82,25 +89,25 @@ def selected_old_entries():
     d = today - datetime.timedelta(days=7)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
-        yield ('%s (one week ago)' % d.strftime("%A, %B %d"), p)
+        yield ('%s (one week ago)' % pretty_date(d), p)
 
     # 30 days ago
     d = today - datetime.timedelta(days=30)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
-        yield ('%s (30 days ago)' % d.strftime("%A, %B %d"), p)
+        yield ('%s (30 days ago)' % pretty_date(d), p)
 
     # 90 days ago
     d = today - datetime.timedelta(days=90)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
-        yield ('%s (90 days ago)' % d.strftime("%A, %B %d"), p)
+        yield ('%s (90 days ago)' % pretty_date(d), p)
 
     # 365 days ago
     d = today - datetime.timedelta(days=365)
     p = maidb.get_post(g.username, datestamp(d))
     if p:
-        yield ('%s (365 days ago)' % d.strftime("%A, %B %d"), p)
+        yield ('%s (365 days ago)' % pretty_date(d), p)
 
 # Make a post HTML-pretty.
 # Currently does nothing, but may do markdown in the future.
@@ -187,7 +194,7 @@ def attempt_login():
         session['username'] = u
         return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
-        return "H-hontou baka! Did you really think that would work?!"
+        return "H-honto baka! Did you really think that would work?!"
     return "Idiot. Can't you at least get your login right?"
 
 # Logout
@@ -215,13 +222,16 @@ def diary(author):
         day -= datetime.timedelta(days=1)
         consec += 1
 
+    #tl = sum(len(x[1]) for x in entries)
+
     return my_render_template(
             'dump.html',
             username = author,
-            date_of_start = time_from_datestamp(min(x[0] for x in entries)).strftime("%x") if entries else "an unknown day",
+            date_of_start = pretty_date_from_stamp(min(x[0] for x in entries)) if entries else "an unknown day",
             num_entries = len(entries),
             combo = consec,
-            entries = entries
+            entries = entries,
+            #total_length = tl
             )
 
 # User registration form.
