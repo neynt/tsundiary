@@ -81,7 +81,7 @@ function content_changed() {
 };
 
 $('#edit_area').bind('input propertychange', content_changed);
-update_char_count();
+$( document ).ready(update_char_count);
 
 </script>
 
