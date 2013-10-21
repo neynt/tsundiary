@@ -117,8 +117,8 @@ def prettify(text):
 # Process a list of entry tuples.
 def format_entries(entries):
     new_list = []
-    for title, content in entries:
-        new_list.append((title, prettify(content)))
+    for date, content in entries:
+        new_list.append((pretty_date_from_stamp(date), prettify(content)))
     return new_list
 
 def my_render_template(template_name, **kwargs):
@@ -206,8 +206,14 @@ def logout():
 # Dump a user's entire diary.
 @app.route('/diary/<author>')
 def diary(author):
-    entries = format_entries(sorted(maidb.get_all_posts(author), reverse=True))
-    written_dates  = set(e[0] for e in entries)
+    posts = list(maidb.get_all_posts(author))
+    if author == g.username:
+        hide = datetime.timedelta(days=0)
+    else:
+        hide = datetime.timedelta(days=7)
+    hidden_day = datestamp(their_time() - hide)
+    
+    written_dates = set(p[0] for p in posts)
     day = their_time()
 
     # Don't break combo for missing current day
@@ -222,12 +228,15 @@ def diary(author):
         day -= datetime.timedelta(days=1)
         consec += 1
 
-    #tl = sum(len(x[1]) for x in entries)
+    # Hide young entries (unless user is viewing own diary)
+    posts = [(p[0], p[1]) if p[0] <= hidden_day else (p[0], "") for p in posts]
+    entries = format_entries(posts)
+    entries = [(e[0], e[1]) if e[1] != "" else (e[0] + " - hidden", e[1]) for e in entries]
 
     return my_render_template(
             'dump.html',
             username = author,
-            date_of_start = pretty_date_from_stamp(min(x[0] for x in entries)) if entries else "an unknown day",
+            date_of_start = pretty_date_from_stamp(min(x[0] for x in posts)) if posts else "an unknown day",
             num_entries = len(entries),
             combo = consec,
             entries = entries,
@@ -273,7 +282,7 @@ def index():
         current_content = maidb.get_post(g.username, datestamp_today())
         return my_render_template(
                 'front_logged_in.html',
-                old_entries = format_entries(selected_old_entries()),
+                old_entries = selected_old_entries(),
                 prompt = random.choice(prompts),
                 current_content = current_content)
     else:
