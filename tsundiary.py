@@ -4,8 +4,6 @@ import random
 from datetime import datetime, date, timedelta
 from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
-import bcrypt
-#import maidb
 
 ########################
 # Initialization vectors
@@ -56,7 +54,7 @@ prompts = [
 
 # Set up Flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.secret_key = '\xfbA6O\x1c\xa5\xfe\xb0(\x05\xa4 \xb8\x89)J2\xcb\xe4\xa7r"\x1b\x0e'
 static_file_dir = os.path.dirname(os.path.realpath(__file__)) + '/static'
 
@@ -72,7 +70,7 @@ class User(db.Model):
     __tablename__ = 'user'
     sid = db.Column(db.String(24), primary_key=True, index=True, unique=True)
     name = db.Column(db.String(24), index=True, unique=True)
-    passhash = db.Column(db.String(60))
+    passhash = db.Column(db.String(160))
     email = db.Column(db.String, unique=True)
     invite_key = db.Column(db.String(24))
     join_time = db.Column(db.DateTime, index=True)
@@ -82,12 +80,14 @@ class User(db.Model):
     publicity = db.Column(db.Integer)
 
     def verify_password(self, password):
-        return bcrypt.hashpw(password.encode('utf-8'), self.passhash.encode('utf-8')) == self.passhash
+        salt = self.passhash[:32].encode('utf-8')
+        return salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8') == self.passhash
 
     def __init__(self, name, password, invite_key=""):
         self.sid = uidify(name)
         self.name = name
-        self.passhash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(10))
+        salt = uuid.uuid4().hex.encode('utf-8')
+        self.passhash = salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8')
         self.invite_key = invite_key
         self.join_time = datetime.now()
         self.num_entries = 0
@@ -373,4 +373,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
