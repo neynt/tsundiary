@@ -17,8 +17,6 @@
 </div>
 
 {% if old_posts %}
-    <p>Here are some of your old entries.</p>
-
     {% for delta_name, p in old_posts %}
     <div class='cloud'>
         <div class='post_date faded'>{{ p.posted_date | prettydate }} ({{ delta_name }})</div>

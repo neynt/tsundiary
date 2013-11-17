@@ -251,10 +251,11 @@ def confess():
         else:
             return_message = "onii-chan, it's too big! you're gonna split me in half!"
 
+        db.session.commit()
+
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
 
-        db.session.commit()
         return return_message
     else:
         return "... you want to go on a date with me!?"
