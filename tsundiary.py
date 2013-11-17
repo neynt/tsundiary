@@ -4,6 +4,8 @@ import random
 from datetime import datetime, date, timedelta
 from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
+import uuid
+import hashlib
 
 ########################
 # Initialization vectors
@@ -83,7 +85,7 @@ class User(db.Model):
         salt = self.passhash[:32].encode('utf-8')
         return salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8') == self.passhash
 
-    def __init__(self, name, password, invite_key=""):
+    def __init__(self, name, password, email="", invite_key=""):
         self.sid = uidify(name)
         self.name = name
         salt = uuid.uuid4().hex.encode('utf-8')
@@ -118,6 +120,8 @@ class Post(db.Model):
 def init_db():
     db.drop_all()
     db.create_all()
+
+def populate_db():
     admin = User("admin", "cake")
     bob = User("bob", "yolo")
     admin_1 = Post(admin.sid, "yolosshiku")
@@ -188,8 +192,6 @@ def my_render_template(template_name, **kwargs):
 
 @app.before_request
 def before_request():
-    # CATCH ALL
-    return "Jim-sama is doing some crazy database restructuring and he isn't even getting paid. Please return to being moe tsunderes when we come back up in about an hour."
     g.username = session.get('username')
     g.user = User.query.filter_by(name=g.username).first()
     g.timezone = int(request.cookies.get('timezone') or '0')
