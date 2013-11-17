@@ -3,11 +3,8 @@ Flask-SQLAlchemy==1.0
 Jinja2==2.6
 SQLAlchemy==0.8.3
 Werkzeug==0.8.3
-bcrypt==1.0.2
-cffi==0.7.2
 distribute==0.6.34
 gunicorn==18.0
-itsdangerous==0.23
 psycopg2==2.4.6
 pycparser==2.10
 wsgiref==0.1.2
