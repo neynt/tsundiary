@@ -6,8 +6,7 @@ import psycopg2.extras
 #import bcrypt
 
 # Set up database
-#conn_string = "host='ec2-107-22-182-174.compute-1.amazonaws.com' dbname='d7lda6chqa8526' user='gnfcfjnsbihezp' password='7jvgKFTp6p09KuiQdf0-rDHnT8'"
-conn_string = "host='localhost' dbname='tsundiary' user='neynt' password='m_w2TwoK'"
+conn_string = "host='ec2-107-22-182-174.compute-1.amazonaws.com' dbname='d7lda6chqa8526' user='gnfcfjnsbihezp' password='7jvgKFTp6p09KuiQdf0-rDHnT8'"
 conn = psycopg2.connect(conn_string)
 #cur = conn.cursor('the_only_cursor', cursor_factory=psycopg2.extras.DictCursor)
 cur = conn.cursor()
