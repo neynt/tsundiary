@@ -109,10 +109,7 @@ class Post(db.Model):
     user = db.relationship('User',
         backref=db.backref('posts', lazy='dynamic'))
 
-    def __init__(self, user_sid, content, posted_date=None):
-        if posted_date == None:
-            poted_date = their_date()
-
+    def __init__(self, user_sid, content, posted_date):
         self.user_sid = user_sid
         self.posted_date = posted_date
         self.content = content
@@ -245,7 +242,7 @@ def confess():
         return_message = ""
 
         if 0 < len(content) <= 1000:
-            new_post = Post(g.user.sid, content)
+            new_post = Post(g.user.sid, content, their_date())
             db.session.merge(new_post)
             return_message = "saved!"
         elif len(content) == 0:
@@ -379,4 +376,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)

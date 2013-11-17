@@ -21,7 +21,7 @@
 
     {% for delta_name, p in old_posts %}
     <div class='cloud'>
-        <div class='post_date faded'>{{ delta_name }}</div>
+        <div class='post_date faded'>{{ p.posted_date | prettydate }} ({{ delta_name }})</div>
         <div class='post_body'>{{ p.content }}</div>
     </div>
     {% endfor %}
