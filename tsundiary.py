@@ -85,7 +85,7 @@ class User(db.Model):
         salt = self.passhash[:32].encode('utf-8')
         return salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8') == self.passhash
 
-    def __init__(self, name, password, email="", invite_key=""):
+    def __init__(self, name, password, email=None, invite_key=""):
         self.sid = uidify(name)
         self.name = name
         salt = uuid.uuid4().hex.encode('utf-8')
