@@ -25,7 +25,7 @@ It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every d
 </div>
 {% endfor %}
 {% else %}
-<p>... sorry! I couldn't find anything written by {{ username }}. Are you sure that person exists{% if login_name %}, {{ login_name }}-sama{% endif %}?</p>
+<p>... sorry! I couldn't find anything written by {{ author.name }}. Are you sure that person exists{% if login_name %}, {{ login_name }}-sama{% endif %}?</p>
 {% endif %}
 
 {% endblock %}
