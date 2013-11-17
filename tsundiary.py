@@ -109,7 +109,7 @@ class Post(db.Model):
     user = db.relationship('User',
         backref=db.backref('posts', lazy='dynamic'))
 
-    def __init__(self, user_sid, content, posted_date=date.today()):
+    def __init__(self, user_sid, content, posted_date=their_date()):
         self.user_sid = user_sid
         self.posted_date = posted_date
         self.content = content
@@ -347,12 +347,13 @@ def who_am_i():
 @app.route('/')
 def index():
     if g.user:
-        current_post = g.user.posts.filter_by(posted_date = date.today()).first()
+        today = their_date()
+
+        current_post = g.user.posts.filter_by(posted_date = today).first()
         current_content = current_post.content if current_post else ""
         prompt = random.choice(prompts) % g.username
 
         old_posts = []
-        today = their_date()
         deltas = [(1, "yesterday"), (7, "one week ago"), (30, "30 days ago"),
                   (90, "90 days ago"), (365, "365 days ago")]
         for delta, delta_name in deltas:
