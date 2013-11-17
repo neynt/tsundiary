@@ -3,7 +3,7 @@ from datetime import datetime, date
 import maiconfig
 import psycopg2
 import psycopg2.extras
-import bcrypt
+#import bcrypt
 
 # Set up database
 #conn_string = "host='ec2-107-22-182-174.compute-1.amazonaws.com' dbname='d7lda6chqa8526' user='gnfcfjnsbihezp' password='7jvgKFTp6p09KuiQdf0-rDHnT8'"
