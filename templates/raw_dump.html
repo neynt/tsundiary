@@ -1,4 +1,4 @@
-{% for day, content in entries %}{{ day }}	{{ content }}<br />
+{% for p in posts %}{{ p.posted_date }}	{{ p.content }}<br />
 {% else %}
 Log in kudasai.
 {% endfor %}

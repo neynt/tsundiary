@@ -3,14 +3,13 @@
 {% block content %}
 
 <div style="text-align: center; margin: 0 auto;">
-    <span id='login_status'>... so who are you, anyway?</span>
+    <p id='login_status'>... so who are you, anyway?</p>
     <div id='login_box' class='cloud'>
-        <input id='username' type='text' placeholder="username" style='padding-top: 10pt' /><br />
-        <input id='password' type='password' placeholder="password" style='padding-bottom: 10pt' /><br />
+        <input id='username' type='text' placeholder="username" class='first' /><br />
+        <input id='password' type='password' placeholder="password" class='last' /><br />
         <hr />
-        <input id='submitbutton' type='submit' value='enter' style='padding-top: 10pt; padding-bottom: 10pt' />
+        <input id='submitbutton' type='submit' value='enter' style='padding-top: 10px; padding-bottom: 10px' />
     </div>
-    or <a href='/register'>register</a>
 </div>
 
 <script>

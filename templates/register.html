@@ -3,7 +3,7 @@
 {% block content %}
 
 <div style="text-align: center; margin: 0 auto;">
-    <span id='login_status'>well then who do you want to be?</span>
+    <p id='login_status'>... so who do you want to be?</p>
     <div id='login_box' class='cloud'>
         <input id='invite_key' class='first last' type='text' placeholder="invite key" /><br />
         <hr />
@@ -27,7 +27,7 @@ function attempt_register() {
     $.post('register', { invite_key:invite_key, username:username, password:password, email:email },
         function(data) {
             $('#login_status').html(data);
-            if (data.substr(0, 13) == 'she blossomed') {
+            if (data.substr(0, 7) == 'welcome') {
                 setTimeout(function() { document.location.href = '/'; }, 1000);
             }
             else {

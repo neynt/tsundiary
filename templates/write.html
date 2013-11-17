@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<p>{{ prompt }}</p>
+<p style="text-align: center">
+{{ prompt }}
+</p>
 
 <div class='cloud'>
     <div class='post_date faded'>Today</div>
@@ -14,17 +16,17 @@
     </div>
 </div>
 
-{% if old_entries %}
+{% if old_posts %}
     <p>Here are some of your old entries.</p>
 
-    {% for day, content in old_entries %}
+    {% for delta_name, p in old_posts %}
     <div class='cloud'>
-        <div class='post_date faded'>{{ day }}</div>
-        <div class='post_body'>{{ content }}</div>
+        <div class='post_date faded'>{{ delta_name }}</div>
+        <div class='post_body'>{{ p.content }}</div>
     </div>
     {% endfor %}
 {% else %}
-    <p>Once you have a history of old entries, I'll show them to you at special intervals...</p>
+    <p>Once you have a history of old entries, I'll show them to you at certain intervals here...</p>
 {% endif %}
 
 <script>
@@ -55,7 +57,7 @@ function prime_update() {
 
 function update_char_count() {
     count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    $('#char_count').html(count + '/' + BYTE_LIMIT + ' UTF-8 bytes');
+    $('#char_count').html((BYTE_LIMIT - count));
 
     // Scale textarea
     var textarea = $('#edit_area');

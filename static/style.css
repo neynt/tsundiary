@@ -1,22 +1,35 @@
+/* Normalize */
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
 /* Keep vertical scrollbar visible to prevent centering jumps */
 html
 {
+    height: 100%;
     overflow-y: scroll
 }
 
 body
 {
+    height: 100%;
     text-rendering: optimizeLegibility;
 }
 
 /* Colors */
 body {
-    background-color: #FFEFE8;
+    background-color: #FFF7CF;
 }
 .cloud
 {
     background-color: #fff;
     border-color: rgba(18, 18, 18, 0.5);
+}
+p
+{
+    padding: 10px 0;
 }
 a
 {
@@ -32,6 +45,24 @@ textarea
     resize: none;
     outline: none;
     overflow-y: hidden;
+}
+
+div#logo
+{
+    padding: 10px;
+}
+
+div#nav
+{
+    padding: 10px 0;
+}
+div#nav a
+{
+    padding: 10px;
+}
+div#nav a.cur_page
+{
+    color: #000;
 }
 
 /* Fonts */
@@ -50,18 +81,22 @@ input
 
 h1
 {
+    padding: 10px 0;
     font-size: 24pt;
     font-weight: normal;
     text-align: center;
+}
+h2
+{
+    font-size: 17pt;
+    font-weight: normal;
 }
 
 /* Wrapper for main content */
 div#wrap
 {
-    width: 90%;
-    min-width: 150px;
-    max-width: 500px;
-    margin: 0 auto;
+    position: relative;
+    min-height: 100%;
 }
 
 /* "cloud" container */
@@ -69,7 +104,7 @@ div#wrap
 {
     border-width: 1px;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 16px;
     margin: 5px auto;
 
@@ -79,6 +114,7 @@ div#wrap
 #edit_area
 {
     border: 0;
+    padding-top: 16px;
     background-color: #fff;
     min-width: 100%;
     max-width: 100%;
@@ -91,12 +127,12 @@ div#wrap
 .post_date
 {
     font-size: 16px;
-    margin-bottom: 16px;
 }
 
 /* Post body */
 .post_body
 {
+    margin-top: 16px;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -121,8 +157,8 @@ input
     max-width: 250px;
     text-align: center;
     padding: 0;
-    margin: 10pt auto;
-    border-radius: 5pt;
+    margin: 10px auto;
+    border-radius: 2px;
 }
 
 #login_box input[type="text"],
@@ -152,18 +188,45 @@ input
 /* First item in a form. */
 .first
 {
-    padding-top: 10pt;
+    padding-top: 10px;
 }
 /* Last item in a form. */
 .last
 {
-    padding-bottom: 10pt;
+    padding-bottom: 10px;
+    margin-bottom: 1px;
 }
 
 /* The horizontal line */
 hr
 {
-    margin: 0;
+    margin: 30px 0;
     border: 0;
     border-top: 1px solid rgba(0,0,0,0.5);
+}
+/* ... in login boxes */
+div#login_box hr
+{
+    margin: 0 0;
+}
+
+/* Content div */
+div#content
+{
+    min-width: 150px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 10px 150px;
+}
+
+/* Footer div */
+div#foot
+{
+    border-top: 3px solid #ffa068;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ff4800;
+    text-align: center;
 }
