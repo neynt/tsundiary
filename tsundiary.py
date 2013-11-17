@@ -282,7 +282,7 @@ def logout():
 # Dump a user's entire diary.
 @app.route('/diary/<author_sid>')
 def diary(author_sid):
-    author = User.query.filter_by(sid = author_sid).first()
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         posts = author.posts.order_by(Post.posted_date.desc()).all()
 
