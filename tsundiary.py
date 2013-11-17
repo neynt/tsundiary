@@ -109,7 +109,10 @@ class Post(db.Model):
     user = db.relationship('User',
         backref=db.backref('posts', lazy='dynamic'))
 
-    def __init__(self, user_sid, content, posted_date=their_date()):
+    def __init__(self, user_sid, content, posted_date=None):
+        if posted_date == None:
+            poted_date = their_date()
+
         self.user_sid = user_sid
         self.posted_date = posted_date
         self.content = content
