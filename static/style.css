@@ -20,12 +20,12 @@ body
 
 /* Colors */
 body {
-    background-color: #FFF7CF;
+    background-color: #eeeeee;
 }
 .cloud
 {
     background-color: #fff;
-    border-color: rgba(18, 18, 18, 0.5);
+    border-color: rgba(0, 0, 0, 0.5);
 }
 p
 {
@@ -33,7 +33,7 @@ p
 }
 a
 {
-    color: #ff4800;
+    color: #222;
 }
 .faded
 {
@@ -63,6 +63,7 @@ div#nav a
 div#nav a.cur_page
 {
     color: #000;
+    text-decoration: none;
 }
 
 /* Fonts */
@@ -222,11 +223,11 @@ div#content
 /* Footer div */
 div#foot
 {
-    border-top: 3px solid #ffa068;
+    border-top: 3px solid #222;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ff4800;
+    background-color: #222;
     text-align: center;
 }
