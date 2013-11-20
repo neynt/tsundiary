@@ -55,10 +55,11 @@ prompts = [
 # make me happy
 "Hi, %s!",
 "You look good today, %s!",
-"You have a really nice smile, %s! Please smile more...",
 "You may not know this, but you have many admirers, %s!",
+"You have a really nice smile, %s! Please smile more...",
 "Tell me about your day, %s!",
-"What made you smile today, %s? Even just a little thing...",
+"What made you happy today, %s? Even just a little thing...",
+"Feel free to let me know if something is bothering you, %s...",
 "I admire your optimism, %s!",
 "I love listening to you, %s!",
 "I'm so lucky to have you, %s!",
@@ -272,6 +273,7 @@ def confess():
 
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
+        db.session.commit()
 
         return return_message
     else:
@@ -288,7 +290,7 @@ def attempt_login():
         return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
         return "H-honto baka! Did you really think that would work?!"
-    return "Idiot. Can't you at least get your login right?"
+    return "I don't recognize you, sorry."
 
 # Logout
 @app.route('/logout')
@@ -332,15 +334,17 @@ def register_action():
     invite_key = request.form.get('invite_key')
     username = request.form.get('username')
     password = request.form.get('password')
-    email = request.form.get('email') or ''
-    if invite_key != 'koi dorobou':
-        return 'bad invite key, baka.'
+    email = request.form.get('email') or None
+
+    # check if we already have too many users
+    if User.query.count() > 100 and invite_key != 'koi dorobou':
+        return "Actually, we're out of spots for registrations. Sorry!"
     elif len(username) < 3:
-        return 'enter a username at least 3 characters long, baka.'
+        return 'Please enter a username at least 3 characters long.'
     elif len(password) < 3:
-        return 'enter a password at least 3 characters long, baka.'
-    elif db.session.query(db.exists().where(User.name == username)).scalar():
-        return 'that person already exists, baka.'
+        return 'Please enter a password at least 3 characters long.'
+    elif User.query.filter_by(sid=uidify(username)).first():
+        return 'We already have someone with that name.'
     else:
         print('New user: %s/%s/%s' % (username, password, email))
         new_user = User(username, password)
@@ -394,4 +398,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=os.environ.get('DEBUG') or False)
