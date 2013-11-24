@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<h1>twintail tsundere list ♥</h1>
+<h1>users</h1>
 
 {% for user in all_users %}
 <h2><a href='/diary/{{ user.sid }}'>{{ user.name }}</a></h2>
 <p>
 Joined on {{ user.join_time | prettydate }}.<br />
 Entries: {{ user.num_entries }}
+{% if user.combo > 1 %}Combo: {{ user.combo }}{% endif %}
 </p>
 {% endfor %}
 

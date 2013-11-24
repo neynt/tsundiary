@@ -54,19 +54,21 @@ prompts = [
 #"You look so good today, %s! I didn't recognize you."
 # make me happy
 "Hi, %s!",
-"You look good today, %s!",
-"You may not know this, but you have many admirers, %s!",
-"You have a really nice smile, %s! Please smile more...",
+#"You look good today, %s!",
+#"You may not know this, but you have many admirers, %s!",
+#"You have a really nice smile, %s! Please smile more...",
 "Tell me about your day, %s!",
 "What made you happy today, %s? Even just a little thing...",
+"What made you laugh today, %s?",
+"What did you enjoy the most today, %s?",
 "Feel free to let me know if something is bothering you, %s...",
-"I admire your optimism, %s!",
+#"I admire your optimism, %s!",
 "I love listening to you, %s!",
-"I'm so lucky to have you, %s!",
-"I'm so happy I'm your friend, %s!",
-"I hope you can find happiness, %s!",
-"I really like your personality, %s!",
-"Keep on going, %s!",
+#"I'm so lucky to have you, %s!",
+#"I'm so happy I'm your friend, %s!",
+#"I hope you can find happiness, %s!",
+#"I really like your personality, %s!",
+#"Keep on going, %s!",
 "%s, m-may I have a hug?",
 "%s, w-would you like a hug?",
 u"%sのことが大好きです！(*/////∇/////*)",
@@ -112,7 +114,7 @@ class User(db.Model):
         self.join_time = datetime.now()
         self.num_entries = 0
         self.combo = 0
-        self.secret_days = 7
+        self.secret_days = 1
         # publicity  0: completely hidden  1: anyone with the link  2. link in user list
         self.publicity = 2
 
@@ -264,7 +266,10 @@ def confess():
             db.session.merge(new_post)
             return_message = "saved!"
         elif len(content) == 0:
-            g.user.posts.filter_by(posted_date = their_date()).delete()
+            p = g.user.posts.filter_by(posted_date = their_date())
+            if p:
+                p.delete()
+                delta_combo = -1;
             return_message = "deleted!"
         else:
             return_message = "onii-chan, it's too big! you're gonna split me in half!"
@@ -273,6 +278,9 @@ def confess():
 
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
+        # Update combo
+        g.user.combo += delta_combo
+
         db.session.commit()
 
         return return_message

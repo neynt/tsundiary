@@ -4,15 +4,11 @@
 
 {% if posts %}
 
-<h1>{{ author.name }}</h1>
-
 <p>{{ author.name }} started a tsundiary on {{ author.join_time | prettydate }}.
 {% if num_entries > 1 %}
 It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
 {% endif %}
 </p>
-
-<p class='faded'>D-don't get the wrong idea, I didn't retrieve this from my database for <i>you</i>.</p>
 
 {% for p in posts %}
 <div class='cloud'>
