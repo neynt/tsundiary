@@ -3,12 +3,11 @@
 {% block content %}
 
 {% if login_name and author.name == login_name %}
-<p>You started a tsundiary on {{ author.join_time | prettydate }}.</p>
+<p>You started a tsundiary on {{ author.join_time | prettydate }}.
 {% else %}
 <p>{{ author.name }} started a tsundiary on {{ author.join_time | prettydate }}.
 {% endif %}
-{% if num_entries > 1 %}
-It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
+{% if num_entries > 1 %}It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
 {% endif %}
 </p>
 
