@@ -228,7 +228,7 @@ div#content
   min-width: 150px;
   max-width: 500px;
   margin: 0 auto;
-  padding: 0 10px 150px;
+  padding: 0 10px 100px;
 }
 
 /* Footer div */
@@ -236,6 +236,7 @@ div#foot
 {
   border-top: 3px solid #333;
   position: absolute;
+  padding: 20px 0px;
   left: 0;
   right: 0;
   bottom: 0;

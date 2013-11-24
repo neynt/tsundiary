@@ -9,7 +9,7 @@
 <p>
 Joined on {{ user.join_time | prettydate }}.<br />
 Entries: {{ user.num_entries }}
-{% if user.combo > 1 %}Combo: {{ user.combo }}{% endif %}
+{% if user.combo > 1 %} - Combo: {{ user.combo }}{% endif %}
 </p>
 {% endfor %}
 

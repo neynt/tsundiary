@@ -2,9 +2,11 @@
 
 {% block content %}
 
-{% if posts %}
-
+{% if login_name and author.name == login_name %}
+<p>You started a tsundiary on {{ author.join_time | prettydate }}.</p>
+{% else %}
 <p>{{ author.name }} started a tsundiary on {{ author.join_time | prettydate }}.
+{% endif %}
 {% if num_entries > 1 %}
 It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
 {% endif %}
@@ -20,8 +22,5 @@ It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every d
     {% endif %}
 </div>
 {% endfor %}
-{% else %}
-<p>... sorry! I couldn't find anything written by {{ author.name }}. Are you sure that person exists{% if login_name %}, {{ login_name }}-sama{% endif %}?</p>
-{% endif %}
 
 {% endblock %}

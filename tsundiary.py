@@ -264,12 +264,13 @@ def confess():
         if 0 < len(content) <= 1000:
             new_post = Post(g.user.sid, content, their_date())
             db.session.merge(new_post)
+            combo = 1
             return_message = "saved!"
         elif len(content) == 0:
             p = g.user.posts.filter_by(posted_date = their_date())
             if p:
                 p.delete()
-                delta_combo = -1;
+            combo = 0
             return_message = "deleted!"
         else:
             return_message = "onii-chan, it's too big! you're gonna split me in half!"
@@ -279,7 +280,11 @@ def confess():
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
         # Update combo
-        g.user.combo += delta_combo
+        cd = their_date() - timedelta(days = 1)
+        while g.user.posts.filter_by(posted_date = cd).first():
+            combo += 1
+            cd -= timedelta(days = 1)
+        g.user.combo = combo
 
         db.session.commit()
 
