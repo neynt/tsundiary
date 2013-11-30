@@ -114,7 +114,7 @@ class User(db.Model):
         self.join_time = datetime.now()
         self.num_entries = 0
         self.combo = 0
-        self.secret_days = 1
+        self.secret_days = 2
         # publicity  0: completely hidden  1: anyone with the link  2. link in user list
         self.publicity = 2
 
