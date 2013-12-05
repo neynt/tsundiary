@@ -6,6 +6,8 @@ from flask import Flask, Markup, render_template, send_from_directory, redirect,
 from flask.ext.sqlalchemy import SQLAlchemy
 import uuid
 import hashlib
+from markdown import markdown
+import bleach
 
 ########################
 # Initialization vectors
@@ -187,22 +189,16 @@ def datestamp(d):
 
 @app.template_filter('prettydate')
 def pretty_date(d):
-    return d.strftime("%A, %B %d, %Y")
+    return d.strftime("%A, %B %-d, %Y")
+
+@app.template_filter('markdown')
+def my_markdown(t):
+    return bleach.clean(markdown(t, extensions=['nl2br']),
+            ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li'],
+            {'img': ['src', 'alt']})
 
 def datestamp_today():
     return datestamp(their_date())
-
-# Make a post HTML-pretty.
-# Currently does nothing, but may do markdown in the future.
-def prettify(text):
-    return text
-
-# Process a list of entry tuples.
-def format_entries(entries):
-    new_list = []
-    for date, content in entries:
-        new_list.append((pretty_date(date), prettify(content)))
-    return new_list
 
 def my_render_template(template_name, **kwargs):
     return render_template(template_name, login_name=g.username, login_user=g.user, **kwargs)
@@ -311,9 +307,34 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
-# Dump a user's entire diary.
+# Last secret_days + 5 entries of a user's diary.
 @app.route('/diary/<author_sid>')
-def diary(author_sid):
+def diary_preview(author_sid):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days + 5).all()
+
+        # Calculate date from which things should be hidden
+        if g.user and author_sid == g.user.sid:
+            hide = timedelta(days = 0)
+        else:
+            hide = timedelta(days = author.secret_days)
+        hidden_day = their_date() - hide
+
+        return my_render_template(
+                'dump.html',
+                author = author,
+                num_entries = len(posts),
+                posts = posts,
+                hidden_day = hidden_day,
+                #total_length = tl
+                )
+    else:
+        return page_not_found()
+
+# 
+@app.route('/diary/<author_sid>/<dates>')
+def diary(author_sid, dates):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         posts = author.posts.order_by(Post.posted_date.desc()).all()

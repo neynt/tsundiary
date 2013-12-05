@@ -2,6 +2,22 @@
 
 {% block content %}
 
+{% for p in posts[0:1] %}
+<div class='post'>
+{% if p.posted_date > hidden_day %}
+<div class='post_date faded'>
+    {{ p.posted_date | prettydate }} - hidden
+</div>
+</div>
+{% else %}
+<div class='post_date faded'>
+    {{ p.posted_date | prettydate }}
+</div>
+<div class='post_body'>{{ p.content | markdown | safe }}</div>
+</div>
+{% endif %}
+{% endfor %}
+
 {% if login_name and author.name == login_name %}
 <p>You started a tsundiary on {{ author.join_time | prettydate }}.
 {% else %}
@@ -11,15 +27,19 @@
 {% endif %}
 </p>
 
-{% for p in posts %}
-<div class='cloud'>
-    {% if p.posted_date > hidden_day %}
-    <div class='post_date faded'>{{ p.posted_date | prettydate }} - hidden</div>
-    {% else %}
-    <div class='post_date faded'>{{ p.posted_date | prettydate }}</div>
-    <div class='post_body'>{{ p.content }}</div>
-    {% endif %}
+{% for p in posts[1:] %}
+<div class='post'>
+{% if p.posted_date > hidden_day %}
+<div class='post_date faded'>
+    {{ p.posted_date | prettydate }} - hidden
 </div>
+{% else %}
+<div class='post_date faded'>
+    {{ p.posted_date | prettydate }}
+</div>
+<div class='post_body'>{{ p.content | markdown | safe }}</div>
+</div>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

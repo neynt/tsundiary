@@ -21,9 +21,9 @@ body
 /* Colors */
 body {
   background-color: #eee;
-  color: #999999;
+  color: #777;
 }
-.cloud
+.cloud, .post
 {
   color: #000;
   background-color: #fff;
@@ -31,7 +31,7 @@ body {
 }
 p
 {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 a
 {
@@ -54,6 +54,11 @@ textarea
   overflow-y: hidden;
 }
 
+.status_area
+{
+  margin: 0 10px 10px;
+}
+
 div#logo
 {
   background-color: #d2d2d2;
@@ -70,7 +75,7 @@ div#nav
 div#nav a
 {
   background-color: #eeeeee;
-  color: #999999;
+  color: #777;
   padding: 8px 10px 10px;
   border: 2px solid #b3b3b3;
   border-radius: 5px 5px 0 0;
@@ -116,12 +121,12 @@ div#wrap
 }
 
 /* "cloud" container */
-.cloud
+.cloud, .post
 {
   border-width: 2px;
   border-style: solid;
   border-radius: 5px;
-  padding: 16px;
+  padding: 0;
   margin: 5px auto;
 }
 
@@ -129,27 +134,53 @@ div#wrap
 #edit_area
 {
   border: 0;
-  padding-top: 16px;
+  border-top: 1px solid #c2c2c2;
+  padding: 10px;
   background-color: #fff;
-  min-width: 100%;
-  max-width: 100%;
-  width: 100%;
   word-wrap: break-word;
+  width: 100%;
+  box-sizing: border-box;
   cursor: text;
+}
+
+/* Contains an entire post. */
+.post
+{
+  clear: both;
 }
 
 /* Post decoration */
 .post_date
 {
+  display: block;
+  margin-top: 10px;
+  padding: 0 0 10px;
   font-size: 16px;
+  text-align: center;
 }
 
 /* Post body */
 .post_body
 {
-  margin-top: 16px;
-  white-space: pre-wrap;
+  padding: 5px 10px;
   word-wrap: break-word;
+  border-top: 1px solid #c2c2c2;
+}
+
+/* */
+.post_body img
+{
+  max-width: 100%;
+}
+
+/* post body crap */
+.post_body ul
+{
+  list-style-type: square;
+}
+.post_body li
+{
+  margin-left: 20px;
 }
 
 /* Get rid of focus outlines */
@@ -215,7 +246,7 @@ input
 /* The horizontal line */
 hr
 {
-  margin: 30px 0;
+  margin: 10px 0;
   border: 0;
   border-top: 1px solid #b3b3b3;
 }
@@ -238,7 +269,7 @@ div#content
 div#foot
 {
   background-color: #d2d2d2;
-  color: #999;
+  color: #777;
   border-top: 2px solid #b3b3b3;
   position: absolute;
   padding: 20px 0px;

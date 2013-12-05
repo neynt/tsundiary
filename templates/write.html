@@ -5,18 +5,21 @@
 <div class='cloud'>
     <div class='post_date faded'>Today</div>
     <textarea id='edit_area' placeholder="{{ prompt }}" >{% if current_content %}{{ current_content }}{% endif %}</textarea>
+    <div class='status_area'>
     <div class='faded'>
-    <br />
         <span id='char_count'></span>
-        <span id='save_status' style='float:right'></span>
+        <span id='save_status' style='float:right'><a href='http://en.wikipedia.org/wiki/Markdown'>M下</a></span>
+    </div>
     </div>
 </div>
 
 {% if old_posts %}
     {% for delta_name, p in old_posts %}
-    <div class='cloud'>
-        <div class='post_date faded'>{{ p.posted_date | prettydate }} ({{ delta_name }})</div>
-        <div class='post_body'>{{ p.content }}</div>
+    <div class='post'>
+    <div class='post_date faded'>
+        {{ p.posted_date | prettydate }}
+    </div>
+    <div class='post_body'>{{ p.content | markdown | safe }}</div>
     </div>
     {% endfor %}
 {% else %}
@@ -56,7 +59,7 @@ function update_char_count() {
     // Scale textarea
     var textarea = $('#edit_area');
     textarea.css("height", "");
-    textarea.css("height", Math.max(textarea[0].scrollHeight, 100) + "px");
+    textarea.css("height", Math.max(textarea[0].scrollHeight, 80) + "px");
 
     return count;
 }
