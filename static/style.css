@@ -21,12 +21,13 @@ body
 /* Colors */
 body {
   background-color: #eee;
-  color: #333;
+  color: #999999;
 }
 .cloud
 {
+  color: #000;
   background-color: #fff;
-  border-color: rgba(0, 0, 0, 0.3);
+  border-color: #b3b3b3;
 }
 p
 {
@@ -43,7 +44,7 @@ a:hover
 }
 .faded
 {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 textarea
 {
@@ -55,27 +56,29 @@ textarea
 
 div#logo
 {
-  background-color: #333;
+  background-color: #d2d2d2;
   padding: 10px;
 }
 
 div#nav
 {
-  background-color: #333;
+  background-color: #d2d2d2;
   padding: 10px 0 10px;
   margin: 0 0 40px;
+  border-bottom: 2px solid #b3b3b3;
 }
 div#nav a
 {
-  color: #eee;
+  background-color: #eeeeee;
+  color: #999999;
   padding: 8px 10px 10px;
+  border: 2px solid #b3b3b3;
+  border-radius: 5px 5px 0 0;
 }
 div#nav a.cur_page
 {
-  color: #333;
-  background-color: #eee;
-  border-radius: 5px 5px 0 0;
   text-decoration: none;
+  border-bottom: 2px solid #eeeeee;
 }
 
 /* Fonts */
@@ -214,7 +217,7 @@ hr
 {
   margin: 30px 0;
   border: 0;
-  border-top: 1px solid rgba(0,0,0,0.5);
+  border-top: 1px solid #b3b3b3;
 }
 /* ... in login boxes */
 div#login_box hr
@@ -234,12 +237,13 @@ div#content
 /* Footer div */
 div#foot
 {
-  border-top: 3px solid #333;
+  background-color: #d2d2d2;
+  color: #999;
+  border-top: 2px solid #b3b3b3;
   position: absolute;
   padding: 20px 0px;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #333;
   text-align: center;
 }

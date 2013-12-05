@@ -2,13 +2,9 @@
 
 {% block content %}
 
-<p style="text-align: center">
-{{ prompt }}
-</p>
-
 <div class='cloud'>
     <div class='post_date faded'>Today</div>
-    <textarea id='edit_area' placeholder="I..." >{% if current_content %}{{ current_content }}{% endif %}</textarea>
+    <textarea id='edit_area' placeholder="{{ prompt }}" >{% if current_content %}{{ current_content }}{% endif %}</textarea>
     <div class='faded'>
     <br />
         <span id='char_count'></span>

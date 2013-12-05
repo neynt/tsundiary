@@ -18,8 +18,7 @@
 <body>
 <div id="wrap">
 <div id="top">
-    <!-- 3px orange line at top -->
-    <div style="height: 3px; background-color: #333"></div>
+    <div style="height: 3px; background-color: #999"></div>
     <div style="text-align: center">
         <div id='logo'>
             <a href='/'>
@@ -41,6 +40,7 @@
         {% endfor %}
         {% else %}
         {% for target, text in [
+          ('/', "login"),
           ('/h-hello...', "what is this?"),
           ('/register', "register")
         ]%}
@@ -59,6 +59,7 @@
 {% endblock %}
 </div>
 <div id="foot">
+with love, from tsund♥ary
 </div>
 </div>
 </body>
