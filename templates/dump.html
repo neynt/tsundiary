@@ -2,36 +2,14 @@
 
 {% block content %}
 
-{% for p in posts[0:1] %}
+<h1>{{ author.name }}</h1>
+
+{% for p in posts %}
 <div class='post'>
 {% if p.posted_date > hidden_day %}
 <div class='post_date faded'>
     {{ p.posted_date | prettydate }} - hidden
 </div>
-</div>
-{% else %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }}
-</div>
-<div class='post_body'>{{ p.content | markdown | safe }}</div>
-</div>
-{% endif %}
-{% endfor %}
-
-{% if login_name and author.name == login_name %}
-<p>You started a tsundiary on {{ author.join_time | prettydate }}.
-{% else %}
-<p>{{ author.name }} started a tsundiary on {{ author.join_time | prettydate }}.
-{% endif %}
-{% if num_entries > 1 %}It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
-{% endif %}
-</p>
-
-{% for p in posts[1:] %}
-<div class='post'>
-{% if p.posted_date > hidden_day %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }} - hidden
 </div>
 {% else %}
 <div class='post_date faded'>

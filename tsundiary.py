@@ -312,7 +312,8 @@ def logout():
 def diary_preview(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days + 5).all()
+        posts = author.posts.order_by(Post.posted_date.desc()).limit(3).all()
+        #posts = [p for p in posts if p.posted_date > their_date() - timedelta(days=3)]
 
         # Calculate date from which things should be hidden
         if g.user and author_sid == g.user.sid:
@@ -322,9 +323,9 @@ def diary_preview(author_sid):
         hidden_day = their_date() - hide
 
         return my_render_template(
-                'dump.html',
+                'user.html',
                 author = author,
-                num_entries = len(posts),
+                num_entries = author.posts.count(),
                 posts = posts,
                 hidden_day = hidden_day,
                 #total_length = tl
