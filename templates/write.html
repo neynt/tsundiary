@@ -59,7 +59,7 @@ function update_char_count() {
     // Scale textarea
     var textarea = $('#edit_area');
     textarea.css("height", "");
-    textarea.css("height", Math.max(textarea[0].scrollHeight, 80) + "px");
+    textarea.css("height", Math.max(textarea[0].scrollHeight+1, 80) + "px");
 
     return count;
 }
