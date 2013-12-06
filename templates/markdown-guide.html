@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>You can use Markdown to format your entries in tsundiary.</p>
+
+<style>
+table
+{
+    margin: 5px 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background: #fff;
+}
+td, th
+{
+    border: 1px solid #999;
+    padding: 5px;
+}
+th
+{
+    font-weight: normal;
+    text-align: left;
+}
+td:nth-child(1)
+{
+}
+code
+{
+}
+</style>
+
+<table>
+    <tr>
+        <th>Markdown code</th><th>Result</th>
+    </tr>
+    <tr>
+        <td><code>_desu_</code></td>
+        <td><em>desu</em></td>
+    </tr>
+    <tr>
+        <td><code>**desu**</code></td>
+        <td><strong>desu</strong></td>
+    </tr>
+    <tr>
+        <td><code># desu</code></td>
+        <td><h1>desu</h1></td>
+    </tr>
+    <tr>
+        <td><code>## desu</code></td>
+        <td><h2>desu</h2></td>
+    </tr>
+    <tr>
+        <td><code>###### desu</code></td>
+        <td><h6>desu</h6></td>
+    </tr>
+    <tr>
+        <td><code>[desu](http://tsundiary.tk/)</code></td>
+        <td><a href='http://tsundiary.tk/'>desu</a></td>
+    </tr>
+    <tr>
+        <td><code>- desu<br>- nya<br>- neko</code></td>
+        <td><ul><li>desu</li><li>nya</li><li>neko</li></ul></td>
+    </tr>
+    <tr>
+        <td><code>1. desu<br>2. nya<br>3. neko</code></td>
+        <td><ol><li>desu</li><li>nya</li><li>neko</li></ol></td>
+    </tr>
+    <tr>
+        <td><code>![nya](http://i.imgur.com/86cRuDz.png)</code></td>
+        <td><img alt='nya' src='http://i.imgur.com/86cRuDz.png'></td>
+    </tr>
+    <!--
+    <tr>
+        <td></td>
+        <td><code></code></td>
+        <td></td>
+    </tr>
+    -->
+</table>
+
+And many more...
+
+{% endblock %}
+
