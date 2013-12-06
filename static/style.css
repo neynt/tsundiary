@@ -168,18 +168,22 @@ div#wrap
 }
 
 /* */
-.post_body img
+img
 {
+  display: block;
   max-width: 100%;
+  margin: 0 auto;
 }
 
 /* post body crap */
-.post_body ul
+ul
 {
+  margin: 5px 0;
   list-style-type: square;
 }
-.post_body li
+li
 {
+  margin: 5px 0;
   margin-left: 20px;
 }
 

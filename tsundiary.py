@@ -194,8 +194,10 @@ def pretty_date(d):
 @app.template_filter('markdown')
 def my_markdown(t):
     return bleach.clean(markdown(t, extensions=['nl2br']),
-            ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li'],
-            {'img': ['src', 'alt']})
+            ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
+             'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+            {'img': ['src', 'alt', 'title'],
+             'a': ['href']})
 
 def datestamp_today():
     return datestamp(their_date())
@@ -398,7 +400,11 @@ def userlist():
 
 @app.route('/h-hello...')
 def who_am_i():
-    return render_template('what-is-this.html')
+    return my_render_template('what-is-this.html')
+
+@app.route('/markdown')
+def markdown_guide():
+    return my_render_template('markdown-guide.html')
 
 # Index/home!
 @app.route('/')
