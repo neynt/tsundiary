@@ -29,8 +29,8 @@
         {% if login_user %}
         {% for target, text in [
           ('/', "write"),
+          ('/settings', "settings"),
           ('/diary/' + login_user.sid, "archive"),
-          ('/logout', "logout")
         ]%}
             {% if request.path == target %}
             <a href='{{target}}' class='cur_page'>{{text}}</a>
@@ -38,6 +38,11 @@
             <a href='{{target}}'>{{text}}</a>
             {% endif %}
         {% endfor %}
+
+        <form action='/' method='POST' style='display: inline-block; margin-left: 10px'>
+            <input type='submit' name='action' value='logout' style='background: 0; border: 0; padding: 0; font-size: 12pt; cursor: pointer;' />
+        </form>
+        <!-- overly complicated logout form to prevent XSS -->
         {% else %}
         {% for target, text in [
           ('/', "login"),

@@ -116,9 +116,9 @@ class User(db.Model):
         self.join_time = datetime.now()
         self.num_entries = 0
         self.combo = 0
-        self.secret_days = 2
+        self.secret_days = 7
         # publicity  0: completely hidden  1: anyone with the link  2. link in user list
-        self.publicity = 2
+        self.publicity = 0
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -304,53 +304,32 @@ def attempt_login():
     return "I don't recognize you, sorry."
 
 # Logout
-@app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect('/')
 
-# Last secret_days + 5 entries of a user's diary.
-@app.route('/diary/<author_sid>')
-def diary_preview(author_sid):
-    author = User.query.filter_by(sid = uidify(author_sid)).first()
-    if author:
-        posts = author.posts.order_by(Post.posted_date.desc()).limit(3).all()
-        #posts = [p for p in posts if p.posted_date > their_date() - timedelta(days=3)]
-
-        # Calculate date from which things should be hidden
-        if g.user and author_sid == g.user.sid:
-            hide = timedelta(days = 0)
-        else:
-            hide = timedelta(days = author.secret_days)
-        hidden_day = their_date() - hide
-
-        return my_render_template(
-                'user.html',
-                author = author,
-                num_entries = author.posts.count(),
-                posts = posts,
-                hidden_day = hidden_day,
-                #total_length = tl
-                )
-    else:
-        return page_not_found()
-
-# 
+# A certain selection of dates from a user's diary.
 @app.route('/diary/<author_sid>/<dates>')
 def diary(author_sid, dates):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        posts = author.posts.order_by(Post.posted_date.desc()).all()
+        if dates == 'all':
+            posts = author.posts.order_by(Post.posted_date.desc()).all()
+            template = 'dump.html'
+        else:
+            posts = author.posts.order_by(Post.posted_date.desc()).limit(3).all()
+            template = 'user.html'
 
         # Calculate date from which things should be hidden
         if g.user and author_sid == g.user.sid:
-            hide = timedelta(days = 0)
+            hidden_day = their_date()
+        elif author.publicity == 0:
+            hidden_day = author.join_time.date() - timedelta(days = 1)
         else:
-            hide = timedelta(days = author.secret_days)
-        hidden_day = their_date() - hide
+            hidden_day = their_date() - timedelta(days = author.secret_days)
 
         return my_render_template(
-                'dump.html',
+                template,
                 author = author,
                 num_entries = len(posts),
                 posts = posts,
@@ -359,6 +338,11 @@ def diary(author_sid, dates):
                 )
     else:
         return page_not_found()
+
+# Last secret_days + 1 entries of a user's diary.
+@app.route('/diary/<author_sid>')
+def diary_preview(author_sid):
+    return diary(author_sid, 'preview')
 
 # User registration form.
 @app.route('/register')
@@ -406,9 +390,41 @@ def who_am_i():
 def markdown_guide():
     return my_render_template('markdown-guide.html')
 
+@app.route('/settings')
+def edit_settings():
+    if not g.user:
+        return page_not_found()
+
+    private = (g.user.publicity == 0)
+    return my_render_template('settings.html', private=private)
+
+@app.route('/change_setting', methods=['POST'])
+def edit_settings_action():
+    if not g.user:
+        return page_not_found()
+
+    setting_name = request.form.get('setting_name')
+    setting_value = request.form.get('setting_value')
+
+    if setting_name == 'private':
+        g.user.publicity = 2 - int(setting_value) * 2
+    elif setting_name == 'secret_days':
+        print(setting_value)
+        g.user.secret_days = int(setting_value)
+        print(g.user.secret_days)
+    else:
+        return 'Nope.'
+    db.session.commit()
+    return 'Saved.'
+
 # Index/home!
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    # handle logouts
+    submit_action = request.form.get('action')
+    if submit_action == 'logout':
+        return logout()
+
     if g.user:
         today = their_date()
 

@@ -72,7 +72,7 @@ div#nav
   margin: 0 0 40px;
   border-bottom: 2px solid #b3b3b3;
 }
-div#nav a
+div#nav a, div#nav input[type=submit]
 {
   background-color: #eeeeee;
   color: #777;

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="text-align: center; margin: 0 auto;">
+    <div class='cloud' style='padding: 10px;'>
+        <p>
+        Totally private - only you can see entries.<br />
+        <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
+        </p>
+        <p>
+        Days of secrecy - if not totally private, then hide entries for a number of days.<br /> 
+        <select id='option_secret_days'>
+            {% for i in [0, 1, 2, 3, 4, 5, 7, 14, 30] %}
+            <option value='{{ i }}' {% if i == login_user.secret_days %}selected{% endif %} >{{ i }}</option>
+            {% endfor %}
+        </select>
+        </p>
+        <p id='status'>
+        ...
+        </p>
+    </div>
+</div>
+
+<script>
+
+function save_setting(setting_name, setting_value) {
+    $.post('change_setting', { setting_name: setting_name, setting_value: setting_value },
+        function(data) {
+            $('#status').html(data);
+        }
+    )
+    $('#status').html('Saving...');
+}
+
+$('#option_private').click(function(){
+    save_setting('private', $('#option_private').is(':checked') ? 1 : 0)
+});
+$('#option_secret_days').click(function(){
+    save_setting('secret_days', $('#option_secret_days').find(":selected").val())
+});
+
+</script>
+
+{% endblock %}
+
