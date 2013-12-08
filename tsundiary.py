@@ -317,7 +317,7 @@ def diary(author_sid, dates):
             posts = author.posts.order_by(Post.posted_date.desc()).all()
             template = 'dump.html'
         else:
-            posts = author.posts.order_by(Post.posted_date.desc()).limit(3).all()
+            posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days+1).all()
             template = 'user.html'
 
         # Calculate date from which things should be hidden
