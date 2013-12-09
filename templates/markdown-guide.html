@@ -10,28 +10,32 @@ table
     margin: 5px 0;
     border-spacing: 0;
     border-collapse: collapse;
-    border: 1px solid #999;
+    border: 2px solid #999;
     border-radius: 5px;
-    background: #fff;
+    width: 100%;
 }
 td, th
 {
-    border: 1px solid #999;
-    padding: 5px;
+    border-top: 1px solid #999;
+    padding: 10px;
 }
 th
 {
     font-weight: normal;
     text-align: left;
+    background: transparent;
+    border: 0;
 }
-td:nth-child(1)
+td
 {
+    background: #fff;
 }
 code
 {
 }
 </style>
 
+<div style='cloud'>
 <table>
     <tr>
         <th>Markdown code</th><th>Result</th>
@@ -69,8 +73,8 @@ code
         <td><ol><li>desu</li><li>nya</li><li>neko</li></ol></td>
     </tr>
     <tr>
-        <td><code>![nya](http://i.imgur.com/86cRuDz.png)</code></td>
-        <td><img alt='nya' src='http://i.imgur.com/86cRuDz.png'></td>
+        <td><code>![](http://i.imgur.com/86cRuDz.png "nya")</code></td>
+        <td><img alt='nya' src='http://i.imgur.com/86cRuDz.png' title="nya"></td>
     </tr>
     <!--
     <tr>
@@ -80,6 +84,7 @@ code
     </tr>
     -->
 </table>
+</div>
 
 And many more...
 

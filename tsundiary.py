@@ -55,25 +55,26 @@ prompts = [
 #"I guess you're smarter than you look, %s...",
 #"You look so good today, %s! I didn't recognize you."
 # make me happy
-"Hi, %s!",
 #"You look good today, %s!",
 #"You may not know this, but you have many admirers, %s!",
 #"You have a really nice smile, %s! Please smile more...",
+"Hi, %s!",
 "Tell me about your day, %s!",
-"What made you happy today, %s? Even just a little thing...",
+"What made you happy today, %s?",
 "What made you laugh today, %s?",
 "What did you enjoy the most today, %s?",
+"How are you, %s?",
 "Feel free to let me know if something is bothering you, %s...",
 #"I admire your optimism, %s!",
-"I love listening to you, %s!",
+#"I love listening to you, %s!",
 #"I'm so lucky to have you, %s!",
 #"I'm so happy I'm your friend, %s!",
 #"I hope you can find happiness, %s!",
 #"I really like your personality, %s!",
 #"Keep on going, %s!",
-"%s, m-may I have a hug?",
-"%s, w-would you like a hug?",
-u"%sのことが大好きです！(*/////∇/////*)",
+#"%s, m-may I have a hug?",
+#"%s, w-would you like a hug?",
+#u"%sのことが大好きです！(*/////∇/////*)",
 ]
 
 # Set up Flask app
