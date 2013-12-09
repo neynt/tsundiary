@@ -3,6 +3,8 @@
 {% block content %}
 
 <h1>{{ author.name }}</h1>
+<h2>entries: {{ author.num_entries }}</h2>
+<h2>combo: {{ author.combo }}</h2>
 
 {% for p in posts %}
 <div class='post'>

@@ -3,12 +3,10 @@
 {% block content %}
 
 <p>
-{% if login_name and author.name == login_name %}You
-{% else %}{{ author.name }}
+{% if login_name and author.name == login_name %}Your
+{% else %}{{ author.name }}'s
 {% endif %}
- started a tsundiary on {{ author.join_time | prettydate }}.
-
-It has {{ num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
+tsundiary has {{ author.num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
 </p>
 
 <p><a href='/diary/{{ author.sid }}/all'>View them all</a></p>

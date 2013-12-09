@@ -331,10 +331,8 @@ def diary(author_sid, dates):
         return my_render_template(
                 template,
                 author = author,
-                num_entries = len(posts),
                 posts = posts,
                 hidden_day = hidden_day,
-                #total_length = tl
                 )
     else:
         return page_not_found()
