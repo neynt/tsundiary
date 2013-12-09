@@ -19,19 +19,12 @@
 <body>
 <div id="wrap">
 <div id="top">
-    <div style="height: 3px; background-color: #999"></div>
-    <div style="text-align: center">
-        <div id='logo'>
-            <a href='/'>
-            <img src='/static/logo.png' width=188 height=60 alt="tsundiary (ツンダイアリー)" />
-            </a>
-        </div>
-        <div id='nav'>
-        {% if login_user %}
+    <div id='nav'>
+    {% if login_user %}
         {% for target, text in [
-          ('/', "<i class='fa fa-pencil'></i>"),
-          ('/settings', "<i class='fa fa-cog'></i>"),
-          ('/diary/' + login_user.sid, "<i class='fa fa-bars'></i>"),
+            ('/', "<i class='fa fa-pencil'></i>"),
+            ('/diary/' + login_user.sid, "<i class='fa fa-bars'></i>"),
+            ('/settings', "<i class='fa fa-cog'></i>"),
         ]%}
             {% if request.path == target %}
             <a href='{{target}}' class='cur_page'>{{text | safe}}</a>
@@ -40,14 +33,18 @@
             {% endif %}
         {% endfor %}
 
-        <form action='/' method='POST' style='display: inline-block; margin-left: 10px'>
-            <input type='submit' name='action' value='logout' style='background: 0; border: 0; padding: 0; font-size: 12pt; cursor: pointer;' />
-        </form>
-        <!-- overly complicated logout form to prevent XSS -->
-        {% else %}
+
+        <div style='float: right'>
+            you are {{ login_user.name }}.
+            <!-- overly complicated logout form to prevent XSS -->
+            <form action='/' method='POST' style='display: inline-block; margin: 0 10px'>
+                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0; font-size: 12pt; cursor: pointer;' />
+            </form>
+        </div>
+    {% else %}
         {% for target, text in [
-          ('/', "login"),
-          ('/register', "register")
+            ('/', "login"),
+            ('/register', "register")
         ]%}
             {% if request.path == target %}
             <a href='{{target}}' class='cur_page'>{{text | safe}}</a>
@@ -55,8 +52,9 @@
             <a href='{{target}}'>{{text | safe}}</a>
             {% endif %}
         {% endfor %}
-        {% endif %}
-        </div>
+
+        <div style='float: right'>tsundiary desu.</div>
+    {% endif %}
     </div>
 </div>
 <div id="content">
@@ -64,7 +62,7 @@
 {% endblock %}
 </div>
 <div id="foot">
-with ♥ love
+    <i class='fa fa-heart'></i>
 </div>
 </div>
 </body>

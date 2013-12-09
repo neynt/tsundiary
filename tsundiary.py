@@ -411,9 +411,9 @@ def edit_settings_action():
         g.user.secret_days = int(setting_value)
         print(g.user.secret_days)
     else:
-        return 'Nope.'
+        return 'error'
     db.session.commit()
-    return 'Saved.'
+    return 'saved'
 
 # Index/home!
 @app.route('/', methods=['GET', 'POST'])
