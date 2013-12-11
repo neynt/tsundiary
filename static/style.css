@@ -151,6 +151,7 @@ div#wrap
   word-wrap: break-word;
   width: 100%;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   cursor: text;
 }
 
