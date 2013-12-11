@@ -33,12 +33,11 @@
             {% endif %}
         {% endfor %}
 
-
         <div style='float: right'>
             you are {{ login_user.name }}.
             <!-- overly complicated logout form to prevent XSS -->
-            <form action='/' method='POST' style='display: inline-block; margin: 0 10px'>
-                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0; font-size: 12pt; cursor: pointer;' />
+            <form action='/' method='POST' style='display: inline-block; margin: 0 0 0 5px'>
+                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0 5px; font-size: 12pt; cursor: pointer;' />
             </form>
         </div>
     {% else %}
