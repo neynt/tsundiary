@@ -48,6 +48,13 @@ a.selected_date
 {
   text-decoration: underline;
 }
+blockquote
+{
+  border-left: 4px solid #b3b3b3;
+  padding: 0 30px;
+  margin: 5px 0;
+  margin-left: -10px;
+}
 textarea
 {
   color: #000;
