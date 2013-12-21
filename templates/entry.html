@@ -1,0 +1,12 @@
+<div class='post'>
+{% if p.posted_date > hidden_day %}
+<div class='post_date'>
+  {{ p_posted_date | prettydate }} - hidden
+</div>
+{% else %}
+<div class='post_date'>
+  {{ p.posted_date | prettydate }}
+</div>
+<div class='post_body'>{{ p.content | my_markdown | safe }}</div>
+{% endif %}
+</div>

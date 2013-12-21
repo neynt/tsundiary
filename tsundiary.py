@@ -2,40 +2,42 @@
 import os
 import random
 from datetime import datetime, date, timedelta
+import calendar
 from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
 import uuid
 import hashlib
 from markdown import markdown
 import bleach
+from collections import defaultdict
 
-########################
-# Initialization vectors
+#################
+# Initialization
 
 # Lovable diary prompts!
-insults = [
-"moron", "idiot", "fool"
-]
+#insults = [
+#"moron", "idiot", "fool"
+#]
 
 # The ideal tsundere greeting is cold and hostile while betraying a
 # lingering sense of affection. Constantly search for it.
 prompts = [
 # The BELOVED cold shoulder
-#"... well, %s?",
-#"... hello, %s?",
+"... well, %s?",
+"... hello, %s?",
 ## Normal "'sup" prompts
-#"... did you manage to accomplish anything today, %s?",
+"... did you manage to accomplish anything today, %s?",
 #"... so, %s, what did you manage to accomplish today, if anything?",
 #"Hey %s - found any new ways to make a fool of yourself?",
-#"How was your day, %s? Not that I care or anything...",
+"How was your day, %s? Not that I care or anything...",
 #"How have you been wasting your time lately, %s?",
 #"What kind of stupid stuff were you up to today, %s?",
-#"What kind of trouble did you get in today, %s?",
+"What kind of trouble did you get in today, %s?",
 #"What did you do today, %s? As if that would impress me...",
 #"It's your privilege that I'm wasting my time listening to you, %s...",
-#"Don't get me wrong, %s, it's not like I'm worried about you.",
+"Don't get me wrong, %s, it's not like I'm worried about you.",
 #"If you think I'm gonna miss you, think again, %s.",
-#"I-it's not like I'm listening to you because I like you or anything, %s...", ## THIS RIGHT HERE
+"I-it's not like I'm listening to you because I like you or anything, %s...", ## THIS RIGHT HERE
 ## More specific prompts
 #"How did it go, %s? ... not that I'm expecting much!",
 #"I'll forgive you, but just this time, got it, %s?",
@@ -59,14 +61,15 @@ prompts = [
 #"You may not know this, but you have many admirers, %s!",
 #"You have a really nice smile, %s! Please smile more...",
 "Hi, %s!",
-"Tell me about your day, %s!",
+#"Tell me about your day, %s!",
 "What made you happy today, %s?",
 "What made you laugh today, %s?",
-"What did you enjoy the most today, %s?",
+#"What did you enjoy the most today, %s?",
 "How are you, %s?",
-"Feel free to let me know if something is bothering you, %s...",
+"How did your day go, %s?",
+#"Feel free to let me know if something is bothering you, %s...",
 #"I admire your optimism, %s!",
-#"I love listening to you, %s!",
+"I love listening to you, %s!",
 #"I'm so lucky to have you, %s!",
 #"I'm so happy I'm your friend, %s!",
 #"I hope you can find happiness, %s!",
@@ -74,7 +77,7 @@ prompts = [
 #"Keep on going, %s!",
 #"%s, m-may I have a hug?",
 #"%s, w-would you like a hug?",
-#u"%sのことが大好きです！(*/////∇/////*)",
+u"%sのことが大好きです！(*/////∇/////*)",
 ]
 
 # Set up Flask app
@@ -192,13 +195,19 @@ def datestamp(d):
 def pretty_date(d):
     return d.strftime("%A, %B %-d, %Y")
 
-@app.template_filter('markdown')
+@app.template_filter('my_markdown')
 def my_markdown(t):
     return bleach.clean(markdown(t, extensions=['nl2br']),
             ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
              'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
             {'img': ['src', 'alt', 'title'],
              'a': ['href']})
+
+@app.template_filter('render_entry')
+def render_entry(p, hidden_day=None):
+    if not hidden_day:
+        hidden_day = their_date()
+    return render_template('entry.html', p=p, hidden_day=hidden_day)
 
 def datestamp_today():
     return datestamp(their_date())
@@ -305,21 +314,26 @@ def attempt_login():
     return "I don't recognize you, sorry."
 
 # Logout
+@app.route('/logout')
 def logout():
-    session.pop('username', None)
+    if request.args.get('user') == g.user.sid:
+        session.pop('username', None)
     return redirect('/')
 
 # A certain selection of dates from a user's diary.
-@app.route('/diary/<author_sid>/<dates>')
-def diary(author_sid, dates):
+@app.route('/~<author_sid>/<year>/<month>')
+def diary(author_sid, year, month):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        if dates == 'all':
-            posts = author.posts.order_by(Post.posted_date.desc()).all()
-            template = 'dump.html'
-        else:
-            posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days+1).all()
-            template = 'user.html'
+        yyyy, mm = int(year), int(month)
+        min_date = date(yyyy, mm, 1)
+        max_date = date(yyyy, mm, calendar.monthrange(yyyy, mm)[1])
+        posts = author.posts\
+            .filter(Post.user == author)\
+            .filter(Post.posted_date >= min_date)\
+            .filter(Post.posted_date <= max_date)\
+            .order_by(Post.posted_date.asc())\
+            .all()
 
         # Calculate date from which things should be hidden
         if g.user and author_sid == g.user.sid:
@@ -329,19 +343,56 @@ def diary(author_sid, dates):
         else:
             hidden_day = their_date() - timedelta(days = author.secret_days)
 
+        dates = defaultdict(set)
+        written_dates = db.session.query(Post.posted_date).filter(Post.user == author).all()
+        for r in written_dates:
+            d = r[0]
+            dates[d.year].add(d.month)
+
         return my_render_template(
-                template,
+                "dump.html",
                 author = author,
                 posts = posts,
                 hidden_day = hidden_day,
+                dates = dates,
+                month_name = calendar.month_name,
+                min_date = min_date
                 )
     else:
         return page_not_found()
 
 # Last secret_days + 1 entries of a user's diary.
-@app.route('/diary/<author_sid>')
+@app.route('/~<author_sid>')
 def diary_preview(author_sid):
-    return diary(author_sid, 'preview')
+    # Dict of year: [list months]
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days+1).all()
+
+        if g.user and author_sid == g.user.sid:
+            hidden_day = their_date()
+        elif author.publicity == 0:
+            hidden_day = author.join_time.date() - timedelta(days = 1)
+        else:
+            hidden_day = their_date() - timedelta(days = author.secret_days)
+
+        dates = defaultdict(set)
+
+        written_dates = db.session.query(Post.posted_date).filter(Post.user == author).all()
+        for r in written_dates:
+            d = r[0]
+            dates[d.year].add(d.month)
+
+        return my_render_template(
+                "user.html",
+                author = author,
+                posts = posts,
+                hidden_day = hidden_day,
+                dates = dates,
+                month_name = calendar.month_name
+                )
+    else:
+        return page_not_found()
 
 # User registration form.
 @app.route('/register')
@@ -358,7 +409,7 @@ def register_action():
 
     # check if we already have too many users
     if User.query.count() > 100 and invite_key != 'koi dorobou':
-        return "Actually, we're out of spots for registrations. Sorry!"
+        return "Actually, we're out of spots for registrations. Sorry! Please try to get an invite key."
     elif len(username) < 3:
         return 'Please enter a username at least 3 characters long.'
     elif len(password) < 3:

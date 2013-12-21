@@ -33,6 +33,7 @@ p
 {
   padding: 5px 0;
 }
+/* Links, in general */
 a
 {
   color: #555;
@@ -42,9 +43,10 @@ a:hover
 {
   text-decoration: underline;
 }
-.faded
+/* Selected dates on userpage */
+a.selected_date
 {
-  opacity: 0.4;
+  text-decoration: underline;
 }
 textarea
 {
@@ -56,7 +58,8 @@ textarea
 
 .status_area
 {
-  margin: 0 10px 10px;
+  color: #999;
+  margin: 10px 10px 10px;
 }
 
 div#top
@@ -78,10 +81,9 @@ div#nav
 {
   display: block;
   max-width: 500px;
-  margin: 0 auto -2px;
+  margin: 0 auto;
   background-color: #d2d2d2;
   padding: 10px;
-  border-bottom: 2px solid #b3b3b3;
 }
 div#nav a, div#nav input[type=submit]
 {
@@ -90,6 +92,11 @@ div#nav a, div#nav input[type=submit]
   padding: 8px 10px 10px;
   border: 2px solid #b3b3b3;
   border-radius: 5px 5px 0 0;
+}
+div#nav a.action_link
+{
+  border: 0;
+  background: 0;
 }
 div#nav a.cur_page
 {
@@ -123,6 +130,11 @@ h2
   font-size: 17pt;
   font-weight: normal;
 }
+h3
+{
+  font-size: 14pt;
+  font-weight: normal;
+}
 
 /* Wrapper for main content */
 div#wrap
@@ -145,8 +157,7 @@ div#wrap
 #edit_area
 {
   border: 0;
-  border-top: 1px solid #c2c2c2;
-  padding: 10px;
+  padding: 0 10px 0;
   background-color: #fff;
   word-wrap: break-word;
   width: 100%;
@@ -165,18 +176,20 @@ div#wrap
 .post_date
 {
   display: block;
-  margin-top: 10px;
+  margin: 10px 0;
   padding: 0 0 10px;
   font-size: 16px;
   text-align: center;
+  border-bottom: 1px solid #c2c2c2;
+  color: #999;
 }
 
 /* Post body */
 .post_body
 {
-  padding: 5px 10px;
+  margin: -5px 0 5px;
+  padding: 0px 10px 0px;
   word-wrap: break-word;
-  border-top: 1px solid #c2c2c2;
 }
 
 /* */
@@ -190,12 +203,12 @@ img
 /* post body crap */
 ul
 {
-  margin: 5px 0;
+  margin: 15px 0;
   list-style-type: square;
 }
 li
 {
-  margin: 5px 0;
+  margin: 0 0 5px;
   margin-left: 20px;
 }
 

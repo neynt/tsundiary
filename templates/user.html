@@ -2,29 +2,37 @@
 
 {% block content %}
 
+<h1>{{ author.name }} の tsundiary</h1>
 <p>
-{% if login_name and author.name == login_name %}You
-{% else %}{{ author.name }}
+{% if login_name and author.name == login_name %}Your
+{% else %}{{ author.name }}'s
 {% endif %}
- has written {{ author.num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
+tsundiary has {{ author.num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
 </p>
 
-<p><a href='/diary/{{ author.sid }}/all'>View them all</a></p>
-
-{% for p in posts %}
-<div class='post'>
-{% if p.posted_date > hidden_day %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }} - hidden
-</div>
-</div>
+{% for year, months in dates.items() %}
+<h2>{{ year }}: 
+{% for month in months %}
+{% set target = '/~%s/%d/%d' % (author.sid, year, month) %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target | safe }}'>{{ month_name[month][:3] }}</a>
 {% else %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }}
-</div>
-<div class='post_body'>{{ p.content | markdown | safe }}</div>
-</div>
+<a href='{{ target | safe }}'>{{ month_name[month][:3] }}</a>
 {% endif %}
 {% endfor %}
+</h2>
+{% endfor %}
+
+{% block header %}
+<p>Most recent posts:</p>
+{% endblock %}
+
+{% block posts %}
+ 
+{% for p in posts %}
+{{ p | render_entry | safe }}
+{% endfor %}
+
+{% endblock %}
 
 {% endblock %}

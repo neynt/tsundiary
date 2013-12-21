@@ -1,25 +1,4 @@
-{% extends "base.html" %}
+{% extends "user.html" %}
 
-{% block content %}
-
-<h1>{{ author.name }}</h1>
-<h2>entries: {{ author.num_entries }}</h2>
-<h2>combo: {{ author.combo }}</h2>
-
-{% for p in posts %}
-<div class='post'>
-{% if p.posted_date > hidden_day %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }} - hidden
-</div>
-</div>
-{% else %}
-<div class='post_date faded'>
-    {{ p.posted_date | prettydate }}
-</div>
-<div class='post_body'>{{ p.content | markdown | safe }}</div>
-</div>
-{% endif %}
-{% endfor %}
-
+{% block header %}
 {% endblock %}

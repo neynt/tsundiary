@@ -21,28 +21,30 @@
 <div id="top">
     <div id='nav'>
     {% if login_user %}
-        {% for target, text in [
-            ('/', "<i class='fa fa-pencil'></i>"),
-            ('/diary/' + login_user.sid, "<i class='fa fa-bars'></i>"),
-            ('/settings', "<i class='fa fa-cog'></i>"),
+        {% for target, text, title in [
+            ('/', "<i class='fa fa-pencil'></i>", "Write"),
+            ('/~' + login_user.sid, "<i class='fa fa-bars'></i>", "Archive"),
+            ('/settings', "<i class='fa fa-cog'></i>", "Options"),
         ]%}
-            {% if request.path == target %}
-            <a href='{{target}}' class='cur_page'>{{text | safe}}</a>
+            {% if request.path == target or request.path.startswith(target + '/') %}
+            <a href='{{target}}' class='cur_page' title='{{title}}'>{{text | safe}}</a>
             {% else %}
-            <a href='{{target}}'>{{text | safe}}</a>
+            <a href='{{target}}' title='{{title}}'>{{text | safe}}</a>
             {% endif %}
         {% endfor %}
+        <a href='/logout?user={{ login_user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
 
         <div style='float: right'>
-            you are {{ login_user.name }}.
-            <!-- overly complicated logout form to prevent XSS -->
+            hi, {{ login_user.name }}!
+            <!-- overly complicated logout form to prevent XSS
             <form action='/' method='POST' style='display: inline-block; margin: 0 0 0 5px'>
-                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0 5px; font-size: 12pt; cursor: pointer;' />
-            </form>
+                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0 5px; font-size: 12pt; cursor: pointer;' ></input>
+            </form> -->
         </div>
     {% else %}
         {% for target, text in [
             ('/', "login"),
+            ('/h-hello...', "about"),
             ('/register', "register")
         ]%}
             {% if request.path == target %}
