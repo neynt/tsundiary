@@ -374,7 +374,7 @@ def diary_preview(author_sid):
         if g.user and author_sid == g.user.sid:
             hidden_day = their_date()
         elif author.publicity == 0:
-            hidden_day = author.join_time.date() - timedelta(days = 1)
+            hidden_day = author.join_time.date() - timedelta(days = 2)
         else:
             hidden_day = their_date() - timedelta(days = author.secret_days)
 
