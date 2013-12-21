@@ -191,6 +191,11 @@ div#wrap
   border-bottom: 1px solid #c2c2c2;
   color: #999;
 }
+.hidden
+{
+  border: 0;
+  padding: 0;
+}
 
 /* Post body */
 .post_body

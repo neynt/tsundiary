@@ -209,6 +209,8 @@ def render_entry(p, hidden_day=None):
         hidden_day = their_date()
     return render_template('entry.html', p=p, hidden_day=hidden_day)
 
+app.jinja_env.globals.update(render_entry=render_entry)
+
 def datestamp_today():
     return datestamp(their_date())
 

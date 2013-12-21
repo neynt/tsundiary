@@ -30,7 +30,7 @@ tsundiary has {{ author.num_entries }} entries{% if author.combo > 1 %}, includi
 {% block posts %}
  
 {% for p in posts %}
-{{ p | render_entry | safe }}
+{{ render_entry(p, hidden_day) | safe }}
 {% endfor %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 <div class='post'>
 {% if p.posted_date > hidden_day %}
-<div class='post_date'>
-  {{ p_posted_date | prettydate }} - hidden
+<div class='post_date hidden'>
+  {{ p.posted_date | prettydate }} - hidden
 </div>
 {% else %}
 <div class='post_date'>
