@@ -1,12 +1,13 @@
 # encoding=utf-8
 import os
 import random
+import uuid
+import hashlib
+from urlparse import urlparse, urlunparse
 from datetime import datetime, date, timedelta
 import calendar
 from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
-import uuid
-import hashlib
 from markdown import markdown
 import bleach
 from collections import defaultdict
@@ -222,6 +223,18 @@ def my_render_template(template_name, **kwargs):
 
 @app.before_request
 def before_request():
+    # Redirect non-www.com requests to www.com
+    urlparts = urlparse(request.url)
+    if urlparts.netloc in {
+        'tsundiary.tk',
+        'www.tsundiary.tk',
+        'tsundiary.com'
+    }:
+        urlparts_list = list(urlparts)
+        urlparts_list[1] = 'www.tsundiary.com'
+        return redirect(urlunparse(urlparts_list), code=301)
+
+    # Load user information
     g.username = session.get('username')
     g.user = User.query.filter_by(name=g.username).first()
     g.timezone = int(request.cookies.get('timezone') or '0')
@@ -322,6 +335,32 @@ def logout():
         session.pop('username', None)
     return redirect('/')
 
+def render_diary(author, posts):
+    # Calculate date from which things should be hidden
+    if g.user and author.sid == g.user.sid:
+        hidden_day = their_date()
+    elif author.publicity == 0:
+        hidden_day = author.join_time.date() - timedelta(days = 2)
+    else:
+        hidden_day = their_date() - timedelta(days = author.secret_days)
+
+    # Generate months/years that the user actually posted something
+    # e.g. 2014: Jan Feb Mar May
+    dates = defaultdict(set)
+    written_dates = db.session.query(Post.posted_date).filter(Post.user == author).all()
+    for r in written_dates:
+        d = r[0]
+        dates[d.year].add(d.month)
+
+    return my_render_template(
+            "user.html",
+            author = author,
+            posts = posts,
+            hidden_day = hidden_day,
+            dates = dates,
+            month_name = calendar.month_name,
+            )
+
 # A certain selection of dates from a user's diary.
 @app.route('/~<author_sid>/<year>/<month>')
 def diary(author_sid, year, month):
@@ -336,30 +375,7 @@ def diary(author_sid, year, month):
             .filter(Post.posted_date <= max_date)\
             .order_by(Post.posted_date.asc())\
             .all()
-
-        # Calculate date from which things should be hidden
-        if g.user and author_sid == g.user.sid:
-            hidden_day = their_date()
-        elif author.publicity == 0:
-            hidden_day = author.join_time.date() - timedelta(days = 1)
-        else:
-            hidden_day = their_date() - timedelta(days = author.secret_days)
-
-        dates = defaultdict(set)
-        written_dates = db.session.query(Post.posted_date).filter(Post.user == author).all()
-        for r in written_dates:
-            d = r[0]
-            dates[d.year].add(d.month)
-
-        return my_render_template(
-                "dump.html",
-                author = author,
-                posts = posts,
-                hidden_day = hidden_day,
-                dates = dates,
-                month_name = calendar.month_name,
-                min_date = min_date
-                )
+        return render_diary(author, posts)
     else:
         return page_not_found()
 
@@ -370,29 +386,7 @@ def diary_preview(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days+1).all()
-
-        if g.user and author_sid == g.user.sid:
-            hidden_day = their_date()
-        elif author.publicity == 0:
-            hidden_day = author.join_time.date() - timedelta(days = 2)
-        else:
-            hidden_day = their_date() - timedelta(days = author.secret_days)
-
-        dates = defaultdict(set)
-
-        written_dates = db.session.query(Post.posted_date).filter(Post.user == author).all()
-        for r in written_dates:
-            d = r[0]
-            dates[d.year].add(d.month)
-
-        return my_render_template(
-                "user.html",
-                author = author,
-                posts = posts,
-                hidden_day = hidden_day,
-                dates = dates,
-                month_name = calendar.month_name
-                )
+        return render_diary(author, posts)
     else:
         return page_not_found()
 
