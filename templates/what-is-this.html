@@ -2,9 +2,94 @@
 
 {% block content %}
 
-<p>tsundiary is a place to write.</p>
-<p>You get a new page every day. Old pages are shown to you at certain intervals.</p>
-<p>... n-not because I like you or anything, <em>baka</em>.</p>
+<h1>ツンダイアリーです</h1>
+<p>tsundiary is a place to write. You get a new page every day at midnight.</p>
+
+<p>I'll also show you old pages at certain intervals, like a week, a month, three months, and a year. So it's like writing a letter to your future self &mdash; and getting several letters from your past selves &mdash; every day.</p>
+<p>... b-but I'm n-not offering this web service because I l-like you or anything, バカ！</p>
+
+<h1>Example</h1>
+<div class='cloud'>
+  <div class="post_date">
+    Today
+  </div>
+  <textarea id="edit_area" placeholder="... hi! How are you today?"></textarea>
+  <div class='status_area'>
+    <span id='char_count'>&nbsp;</span>
+    <span id='save_status' style='float:right'><a href='/markdown'>M&darr;</a></span>
+  </div>
+</div>
+
+<div class='post'>
+  <div class='post_date'>
+    yesterday
+  </div>
+  <div class='post_body'>
+    <p>I got the job! I get to meet my new coworkers tomorrow. I wonder what they'll be like...</p>
+  </div>
+</div>
+<div class='post'>
+  <div class='post_date'>
+    <span title='yup'>one week ago</span>
+  </div>
+  <div class='post_body'>
+    <p>Drank a delicious cup of green tea with Takeshi. 日本語を勉強してるよ！</p>
+  </div>
+</div>
+<div class='post'>
+  <div class='post_date'>
+    30 days ago
+  </div>
+  <div class='post_body'>
+    <p>Finally finished Rin's route on <a href='http://www.katawa-shoujo.com/'>Katawa Shoujo</a>. ;_; The feels...</p>
+  </div>
+</div>
+
+<script>
+
+var content = "ATASHI WA ... KIMI GA SUKI NO DE ..."
+var timer = null;
+
+var BYTE_LIMIT = 1000; 
+
+function prime_update() {
+    $('#save_status').html('writing...')
+    timer = setTimeout(function() {
+        $('#save_status').html('please log in to save');
+    }, 500);
+}
+
+function update_char_count() {
+    count = unescape(encodeURIComponent($('#edit_area').val())).length;
+    $('#char_count').html((BYTE_LIMIT - count));
+
+    // Scale textarea
+    var textarea = $('#edit_area');
+    textarea.css("height", "auto");
+    textarea.css("height", Math.max(textarea[0].scrollHeight+1, 80) + "px");
+
+    return count;
+}
+
+function content_changed() {
+    var count = update_char_count();
+    clearTimeout(timer);
+
+    if (count <= BYTE_LIMIT) {
+        // Just right.
+        prime_update();
+    }
+    else {
+        // Too long.
+        $('#char_count').addClass('error');
+        $('#save_status').html('too long');
+    }
+};
+
+$('#edit_area').bind('input propertychange', content_changed);
+$( document ).load(update_char_count());
+
+</script>
 
 {% endblock %}
 
