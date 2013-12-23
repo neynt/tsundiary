@@ -6,7 +6,7 @@
     <div class='post_date'>Today</div>
     <textarea id='edit_area' placeholder="{{ prompt }}" >{% if current_content %}{{ current_content }}{% endif %}</textarea>
     <div class='status_area'>
-        <span id='char_count'></span>
+        <span id='char_count'>&nbsp;</span>
         <span id='save_status' style='float:right'><a href='/markdown'>M&darr;</a></span>
     </div>
 </div>
@@ -15,7 +15,7 @@
     {% for delta_name, p in old_posts %}
     <div class='post'>
     <div class='post_date'>
-        {{ p.posted_date | prettydate }} ({{ delta_name }})
+      <span title='{{ p.posted_date | prettydate }}'>{{ delta_name }}</span>
     </div>
     <div class='post_body'>{{ p.content | my_markdown | safe }}</div>
     </div>
