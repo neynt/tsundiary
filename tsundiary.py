@@ -86,7 +86,7 @@ app = Flask(__name__)
 # Database URL, or sqlite in-memory database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite://'
 # Secret key (for sessions/cookies)
-app.secret_key = os.environ.get('SECRET_KEY') or 'yolo'
+app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
 static_file_dir = os.path.dirname(os.path.realpath(__file__)) + '/static'
 
 db = SQLAlchemy(app)
