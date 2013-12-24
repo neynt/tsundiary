@@ -83,8 +83,10 @@ u"%sのことが大好きです！(*/////∇/////*)",
 
 # Set up Flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.secret_key = '\xfbA6O\x1c\xa5\xfe\xb0(\x05\xa4 \xb8\x89)J2\xcb\xe4\xa7r"\x1b\x0e'
+# Database URL, or sqlite in-memory database
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite://'
+# Secret key (for sessions/cookies)
+app.secret_key = os.environ.get('SECRET_KEY') or 'yolo'
 static_file_dir = os.path.dirname(os.path.realpath(__file__)) + '/static'
 
 db = SQLAlchemy(app)
@@ -463,6 +465,13 @@ def edit_settings_action():
     db.session.commit()
     return 'saved'
 
+# Google webmaster verification
+google = os.environ.get('GOOGLE_WEBMASTER')
+if google:
+    @app.route('/' + google)
+    def submit_to_botnet():
+        return "google-site-verification: " + google
+
 # Index/home!
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -497,7 +506,6 @@ def index():
                 current_content = current_content)
     else:
         return render_template('front.html')
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
