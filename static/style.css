@@ -55,6 +55,13 @@ blockquote
   margin: 5px 0;
   margin-left: -10px;
 }
+cite
+{
+  display: block;
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
 textarea
 {
   color: #000;
