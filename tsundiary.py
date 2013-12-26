@@ -333,7 +333,7 @@ def attempt_login():
 # Logout
 @app.route('/logout')
 def logout():
-    if request.args.get('user') == g.user.sid:
+    if g.user and request.args.get('user') == g.user.sid:
         session.pop('username', None)
     return redirect('/')
 
@@ -431,6 +431,7 @@ def userlist():
     return my_render_template('userlist.html', all_users=all_users)
 
 @app.route('/h-hello...')
+@app.route('/about')
 def who_am_i():
     return my_render_template('what-is-this.html')
 
