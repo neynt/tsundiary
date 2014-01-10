@@ -204,7 +204,7 @@ def my_markdown(t):
             ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
              'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'],
             {'img': ['src', 'alt', 'title'],
-             'a': ['href']})
+             'a': ['href', 'title']})
 
 @app.template_filter('render_entry')
 def render_entry(p, hidden_day=None):
