@@ -372,12 +372,24 @@ def diary(author_sid, year, month):
         min_date = date(yyyy, mm, 1)
         max_date = date(yyyy, mm, calendar.monthrange(yyyy, mm)[1])
         posts = author.posts\
-            .filter(Post.user == author)\
             .filter(Post.posted_date >= min_date)\
             .filter(Post.posted_date <= max_date)\
             .order_by(Post.posted_date.asc())\
             .all()
         return render_diary(author, posts)
+    else:
+        return page_not_found()
+
+# Custom commands
+@app.route('/~<author_sid>/<command>')
+def diary(author_sid, year, month):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        if command == 'all':
+            posts = author.posts.order_by(Post.posted_date.desc()).all()
+            return render_diary(author, posts)
+        else:
+            return page_not_found()
     else:
         return page_not_found()
 
