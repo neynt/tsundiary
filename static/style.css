@@ -75,6 +75,10 @@ textarea
   color: #999;
   margin: 10px 10px 10px;
 }
+.error
+{
+  color: #ff491e;
+}
 
 div#top
 {
