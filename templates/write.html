@@ -68,6 +68,7 @@ function content_changed() {
 
     if (count <= BYTE_LIMIT) {
         // Just right.
+        $('#char_count').removeClass('error');
         prime_update();
     }
     else {
