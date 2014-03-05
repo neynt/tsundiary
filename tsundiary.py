@@ -382,7 +382,7 @@ def diary(author_sid, year, month):
 
 # Custom commands
 @app.route('/~<author_sid>/<command>')
-def diary_special(author_sid, year, month):
+def diary_special(author_sid, command):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         if command == 'all':
