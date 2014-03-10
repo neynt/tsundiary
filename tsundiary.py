@@ -202,7 +202,8 @@ def pretty_date(d):
 def my_markdown(t):
     return bleach.clean(markdown(t, extensions=['nl2br']),
             ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
-             'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'],
+             'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote',
+             'pre', 'code'],
             {'img': ['src', 'alt', 'title'],
              'a': ['href', 'title']})
 
@@ -399,7 +400,8 @@ def diary_preview(author_sid):
     # Dict of year: [list months]
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        posts = author.posts.order_by(Post.posted_date.desc()).limit(author.secret_days+1).all()
+        posts = (author.posts.order_by(Post.posted_date.desc())
+                 .limit(max(3, author.secret_days+2)).all())
         return render_diary(author, posts)
     else:
         return page_not_found()
