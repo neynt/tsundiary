@@ -8,6 +8,9 @@
     <!-- Include the excellent Dosis font. -->
     <link href='//fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>
     <link href='/static/style.css' rel='stylesheet' />
+    {% if g.theme %}
+    <link href='/static/themes/{{g.theme}}.css' rel='stylesheet' />
+    {% endif %}
     <link href='/favicon.ico' rel='icon' type='image/x-icon' />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 

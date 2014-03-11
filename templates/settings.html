@@ -3,25 +3,35 @@
 {% block content %}
 
 <div style="margin: 0 auto;">
-        <h1 id='status'>Settings.</h1>
-        <h2>
-            Totally private
-        <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
-        </h2>
-        <p>
-        You will not appear on the userlist and only you will be able to see what you write. Even the site's creator will respect this option. Trust me. ;)
-        </p>
-        <h2>
-            Days of secrecy
-        <select id='option_secret_days'>
-            {% for i in [0, 1, 2, 3, 4, 5, 7, 14, 30] %}
-            <option value='{{ i }}' {% if i == login_user.secret_days %}selected{% endif %} >{{ i }}</option>
-            {% endfor %}
-        </select>
-        </h2>
-        <p>
-        If you choose not to go totally private, then your entries will be hidden for this many days after they are written.
-        </p>
+  <h1 id='status'>Settings.</h1>
+  <h2>Totally private</h2>
+  <p>
+  <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
+  </p>
+  <p>
+  You will not appear on the userlist and only you will be able to see what you write. Even the site's creator will respect this option. Trust me. ;)
+  </p>
+
+  <h2>Days of secrecy</h2>
+  <p>
+  <select id='option_secret_days'>
+    {% for i in [0, 1, 2, 3, 4, 5, 7, 14, 30] %}
+    <option value='{{ i }}' {% if i == login_user.secret_days %}selected{% endif %} >{{ i }}</option>
+    {% endfor %}
+  </select>
+  </p>
+  <p>
+  If you choose not to go totally private, then your entries will be hidden for this many days after they are written.
+  </p>
+
+  <h2>Theme</h2>
+  <p>
+  <select id='option_theme'>
+    {% for i in ['Default', 'Classic', 'Misato Tachibana', 'Minimal'] %}
+    <option value='{{ i }}' {% if i == login_user.theme %}selected{% endif %} >{{ i }}</option>
+    {% endfor %}
+  </select>
+  </p>
 </div>
 
 <script>
@@ -30,6 +40,9 @@ function save_setting(setting_name, setting_value) {
     $.post('change_setting', { setting_name: setting_name, setting_value: setting_value },
         function(data) {
             $('#status').html('Settings (' + data + ')');
+            if (data == 'refresh to see theme') {
+              location.reload();
+            }
         }
     )
     $('#status').html('Settings (saving...)');
@@ -39,7 +52,10 @@ $('#option_private').click(function(){
     save_setting('private', $('#option_private').is(':checked') ? 1 : 0)
 });
 $('#option_secret_days').click(function(){
-    save_setting('secret_days', $('#option_secret_days').find(":selected").val())
+    save_setting('secret_days', $('#option_secret_days').find(':selected').val())
+});
+$('#option_theme').click(function(){
+    save_setting('theme', $('#option_theme').find(':selected').val())
 });
 
 </script>

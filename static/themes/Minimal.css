@@ -1,0 +1,38 @@
+body
+{
+  color: #000;
+  background-color: #fff;
+}
+div#top,
+div#foot
+{
+  background-color: transparent;
+}
+
+div#top
+{
+  border-bottom: 0;
+}
+
+div#nav a
+{
+  color: #000;
+  background: transparent;
+  border: 0;
+}
+div#nav a.cur_page
+{
+  border-bottom-color: #000;
+}
+
+.cloud, .post
+{
+  border-width: 1px;
+  border-color: rgba(64, 64, 64, 0.5);
+}
+
+div#foot
+{
+  border: 0;
+  color: #000;
+}

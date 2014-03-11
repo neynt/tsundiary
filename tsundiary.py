@@ -109,6 +109,7 @@ class User(db.Model):
     combo = db.Column(db.Integer, index=True)
     secret_days = db.Column(db.Integer)
     publicity = db.Column(db.Integer)
+    theme = db.Column(db.String(24))
 
     def verify_password(self, password):
         salt = self.passhash[:32].encode('utf-8')
@@ -123,9 +124,10 @@ class User(db.Model):
         self.join_time = datetime.now()
         self.num_entries = 0
         self.combo = 0
-        self.secret_days = 7
+        self.secret_days = 0
         # publicity  0: completely hidden  1: anyone with the link  2. link in user list
-        self.publicity = 0
+        self.publicity = 2
+        self.theme = 'default'
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -241,6 +243,10 @@ def before_request():
     g.username = session.get('username')
     g.user = User.query.filter_by(name=g.username).first()
     g.timezone = int(request.cookies.get('timezone') or '0')
+    if g.user:
+        g.theme = g.user.theme
+    else:
+        g.theme = None
 
 #############
 # App routes
@@ -471,14 +477,19 @@ def edit_settings_action():
 
     if setting_name == 'private':
         g.user.publicity = 2 - int(setting_value) * 2
+        db.session.commit()
+        return 'saved privacy'
     elif setting_name == 'secret_days':
-        print(setting_value)
         g.user.secret_days = int(setting_value)
-        print(g.user.secret_days)
+        db.session.commit()
+        return 'your entries will now be hidden for %d days' % g.user.secret_days
+    elif setting_name == 'theme':
+        g.user.theme = setting_value
+        db.session.commit()
+        return 'refresh to see theme'
     else:
         return 'error'
-    db.session.commit()
-    return 'saved'
+    return 'tell Jim he messed up (error code: 69)'
 
 # Google webmaster verification
 google = os.environ.get('GOOGLE_WEBMASTER')
