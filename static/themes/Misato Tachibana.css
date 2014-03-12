@@ -7,7 +7,7 @@ body
 div#top
 {
   background-color: #DB9B8F;
-  border: 0;
+  border-color: #F5EACA;
 }
 
 div#nav a
@@ -34,7 +34,7 @@ div#nav a.cur_page
 
 div#foot
 {
-  border-top: 16px dotted #E1A49F;
+  border-top: 16px dashed #E1A49F;
   background-color: #DA7072;
   color: #FAE9CD;
 }

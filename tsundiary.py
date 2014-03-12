@@ -478,18 +478,18 @@ def edit_settings_action():
     if setting_name == 'private':
         g.user.publicity = 2 - int(setting_value) * 2
         db.session.commit()
-        return 'saved privacy'
+        return 'saved!'
     elif setting_name == 'secret_days':
         g.user.secret_days = int(setting_value)
         db.session.commit()
-        return 'your entries will now be hidden for %d days' % g.user.secret_days
+        return 'saved!'
     elif setting_name == 'theme':
         g.user.theme = setting_value
         db.session.commit()
         return 'refresh to see theme'
     else:
         return 'error'
-    return 'tell Jim he messed up (error code: 69)'
+    return 'Jim messed up'
 
 # Google webmaster verification
 google = os.environ.get('GOOGLE_WEBMASTER')

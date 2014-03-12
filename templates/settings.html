@@ -49,13 +49,13 @@ function save_setting(setting_name, setting_value) {
 }
 
 $('#option_private').click(function(){
-    save_setting('private', $('#option_private').is(':checked') ? 1 : 0)
+  save_setting('private', $('#option_private').is(':checked') ? 1 : 0);
 });
-$('#option_secret_days').click(function(){
-    save_setting('secret_days', $('#option_secret_days').find(':selected').val())
+$('#option_secret_days').on('change', function (e) {
+  save_setting('secret_days', $('#option_secret_days').val());
 });
-$('#option_theme').click(function(){
-    save_setting('theme', $('#option_theme').find(':selected').val())
+$('#option_theme').on('change', function (e) {
+  save_setting('theme', $('#option_theme').val());
 });
 
 </script>
