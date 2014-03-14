@@ -344,7 +344,7 @@ def logout():
         session.pop('username', None)
     return redirect('/')
 
-def render_diary(author, posts):
+def render_diary(author, posts, title="Recent entries"):
     # Calculate date from which things should be hidden
     if g.user and author.sid == g.user.sid:
         hidden_day = their_date()
@@ -368,6 +368,7 @@ def render_diary(author, posts):
             hidden_day = hidden_day,
             dates = dates,
             month_name = calendar.month_name,
+            title = title
             )
 
 # A certain selection of dates from a user's diary.
@@ -383,7 +384,7 @@ def diary(author_sid, year, month):
             .filter(Post.posted_date <= max_date)\
             .order_by(Post.posted_date.asc())\
             .all()
-        return render_diary(author, posts)
+        return render_diary(author, posts, min_date.strftime('%B %Y'))
     else:
         return page_not_found()
 
@@ -394,7 +395,7 @@ def diary_special(author_sid, command):
     if author:
         if command == 'all':
             posts = author.posts.order_by(Post.posted_date.desc()).all()
-            return render_diary(author, posts)
+            return render_diary(author, posts, "all posts")
         else:
             return page_not_found()
     else:

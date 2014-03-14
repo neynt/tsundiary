@@ -39,16 +39,10 @@
 
         <div style='float: right'>
             hi, {{ login_user.name }}!
-            <!-- overly complicated logout form to prevent XSS
-            <form action='/' method='POST' style='display: inline-block; margin: 0 0 0 5px'>
-                <input type='submit' name='action' value='logout' style='text-decoration: underline; background: 0; border: 0; padding: 0 5px; font-size: 12pt; cursor: pointer;' ></input>
-            </form> -->
         </div>
     {% else %}
         {% for target, text in [
-            ('/', "login"),
-            ('/h-hello...', "what is this?"),
-            ('/register', "register")
+            ('/', "tsundiary"),
         ]%}
             {% if request.path == target %}
             <a href='{{target}}' class='cur_page'>{{text | safe}}</a>
@@ -57,7 +51,7 @@
             {% endif %}
         {% endfor %}
 
-        <div style='float: right'>tsundiary desu.</div>
+        <div style='float: right'>(a diary for tsunderes)</div>
     {% endif %}
     </div>
 </div>

@@ -2,14 +2,15 @@
 
 {% block content %}
 
-<h1>{{ author.name }} の tsundiary</h1>
-<p>
-{% if login_name and author.name == login_name %}Your
-{% else %}{{ author.name }}'s
-{% endif %}
-tsundiary has {{ author.num_entries }} entries{% if author.combo > 1 %}, including one every day for the past {{ author.combo }} days{% endif %}.
-</p>
+<h1>{{ author.name }}</h1>
 
+<span class='stat'>
+<i class="fa fa-edit" title='Number of entries'></i> {{ author.num_entries }} days of entries
+</span><br />
+<span class='stat'>
+<i class="fa fa-star" title='Combo'></i> {{ author.combo }} days combo
+</span>
+<h1>Archive</h1>
 {% for year, months in dates.items() %}
 <h2>{{ year }}: 
 {% for month in months %}
@@ -24,15 +25,17 @@ tsundiary has {{ author.num_entries }} entries{% if author.combo > 1 %}, includi
 {% endfor %}
 
 {% block header %}
-<p>Most recent posts:</p>
+{% if title %}
+<h1>{{ title }}</h1>
+{% else %}
+<h1>Most recent posts</h1>
+{% endif %}
 {% endblock %}
 
 {% block posts %}
- 
 {% for p in posts %}
 {{ render_entry(p, hidden_day) | safe }}
 {% endfor %}
-
 {% endblock %}
 
 {% endblock %}
