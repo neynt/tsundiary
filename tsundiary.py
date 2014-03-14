@@ -395,7 +395,7 @@ def diary_special(author_sid, command):
     if author:
         if command == 'all':
             posts = author.posts.order_by(Post.posted_date.desc()).all()
-            return render_diary(author, posts, "all posts")
+            return render_diary(author, posts, "All entries")
         else:
             return page_not_found()
     else:

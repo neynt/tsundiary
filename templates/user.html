@@ -4,15 +4,9 @@
 
 <h1>{{ author.name }}</h1>
 
-<span class='stat'>
-<i class="fa fa-edit" title='Number of entries'></i> {{ author.num_entries }} days of entries
-</span><br />
-<span class='stat'>
-<i class="fa fa-star" title='Combo'></i> {{ author.combo }} days combo
-</span>
-<h1>Archive</h1>
+<div style='float:right; text-align: right; width: 60%'>
 {% for year, months in dates.items() %}
-<h2>{{ year }}: 
+{{ year }}: 
 {% for month in months %}
 {% set target = '/~%s/%d/%d' % (author.sid, year, month) %}
 {% if request.path == target %}
@@ -21,15 +15,33 @@
 <a href='{{ target | safe }}'>{{ month_name[month][:3] }}</a>
 {% endif %}
 {% endfor %}
-</h2>
+<br />
 {% endfor %}
 
-{% block header %}
-{% if title %}
-<h1>{{ title }}</h1>
+{% set target = '/~%s' % (author.sid) %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target | safe }}'>Recent entries</a>
 {% else %}
-<h1>Most recent posts</h1>
+<a href='{{ target | safe }}'>Recent entries</a>
 {% endif %}
+|
+{% set target = '/~%s/all' % (author.sid) %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target | safe }}'>All entries ever</a>
+{% else %}
+<a href='{{ target | safe }}'>All entries ever</a>
+{% endif %}
+</div>
+
+<span class='stat'>
+<i class="fa fa-edit" title='Number of entries'></i> {{ author.num_entries }} days of entries
+</span><br />
+<span class='stat'>
+  <i class="fa fa-star" title='Combo'></i> {{ author.combo }} day{% if author.combo != 1 %}s{% endif %} combo
+</span>
+
+{% block header %}
+<h1 style='clear:both'>{{ title }}</h1>
 {% endblock %}
 
 {% block posts %}

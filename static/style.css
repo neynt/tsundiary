@@ -187,7 +187,10 @@ div#wrap
 {
   padding: 2px 6px;
   margin: 0 2px;
-  font-size: 20px;
+}
+.stat i.fa
+{
+  margin-right: 5px;
 }
 
 /* Contains an entire post. */
