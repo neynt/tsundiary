@@ -347,9 +347,16 @@ def logout():
 def render_diary(author, posts, title="Recent entries"):
     # Calculate date from which things should be hidden
     if g.user and author.sid == g.user.sid:
+        # User is the author. Hide nothing.
         hidden_day = their_date()
     elif author.publicity == 0:
+        # Author hides everything.
         hidden_day = author.join_time.date() - timedelta(days = 2)
+    elif author.secret_days == 0:
+        # Author has no secret days. To ensure worldwide viewability,
+        # add two days to the viewer's day (so that it's in the future
+        # no matter where you are in the world)
+        hidden_day = their_date() + timedelta(days = 2)
     else:
         hidden_day = their_date() - timedelta(days = author.secret_days)
 
