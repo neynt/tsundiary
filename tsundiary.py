@@ -220,9 +220,6 @@ app.jinja_env.globals.update(render_entry=render_entry)
 def datestamp_today():
     return datestamp(their_date())
 
-def my_render_template(template_name, **kwargs):
-    return render_template(template_name, login_name=g.username, login_user=g.user, **kwargs)
-
 ############
 # App funcs
 
@@ -240,8 +237,7 @@ def before_request():
         return redirect(urlunparse(urlparts_list), code=301)
 
     # Load user information
-    g.username = session.get('username')
-    g.user = User.query.filter_by(name=g.username).first()
+    g.user = User.query.filter_by(sid=session.get('user_sid')).first()
     g.timezone = int(request.cookies.get('timezone') or '0')
     if g.user:
         g.theme = g.user.theme
@@ -253,7 +249,7 @@ def before_request():
 
 @app.errorhandler(404)
 def page_not_found(e=None):
-    return my_render_template('404.html'), 404
+    return render_template('404.html'), 404
 
 # Route static files
 @app.route('/static/<path:filename>')
@@ -262,21 +258,6 @@ def static_file(filename):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(static_file_dir, "favicon.ico")
-
-# Dialog for importing a raw dump.
-@app.route('/import_raw_dump')
-def import_raw_dump():
-    return my_render_template('import_raw_dump.html')
-
-# Action performed for the above.
-@app.route('/import_raw_dump', methods=['POST'])
-def import_raw_dump_action():
-    c = request.form.get('content')
-    for line in (l.strip() for l in c.split('<br />')):
-        if line:
-            datestamp, content = line.split('\t')
-            maidb.set_post(g.username, datestamp, Markup(content).unescape())
-    return 'Done.'
 
 # Raw dump for data liberation.
 @app.route('/raw_dump')
@@ -329,9 +310,9 @@ def confess():
 def attempt_login():
     u = request.form['username']
     p = request.form['password']
-    user = User.query.filter_by(name = u).first()
+    user = User.query.filter_by(sid = uidify(u)).first()
     if user and user.verify_password(p):
-        session['username'] = u
+        session['user_sid'] = uidify(u)
         return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
         return "H-honto baka! Did you really think that would work?!"
@@ -341,7 +322,7 @@ def attempt_login():
 @app.route('/logout')
 def logout():
     if g.user and request.args.get('user') == g.user.sid:
-        session.pop('username', None)
+        session.pop('user_sid', None)
     return redirect('/')
 
 def render_diary(author, posts, title="Recent entries"):
@@ -368,7 +349,7 @@ def render_diary(author, posts, title="Recent entries"):
         d = r[0]
         dates[d.year].add(d.month)
 
-    return my_render_template(
+    return render_template(
             "user.html",
             author = author,
             posts = posts,
@@ -456,16 +437,16 @@ def register_action():
 @app.route('/userlist')
 def userlist():
     all_users = User.query.order_by(User.num_entries.desc()).filter(User.publicity >= 2).all()
-    return my_render_template('userlist.html', all_users=all_users)
+    return render_template('userlist.html', all_users=all_users)
 
 @app.route('/h-hello...')
 @app.route('/about')
 def who_am_i():
-    return my_render_template('what-is-this.html')
+    return render_template('what-is-this.html')
 
 @app.route('/markdown')
 def markdown_guide():
-    return my_render_template('markdown-guide.html')
+    return render_template('markdown-guide.html')
 
 @app.route('/settings')
 def edit_settings():
@@ -473,7 +454,7 @@ def edit_settings():
         return page_not_found()
 
     private = (g.user.publicity == 0)
-    return my_render_template('settings.html', private=private)
+    return render_template('settings.html', private=private)
 
 @app.route('/change_setting', methods=['POST'])
 def edit_settings_action():
@@ -519,7 +500,7 @@ def index():
 
         current_post = g.user.posts.filter_by(posted_date = today).first()
         current_content = current_post.content if current_post else ""
-        prompt = random.choice(prompts) % g.username
+        prompt = random.choice(prompts) % g.user.name
 
         old_posts = []
         deltas = [(1, "yesterday"), (7, "one week ago"), (30, "30 days ago"),
@@ -533,7 +514,7 @@ def index():
 
         print(old_posts)
 
-        return my_render_template(
+        return render_template(
                 'write.html',
                 old_posts = old_posts,
                 prompt = prompt,

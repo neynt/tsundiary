@@ -16,7 +16,7 @@
   <p>
   <select id='option_secret_days'>
     {% for i in [0, 1, 2, 3, 4, 5, 7, 14, 30] %}
-    <option value='{{ i }}' {% if i == login_user.secret_days %}selected{% endif %} >{{ i }}</option>
+    <option value='{{ i }}' {% if i == g.user.secret_days %}selected{% endif %} >{{ i }}</option>
     {% endfor %}
   </select>
   </p>
@@ -28,7 +28,7 @@
   <p>
   <select id='option_theme'>
     {% for i in ['Default', 'Classic', 'Minimal', 'Misato Tachibana', 'Rei Ayanami'] %}
-    <option value='{{ i }}' {% if i == login_user.theme %}selected{% endif %} >{{ i }}</option>
+    <option value='{{ i }}' {% if i == g.user.theme %}selected{% endif %} >{{ i }}</option>
     {% endfor %}
   </select>
   </p>

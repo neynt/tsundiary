@@ -25,10 +25,10 @@
 <div id="wrap">
 <div id="top">
     <div id='nav'>
-    {% if login_user %}
+    {% if g.user %}
         {% for target, text, title in [
             ('/', "<i class='fa fa-pencil'></i>", "Write"),
-            ('/~' + login_user.sid, "<i class='fa fa-bars'></i>", "Archive"),
+            ('/~' + g.user.sid, "<i class='fa fa-bars'></i>", "Archive"),
             ('/settings', "<i class='fa fa-cog'></i>", "Options"),
         ]%}
             {% if request.path == target or request.path.startswith(target + '/') %}
@@ -37,10 +37,10 @@
             <a href='{{target}}' title='{{title}}'>{{text | safe}}</a>
             {% endif %}
         {% endfor %}
-        <a href='/logout?user={{ login_user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
+        <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
 
         <div style='float: right'>
-            hi, {{ login_user.name }}!
+            hi, {{ g.user.name }}!
         </div>
     {% else %}
         {% for target, text in [
