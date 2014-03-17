@@ -36,17 +36,14 @@ p
 /* Links, in general */
 a
 {
-  color: #555;
+  color: #333;
+  text-decoration: underline;
+}
+a:hover, a.selected_date
+{
+  background-color: #333;
+  color: #fff;
   text-decoration: none;
-}
-a:hover
-{
-  text-decoration: underline;
-}
-/* Selected dates on userpage */
-a.selected_date
-{
-  text-decoration: underline;
 }
 blockquote
 {
@@ -109,6 +106,7 @@ div#nav a, div#nav input[type=submit]
   padding: 8px 10px 10px;
   border: 2px solid #b3b3b3;
   border-radius: 5px 5px 0 0;
+  text-decoration: none;
 }
 div#nav a.action_link
 {
@@ -117,7 +115,6 @@ div#nav a.action_link
 }
 div#nav a.cur_page
 {
-  text-decoration: none;
   border-bottom: 2px solid #eeeeee;
 }
 

@@ -11,14 +11,14 @@ div#foot
 
 div#top
 {
-  border-color: #fff;
+  border-color: transparent;
 }
 
 div#nav a
 {
   color: #000;
   background: transparent;
-  border: 0;
+  border-color: transparent;
 }
 div#nav a.cur_page
 {

@@ -1,0 +1,52 @@
+body
+{
+  color: #322D38;
+  background-color: #EFEDFA;
+}
+
+a
+{
+  color: #E41D00;
+}
+a:hover, a.selected_date
+{
+  background-color: #E41D00;
+}
+
+div#top
+{
+  background-color: #94ADED;
+  border-color: #413C63;
+}
+
+div#nav a
+{
+  color: #EFEDFA;
+  background: transparent;
+  border-color: transparent;
+}
+div#nav a.cur_page
+{
+  color: #DF3C25;
+  border-color: #413C63;
+  border-bottom-color: transparent;
+  background: #EFEDFA;
+}
+
+.cloud, .post
+{
+  border-width: 1px;
+  border-color: rgba(44, 43, 97, 0.6);
+}
+
+.post_date
+{
+  border-color: rgba(44, 43, 97, 0.6);
+}
+
+div#foot
+{
+  border-color: #413C63;
+  background-color: #94ADED;
+  color: #EFEDFA;
+}

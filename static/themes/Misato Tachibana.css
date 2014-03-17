@@ -14,7 +14,7 @@ div#nav a
 {
   color: #FAE9CD;
   background: transparent;
-  border: 0;
+  border-color: transparent;
 }
 div#nav a.cur_page
 {

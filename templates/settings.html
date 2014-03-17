@@ -9,7 +9,7 @@
   <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
   </p>
   <p>
-  You will not appear on the userlist and only you will be able to see what you write. Even the site's creator will respect this option. Trust me. ;)
+  You will not appear on the <a href='/userlist'>userlist</a> and only you will be able to see what you write.
   </p>
 
   <h2>Days of secrecy</h2>
@@ -27,7 +27,7 @@
   <h2>Theme</h2>
   <p>
   <select id='option_theme'>
-    {% for i in ['Default', 'Classic', 'Misato Tachibana', 'Minimal'] %}
+    {% for i in ['Default', 'Classic', 'Minimal', 'Misato Tachibana', 'Rei Ayanami'] %}
     <option value='{{ i }}' {% if i == login_user.theme %}selected{% endif %} >{{ i }}</option>
     {% endfor %}
   </select>
