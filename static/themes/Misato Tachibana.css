@@ -1,40 +1,23 @@
-body
-{
-  color: #33302E;
-  background-color: #F5EACA;
-}
+/* Base */
+body { color: #33302E; background-color: #F5EACA; }
 
-div#top
-{
-  background-color: #DB9B8F;
-  border-color: #F5EACA;
-}
+/* Links */
+a { color: #C1494B; }
+a:hover, a.selected_date { background-color: #C1494B; }
 
-div#nav a
-{
-  color: #FAE9CD;
-  background: transparent;
-  border-color: transparent;
-}
-div#nav a.cur_page
-{
-  border-bottom-color: #DB9B8F;
-}
+/* Nav bar */
+div#top { background-color: #DB9B8F; border-color: #F5EACA; }
 
-.cloud, .post
-{
-  border-width: 1px;
-  border-color: rgba(32, 32, 32, 0.5);
-}
+/* Nav bar links */
+div#nav a { color: #FAE9CD; background: transparent; border-color: transparent; }
+div#nav a.cur_page { border-bottom-color: #DB9B8F; }
 
-.post_date
-{
-  border-bottom: 1px dashed #E79295;
-}
+/* Content section */
+div#content { padding-bottom: 130px; }
 
-div#foot
-{
-  border-top: 16px dashed #E1A49F;
-  background-color: #DA7072;
-  color: #FAE9CD;
-}
+/* Posts */
+.cloud, .post { border-width: 1px; border-color: rgba(32, 32, 32, 0.5); }
+.post_date { border-bottom: 1px dashed #E79295; }
+
+/* Footer */
+div#foot { border-top: 16px dashed #E1A49F; background-color: #DA7072; color: #FAE9CD; }
