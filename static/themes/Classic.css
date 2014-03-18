@@ -3,7 +3,6 @@ body { color: #33302E; background-color: #FFEFE8; }
 
 /* Links */
 a { color: #FF4800; }
-a:hover, a.selected_date { background-color: #FF4800; }
 
 /* Top and bottom backgrounds */
 div#top, div#foot { background-color: transparent; }

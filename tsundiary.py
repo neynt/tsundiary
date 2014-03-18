@@ -220,6 +220,23 @@ app.jinja_env.globals.update(render_entry=render_entry)
 def datestamp_today():
     return datestamp(their_date())
 
+def calc_hidden_day(author):
+    # Calculate date from which things should be hidden
+    if g.user and author.sid == g.user.sid:
+        # User is the author. Hide nothing.
+        hidden_day = their_date()
+    elif author.publicity == 0:
+        # Author hides everything.
+        hidden_day = author.join_time.date() - timedelta(days = 2)
+    elif author.secret_days == 0:
+        # Author has no secret days. To ensure worldwide viewability,
+        # add two days to the viewer's day (so that it's in the future
+        # no matter where you are in the world)
+        hidden_day = their_date() + timedelta(days = 2)
+    else:
+        hidden_day = their_date() - timedelta(days = author.secret_days)
+    return hidden_day
+
 ############
 # App funcs
 
@@ -326,20 +343,7 @@ def logout():
     return redirect('/')
 
 def render_diary(author, posts, title="Recent entries"):
-    # Calculate date from which things should be hidden
-    if g.user and author.sid == g.user.sid:
-        # User is the author. Hide nothing.
-        hidden_day = their_date()
-    elif author.publicity == 0:
-        # Author hides everything.
-        hidden_day = author.join_time.date() - timedelta(days = 2)
-    elif author.secret_days == 0:
-        # Author has no secret days. To ensure worldwide viewability,
-        # add two days to the viewer's day (so that it's in the future
-        # no matter where you are in the world)
-        hidden_day = their_date() + timedelta(days = 2)
-    else:
-        hidden_day = their_date() - timedelta(days = author.secret_days)
+    hidden_day = calc_hidden_day(author)
 
     # Generate months/years that the user actually posted something
     # e.g. 2014: Jan Feb Mar May
@@ -358,6 +362,25 @@ def render_diary(author, posts, title="Recent entries"):
             month_name = calendar.month_name,
             title = title
             )
+
+# For "scroll-down" content loading
+@app.route('/+<author_sid>/<datestamp>')
+def fetch_next_post(author_sid, datestamp):
+    author = User.query.filter_by(sid = author_sid).first()
+    if author:
+        y, m, d = map(int, datestamp.split('-'))
+        hidden_day = calc_hidden_day(author)
+        cur_date = date(y, m, d)
+        post = (author.posts
+               .filter(Post.posted_date < cur_date)
+               .order_by(Post.posted_date.desc())
+               .first())
+        if post:
+            return render_template('entry.html', p=post, hidden_day=hidden_day)
+        else:
+            return 'no more'
+    else:
+        return page_not_found()
 
 # A certain selection of dates from a user's diary.
 @app.route('/~<author_sid>/<year>/<month>')
@@ -396,7 +419,7 @@ def diary_preview(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         posts = (author.posts.order_by(Post.posted_date.desc())
-                 .limit(max(3, author.secret_days+2)).all())
+                 .limit(max(5, author.secret_days+3)).all())
         return render_diary(author, posts)
     else:
         return page_not_found()

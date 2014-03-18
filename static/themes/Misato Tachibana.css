@@ -3,7 +3,6 @@ body { color: #33302E; background-color: #F5EACA; }
 
 /* Links */
 a { color: #C1494B; }
-a:hover, a.selected_date { background-color: #C1494B; }
 
 /* Nav bar */
 div#top { background-color: #DB9B8F; border-color: #F5EACA; }

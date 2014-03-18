@@ -37,13 +37,11 @@ p
 a
 {
   color: #333;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover, a.selected_date
 {
-  background-color: #333;
-  color: #fff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 blockquote
 {

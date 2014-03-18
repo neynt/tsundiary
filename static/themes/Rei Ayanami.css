@@ -3,13 +3,12 @@ body { color: #322D38; background-color: #EFEDFA; }
 
 /* Links */
 a { color: #E41D00; }
-a:hover, a.selected_date { background-color: #E41D00; }
 
 /* Nav bar */
 div#top { background-color: #94ADED; border-color: #413C63; }
 
 /* Nav links */
-div#nav a { color: #EFEDFA; background: transparent; border-color: transparent; }
+div#nav a { color: #FFFFFF; background: transparent; border-color: transparent; }
 div#nav a.cur_page { color: #413C63; border-color: #413C63; border-bottom-color: transparent; background: #EFEDFA; }
 
 /* Posts */
