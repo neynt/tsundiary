@@ -32,6 +32,14 @@
     {% endfor %}
   </select>
   </p>
+
+  <h2>Change password</h2>
+  <p>
+  <input id="cur_pass" type="password" placeholder="Current password"><br />
+  <input id="new_pass" type="password" placeholder="New password"><br />
+  <input id="new_pass_confirm" type="password" placeholder="New password again"><br />
+  <button id="change_password">Change password</button>
+  </p>
 </div>
 
 <script>
@@ -44,8 +52,34 @@ function save_setting(setting_name, setting_value) {
               location.reload();
             }
         }
-    )
+    );
     $('#status').html('Settings (saving...)');
+}
+
+function save_password() {
+    old_pass = $('#cur_pass').val();
+    new_pass = $('#new_pass').val();
+    if (new_pass != $('#new_pass_confirm').val()) {
+        alert("Passwords don't match.");
+        return;
+    }
+    $.post('change_password', { old_pass: old_pass, new_pass: new_pass },
+        function(data) {
+            $('#status').html('Settings (' + data + ')');
+            if (data == 'password changed!') {
+                $('#cur_pass').val('');
+                $('#new_pass').val('');
+                $('#new_pass_confirm').val('');
+            }
+        }
+    );
+    $('#status').html('Settings (saving...)');
+}
+
+function check_key(e) {
+    if (e.keyCode == 13) {
+        save_password();
+    }
 }
 
 $('#option_private').click(function(){
@@ -57,6 +91,10 @@ $('#option_secret_days').on('change', function (e) {
 $('#option_theme').on('change', function (e) {
   save_setting('theme', $('#option_theme').val());
 });
+
+$('#change_password').click(save_password);
+$('#new_pass_confirm').keyup(check_key);
+$('#new_pass').keyup(check_key);
 
 </script>
 

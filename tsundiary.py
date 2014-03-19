@@ -115,11 +115,14 @@ class User(db.Model):
         salt = self.passhash[:32].encode('utf-8')
         return salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8') == self.passhash
 
+    def set_password(self, password):
+        salt = uuid.uuid4().hex.encode('utf-8')
+        self.passhash = salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8')
+
     def __init__(self, name, password, email=None, invite_key=""):
         self.sid = uidify(name)
         self.name = name
-        salt = uuid.uuid4().hex.encode('utf-8')
-        self.passhash = salt + hashlib.sha512(salt + password.encode('utf-8')).hexdigest().encode('utf-8')
+        self.set_password(password)
         self.invite_key = invite_key
         self.join_time = datetime.now()
         self.num_entries = 0
@@ -502,6 +505,24 @@ def edit_settings_action():
     else:
         return 'error'
     return 'Jim messed up'
+
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    if not g.user:
+        return page_not_found()
+
+    old_pass = request.form.get('old_pass')
+    new_pass = request.form.get('new_pass')
+
+    if len(new_pass) < 3:
+        return 'Please enter a new password at least 3 characters long.'
+
+    if g.user.verify_password(old_pass):
+        g.user.set_password(new_pass)
+        db.session.commit()
+        return 'password changed!'
+    else:
+        return 'wrong old password'
 
 # Google webmaster verification
 google = os.environ.get('GOOGLE_WEBMASTER')
