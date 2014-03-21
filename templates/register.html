@@ -3,50 +3,27 @@
 {% block content %}
 
 <div style="text-align: center; margin: 0 auto;">
-    <p id='login_status'>&nbsp;</p>
+    <p id='login_status'>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    &nbsp;
+    </p>
     <div id='login_box' class='cloud'>
-        <input id='username' class='first' type='text' placeholder="username" /><br />
-        <input id='password' type='password' placeholder="password" /><br />
-        <input id='email' class='last' type='email' placeholder="email (optional)" /><br />
+      <form action='/register' method='post'>
+        <input name='username' class='first' type='text' placeholder="username" /><br />
+        <input name='password' type='password' placeholder="password" /><br />
+        <input name='email' class='last' type='email' placeholder="email (optional)" /><br />
+        <input name='invite_key' type='hidden' value='nope' />
         <hr />
         <input id='submitbutton' class='first last' type='submit' value='register' />
+      </form>
     </div>
 </div>
-
-<script>
-
-function attempt_register() {
-    var invite_key = $('#invite_key').val();
-    var username = $('#username').val();
-    var password = $('#password').val();
-    var email = $('#email').val()
-
-    $('#submitbutton').addClass('active');
-    $.post('register', { invite_key:invite_key, username:username, password:password, email:email },
-        function(data) {
-            $('#login_status').html(data);
-            if (data.substr(0, 7) == 'welcome') {
-                setTimeout(function() { document.location.href = '/'; }, 1000);
-            }
-            else {
-                $('#submitbutton').removeClass('active');
-            }
-        });
-
-    var rand = Math.floor(Math.random()*wait_messages.length);
-    $('#login_status').html(wait_messages[rand]);
-}
-
-function check_key(e) {
-    if (e.keyCode == 13) {
-        attempt_register();
-    }
-}
-
-$('#login_box').keyup(check_key);
-$('#submitbutton').click(attempt_register);
-
-</script>
 
 {% endblock %}
 

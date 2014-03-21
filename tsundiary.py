@@ -6,7 +6,7 @@ import hashlib
 from urlparse import urlparse, urlunparse
 from datetime import datetime, date, timedelta
 import calendar
-from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g
+from flask import Flask, Markup, render_template, send_from_directory, redirect, session, request, g, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from markdown import markdown
 import bleach
@@ -190,7 +190,7 @@ def their_time():
     return their_time
 
 def their_date():
-    return their_time().date()
+    return (their_time()-timedelta(hours=4)).date()
 
 def time_from_datestamp(ds):
     yyyy, mm, dd = map(int, [ds[0:4], ds[4:6], ds[6:8]])
@@ -333,10 +333,14 @@ def attempt_login():
     user = User.query.filter_by(sid = uidify(u)).first()
     if user and user.verify_password(p):
         session['user_sid'] = uidify(u)
-        return "Oh... welcome back, %s-sama." % u
+        return redirect('/')
+        #return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
-        return "H-honto baka! Did you really think that would work?!"
-    return "I don't recognize you, sorry."
+        flash('H-honto baka!')
+        #return "H-honto baka! Did you really think that would work?!"
+    flash("I don't recognize you, sorry.")
+    return redirect('/')
+    #return "I don't recognize you, sorry."
 
 # Logout
 @app.route('/logout')
@@ -442,27 +446,38 @@ def register_action():
 
     # check if we already have too many users
     if User.query.count() > 100 and invite_key != 'koi dorobou':
-        return "Actually, we're out of spots for registrations. Sorry! Please try to get an invite key."
+        flash("Actually, we're out of spots for registrations. Sorry! Please try to get an invite key.")
     elif len(username) < 3:
-        return 'Please enter a username at least 3 characters long.'
+        flash("Please enter a username at least 3 characters long.")
     elif len(password) < 3:
-        return 'Please enter a password at least 3 characters long.'
+        flash("Please enter a password at least 3 characters long.")
     elif User.query.filter_by(sid=uidify(username)).first():
-        return 'We already have someone with that name.'
+        flash("We already have someone with that name.")
     else:
-        print('New user: %s/%s/%s' % (username, password, email))
         new_user = User(username, password)
         new_user.email = email
         new_user.invite_key = invite_key
         db.session.add(new_user)
         db.session.commit()
-        session['username'] = username
-        return 'welcome to the club!'
+        session['user_sid'] = new_user.sid
+        return redirect('/')
+    return redirect('/register')
 
 # List of users.
 @app.route('/userlist')
 def userlist():
-    all_users = User.query.order_by(User.num_entries.desc()).filter(User.publicity >= 2).all()
+    all_users = (User.query.order_by(User.num_entries.desc())
+            .filter(User.publicity >= 2)
+            .filter(User.num_entries >= 2)
+            .all())
+    return render_template('userlist.html', all_users=all_users)
+
+# List of users (including throwaways).
+@app.route('/userlist_all')
+def userlist_all():
+    all_users = (User.query.order_by(User.num_entries.desc())
+            .filter(User.publicity >= 2)
+            .all())
     return render_template('userlist.html', all_users=all_users)
 
 @app.route('/h-hello...')
