@@ -61,7 +61,7 @@
 var processScroll = true;
 var last_date = '{{ posts[-1].posted_date }}';
 function proc_scroll () {
-    if (processScroll && $(window).scrollTop() > $(document).height() - $(window).height() - 1) {
+    if (processScroll && $(window).scrollTop() > $(document).height() - $(window).height() - 400) {
         processScroll = false;
         $.get('/+{{ author.sid }}/' + last_date,
           function (data) {
