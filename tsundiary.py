@@ -294,7 +294,7 @@ def confess():
     if valid_date():
         return_message = ""
 
-        if 0 < len(content) <= 1000:
+        if 0 < len(content) <= 5000:
             new_post = Post(g.user.sid, content, their_date())
             db.session.merge(new_post)
             combo = 1
