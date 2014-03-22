@@ -41,6 +41,7 @@
   <i class="fa fa-star" title='Combo'></i> {{ author.combo }} day combo
 </span>
 
+{% if posts %}
 {# Header #}
 {% block header %}
 <h1 style='clear:both'>{{ title }}</h1>
@@ -78,6 +79,10 @@ function proc_scroll () {
 $(window).scroll(proc_scroll);
 proc_scroll();
 </script>
+{% endif %}
+
+{% else %}
+<p>This user's tsundiary is empty!</p>
 {% endif %}
 
 {% endblock %}
