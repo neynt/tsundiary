@@ -27,7 +27,7 @@
   <h2>Theme</h2>
   <p>
   <select id='option_theme'>
-    {% for i in ['Default', 'Classic', 'Minimal', 'Misato Tachibana', 'Rei Ayanami'] %}
+    {% for i in ['Default', 'Classic', 'Minimal', 'Misato Tachibana', 'Rei Ayanami', 'Saya'] %}
     <option value='{{ i }}' {% if i == g.user.theme %}selected{% endif %} >{{ i }}</option>
     {% endfor %}
   </select>
