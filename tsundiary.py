@@ -446,8 +446,8 @@ def register_action():
     # check if we already have too many users
     if User.query.count() > 100 and invite_key != 'koi dorobou':
         flash("Actually, we're out of spots for registrations. Sorry! Please try to get an invite key.")
-    elif len(username) < 3:
-        flash("Please enter a username at least 3 characters long.")
+    elif len(username) < 2:
+        flash("Please enter a username at least 2 characters long.")
     elif len(password) < 3:
         flash("Please enter a password at least 3 characters long.")
     elif User.query.filter_by(sid=uidify(username)).first():
