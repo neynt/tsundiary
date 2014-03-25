@@ -52,7 +52,7 @@ function prime_update() {
 
 function update_char_count() {
     count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    $('#char_count').html(count);
+    $('#char_count').html(count + '/' + BYTE_LIMIT);
 
     // Scale textarea
     var textarea = $('#edit_area');
