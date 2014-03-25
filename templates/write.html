@@ -78,7 +78,11 @@ function content_changed() {
 };
 
 $('#edit_area').bind('input propertychange', content_changed);
-$( document ).ready(update_char_count);
+$( document ).ready(function () {
+    update_char_count();
+    // This is an ugly fix.
+    setTimeout(update_char_count, 100);
+});
 
 </script>
 
