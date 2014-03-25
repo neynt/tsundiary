@@ -1,0 +1,19 @@
+/* Base */
+body { color: #18342E; background-color: #F7F6F5; }
+
+/* Links */
+a { color: #E6020E; }
+
+/* Nav bar */
+div#top { background-color: #88CDA1; border-color: #16526B; }
+
+/* Nav links */
+div#nav a { color: #18342E; background: transparent; border-color: transparent; }
+div#nav a.cur_page { color: #18342E; border-color: #16526B; border-bottom-color: transparent; background: #F7F6F5; }
+
+/* Posts */
+.cloud, .post { border-width: 1px; border-color: #178666; }
+.post_date { border-color: #178666; color: #71AB99; }
+
+/* Footer */
+div#foot { border-color: #16526B; background-color: #5989A0; color: #AE0600; }
