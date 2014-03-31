@@ -201,7 +201,10 @@ def datestamp(d):
 
 @app.template_filter('nicedate')
 def nice_date(d):
-    return d.strftime("%B %-d, %Y")
+    if d:
+        return d.strftime("%B %-d, %Y")
+    else:
+        return "Never!"
 
 @app.template_filter('prettydate')
 def pretty_date(d):
@@ -472,14 +475,24 @@ def register_action():
 # List of users.
 @app.route('/userlist')
 def userlist():
+    all_users = (User.query.order_by(User.num_entries.desc())
+            .filter(User.publicity >= 2)
+            .filter(User.num_entries >= 2)
+            .all())
+    return render_template('userlist.html', all_users=all_users)
+
+# List of users (sorted by latest new post)
+@app.route('/userlist/latest')
+def userlist_latest():
     all_users = (User.query.order_by(User.latest_post_date.desc())
+            .order_by(User.num_entries.desc())
             .filter(User.publicity >= 2)
             .filter(User.num_entries >= 2)
             .all())
     return render_template('userlist.html', all_users=all_users)
 
 # List of users (including throwaways).
-@app.route('/userlist_all')
+@app.route('/userlist/all')
 def userlist_all():
     all_users = (User.query.order_by(User.latest_post_date.desc())
             .filter(User.publicity >= 2)
