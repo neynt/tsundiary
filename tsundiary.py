@@ -109,6 +109,7 @@ class User(db.Model):
     secret_days = db.Column(db.Integer)
     publicity = db.Column(db.Integer)
     theme = db.Column(db.String(24))
+    latest_post_date = db.Column(db.Date, index=True)
 
     def verify_password(self, password):
         salt = self.passhash[:32].encode('utf-8')
@@ -197,6 +198,10 @@ def time_from_datestamp(ds):
 
 def datestamp(d):
     return d.strftime("%Y%m%d")
+
+@app.template_filter('nicedate')
+def nice_date(d):
+    return d.strftime("%B %-d, %Y")
 
 @app.template_filter('prettydate')
 def pretty_date(d):
@@ -311,6 +316,8 @@ def confess():
 
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
+        # Update latest post date
+        g.user.latest_post_date = their_date()
         # Update combo
         cd = their_date() - timedelta(days = 1)
         while g.user.posts.filter_by(posted_date = cd).first():
@@ -465,7 +472,7 @@ def register_action():
 # List of users.
 @app.route('/userlist')
 def userlist():
-    all_users = (User.query.order_by(User.num_entries.desc())
+    all_users = (User.query.order_by(User.latest_post_date.desc())
             .filter(User.publicity >= 2)
             .filter(User.num_entries >= 2)
             .all())
@@ -474,7 +481,7 @@ def userlist():
 # List of users (including throwaways).
 @app.route('/userlist_all')
 def userlist_all():
-    all_users = (User.query.order_by(User.num_entries.desc())
+    all_users = (User.query.order_by(User.latest_post_date.desc())
             .filter(User.publicity >= 2)
             .all())
     return render_template('userlist.html', all_users=all_users)

@@ -7,7 +7,7 @@
 {% for user in all_users %}
 <h2><a href='~{{ user.sid }}'>{{ user.name }}</a></h2>
 <p>
-Joined on {{ user.join_time | prettydate }}.<br />
+Last post: {{ user.latest_post_date | nicedate }}<br />
 Entries: {{ user.num_entries }}
 {% if user.combo > 1 %} - Combo: {{ user.combo }}{% endif %}
 </p>
