@@ -5,7 +5,7 @@
 <h1>users</h1>
 
 {% for user in all_users %}
-<h2><a href='~{{ user.sid }}'>{{ user.name }}</a></h2>
+<h2><a href='/~{{ user.sid }}'>{{ user.name }}</a></h2>
 <p>
 Last post: {{ user.latest_post_date | nicedate }}<br />
 Entries: {{ user.num_entries }}
