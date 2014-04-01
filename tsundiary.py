@@ -495,7 +495,9 @@ def userlist_latest():
 @app.route('/userlist/all')
 def userlist_all():
     all_users = (User.query.order_by(User.latest_post_date.desc())
+            .order_by(User.num_entries.desc())
             .filter(User.publicity >= 2)
+            .filter(User.num_entries >= 1)
             .all())
     return render_template('userlist.html', all_users=all_users)
 
