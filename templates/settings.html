@@ -3,26 +3,7 @@
 {% block content %}
 
 <div style="margin: 0 auto;">
-  <h1 id='status'>Settings.</h1>
-  <h2>Totally private</h2>
-  <p>
-  <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
-  </p>
-  <p>
-  You will not appear on the userlist and only you will be able to see what you write.
-  </p>
-
-  <h2>Days of secrecy</h2>
-  <p>
-  <select id='option_secret_days'>
-    {% for i in [0, 1, 2, 3, 4, 5, 7, 14, 30] %}
-    <option value='{{ i }}' {% if i == g.user.secret_days %}selected{% endif %} >{{ i }}</option>
-    {% endfor %}
-  </select>
-  </p>
-  <p>
-  If you choose not to go totally private, then your entries will be hidden for this many days after they are written.
-  </p>
+  <h1 id='status'>Settings</h1>
 
   <h2>Theme</h2>
   <p>
@@ -33,13 +14,31 @@
   </select>
   </p>
 
+  <h2>Number of days to hide entries after they are written</h2>
+  <p>
+  <select id='option_secret_days'>
+    {% for i in [0, 1, 3, 7, 30] %}
+    <option value='{{ i }}' {% if i == g.user.secret_days %}selected{% endif %} >{{ i }}</option>
+    {% endfor %}
+  </select>
+  </p>
+
   <h2>Change password</h2>
   <p>
-  <input id="cur_pass" type="password" placeholder="Current password"><br />
-  <input id="new_pass" type="password" placeholder="New password"><br />
-  <input id="new_pass_confirm" type="password" placeholder="New password again"><br />
-  <button id="change_password">Change password</button>
+  <div class='cloud input_box'>
+    <input id="cur_pass" type="password" placeholder="Current password" class='first'><br />
+    <input id="new_pass" type="password" placeholder="New password"><br />
+    <input id="new_pass_confirm" type="password" placeholder="New password again" class='last'><br />
+    <hr />
+    <input type="submit" id="change_password" class='submitbutton first last' value='Change password'></input>
+  </div>
   </p>
+
+  <h2>Private</h2>
+  <p>
+  <input id='option_private' type='checkbox' {% if private %} checked {% endif %} />
+  </p>
+
 </div>
 
 <script>
@@ -65,7 +64,7 @@ function save_password() {
     }
     $.post('change_password', { old_pass: old_pass, new_pass: new_pass },
         function(data) {
-            $('#status').html('Settings (' + data + ')');
+            alert(data);
             if (data == 'password changed!') {
                 $('#cur_pass').val('');
                 $('#new_pass').val('');
@@ -73,7 +72,6 @@ function save_password() {
             }
         }
     );
-    $('#status').html('Settings (saving...)');
 }
 
 function check_key(e) {

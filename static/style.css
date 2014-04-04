@@ -138,7 +138,7 @@ h1
 }
 h2
 {
-  padding: 5px 0 3px;
+  padding: 10px 0 5px;
   font-size: 17pt;
   font-weight: normal;
 }
@@ -162,7 +162,10 @@ div#wrap
   border-style: solid;
   border-radius: 5px;
   padding: 0;
-  margin: 5px auto;
+}
+.post
+{
+  margin: 5px 0;
 }
 
 /* Post editing components */
@@ -251,28 +254,44 @@ input
   background-color: #fff;
 }
 
-/* Login box */
-#login_box
+.input_box
 {
   width: 50%;
   min-width: 150px;
   max-width: 250px;
   text-align: center;
   padding: 0;
-  margin: 10px auto;
   border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 
-#login_box input[type="text"],
-#login_box input[type="email"],
-#login_box input[type="password"]
+input[type="text"],
+input[type="email"],
+input[type="password"]
 {
   width: 90%;
   border: 0;
 }
 
-/* Submit button of login box */
-#submitbutton
+select
+{
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  padding: 2px;
+}
+
+/* Submit buttons */
+.submitbutton
 {
   width: 90%;
   margin: 0;
@@ -306,8 +325,8 @@ hr
   border: 0;
   border-top: 1px solid #b3b3b3;
 }
-/* ... in login boxes */
-div#login_box hr
+/* ... in clouds */
+.cloud hr
 {
   margin: 0 0;
 }
