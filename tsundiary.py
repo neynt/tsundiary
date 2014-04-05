@@ -98,17 +98,17 @@ def uidify(string):
 
 class User(db.Model):
     __tablename__ = 'user'
-    sid = db.Column(db.String(24), primary_key=True, index=True, unique=True)
-    name = db.Column(db.String(24), index=True, unique=True)
-    passhash = db.Column(db.String(160))
+    sid = db.Column(db.String, primary_key=True, index=True, unique=True)
+    name = db.Column(db.String, index=True, unique=True)
+    passhash = db.Column(db.String)
     email = db.Column(db.String, unique=True)
-    invite_key = db.Column(db.String(24))
+    invite_key = db.Column(db.String)
     join_time = db.Column(db.DateTime, index=True)
     num_entries = db.Column(db.Integer, index=True)
     combo = db.Column(db.Integer, index=True)
     secret_days = db.Column(db.Integer)
     publicity = db.Column(db.Integer)
-    theme = db.Column(db.String(24))
+    theme = db.Column(db.String)
     latest_post_date = db.Column(db.Date, index=True)
 
     def verify_password(self, password):
@@ -130,16 +130,16 @@ class User(db.Model):
         self.secret_days = 0
         # publicity  0: completely hidden  1: anyone with the link  2. link in user list
         self.publicity = 2
-        self.theme = 'default'
+        self.theme = 'Default'
 
     def __repr__(self):
         return '<User %r>' % self.name
 
 class Post(db.Model):
     __tablename__ = 'post'
-    user_sid = db.Column(db.String(24), db.ForeignKey('user.sid'), primary_key=True, index=True)
+    user_sid = db.Column(db.String, db.ForeignKey('user.sid'), primary_key=True, index=True)
     posted_date = db.Column(db.Date, primary_key=True, index=True)
-    content = db.Column(db.String(8192))
+    content = db.Column(db.String)
     user = db.relationship('User',
         backref=db.backref('posts', lazy='dynamic'))
 
@@ -301,7 +301,7 @@ def confess():
     if valid_date():
         return_message = ""
 
-        if 0 < len(content) <= 5000:
+        if 0 < len(content) <= 20000:
             new_post = Post(g.user.sid, content, their_date())
             db.session.merge(new_post)
             combo = 1
