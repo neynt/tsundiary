@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% if author.publicity > 0 or g.user.sid == author.sid %}
+
 <h1>{{ author.name }}</h1>
 
 {# Dates nav #}
@@ -83,6 +85,10 @@ proc_scroll();
 
 {% else %}
 <p>This user's tsundiary is empty!</p>
+{% endif %}
+
+{% else %} {# publicity is zero #}
+<p>This user's tsundiary is private.</p>
 {% endif %}
 
 {% endblock %}
