@@ -533,11 +533,19 @@ def edit_settings_action():
     setting_value = request.form.get('setting_value')
 
     if setting_name == 'private':
-        g.user.publicity = 2 - int(setting_value) * 2
+        # True
+        if int(setting_value):
+            g.user.publicity = 0
+        else:
+            g.user.publicity = 2
         db.session.commit()
         return 'saved!'
     elif setting_name == 'secret_days':
-        g.user.secret_days = int(setting_value)
+        if setting_value == 'Forever':
+            g.user.publicity = 0
+        else:
+            g.user.publicity = 2
+            g.user.secret_days = int(setting_value)
         db.session.commit()
         return 'saved!'
     elif setting_name == 'theme':
