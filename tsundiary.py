@@ -345,6 +345,7 @@ def attempt_login():
     user = User.query.filter_by(sid = uidify(u)).first()
     if user and user.verify_password(p):
         session['user_sid'] = uidify(u)
+        session.permanent = True
         return redirect('/')
         #return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
@@ -472,6 +473,7 @@ def register_action():
         db.session.add(new_user)
         db.session.commit()
         session['user_sid'] = new_user.sid
+        session.permanent = True
         return redirect('/')
     return redirect('/register')
 
