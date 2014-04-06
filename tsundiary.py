@@ -88,6 +88,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlit
 app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
 static_file_dir = os.path.dirname(os.path.realpath(__file__)) + '/static'
 
+# Sessions last for 100 years
+session.permanent = True
+app.permanent_session_lifetime = timedelta(days=36500)
+
 db = SQLAlchemy(app)
 
 def uidify(string):
