@@ -497,6 +497,7 @@ def userlist_latest():
             .order_by(User.num_entries.desc())
             .filter(User.publicity >= 2)
             .filter(User.num_entries >= 2)
+            .filter(User.latest_post_date >= date.today() - timedelta(days=1))
             .all())
     return render_template('userlist.html', all_users=all_users)
 
