@@ -224,8 +224,6 @@ def my_markdown(t):
 
 @app.template_filter('render_entry')
 def render_entry(p, hidden_day=None):
-    if not hidden_day:
-        hidden_day = g.date
     return render_template('entry.html', p=p, hidden_day=hidden_day)
 
 app.jinja_env.globals.update(render_entry=render_entry)
@@ -235,17 +233,18 @@ def datestamp_today():
 
 def calc_hidden_day(author):
     # Calculate date from which things should be hidden
+
+    # User is the author. Hide nothing.
     if g.user and author.sid == g.user.sid:
-        # User is the author. Hide nothing.
-        hidden_day = g.date
+        hidden_day = g.date + timedelta(days = 9001)
+    # Author hides everything.
     elif author.publicity == 0:
-        # Author hides everything.
         hidden_day = author.join_time.date() - timedelta(days = 2)
+    # Author has no secret days. To ensure worldwide viewability,
+    # add two days to the viewer's day (so that it's in the future
+    # no matter where you are in the world)
     elif author.secret_days == 0:
-        # Author has no secret days. To ensure worldwide viewability,
-        # add two days to the viewer's day (so that it's in the future
-        # no matter where you are in the world)
-        hidden_day = g.date + timedelta(days = 2)
+        hidden_day = g.date + timedelta(days = 9001)
     else:
         hidden_day = g.date - timedelta(days = author.secret_days)
     return hidden_day
