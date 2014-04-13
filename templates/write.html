@@ -28,14 +28,15 @@
 
 var timer = null;
 var textarea = $('#edit_area');
-var old_content = textarea.val()
+var old_content = textarea.val();
+var cur_date = "{{ g.date.strftime('%Y%m%d') }}";
 
 var CHAR_LIMIT = 10000;
 
 function confess() {
     $('#save_status').html('saving...');
-    written = textarea.val();
-    $.post('/confess', { content: written },
+    content = textarea.val();
+    $.post('/confess', { content: content, cur_date: cur_date },
         function (data) {
             $('#save_status').html(data);
         }

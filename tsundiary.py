@@ -182,9 +182,9 @@ def populate_db():
 ############
 # Utilities
 
-def valid_date():
-    # Particularly lenient; works as long as they are within 24h of UTC
-    return (-1440 <= g.timezone <= 1440)
+def valid_date(date):
+    # Particularly lenient; works as long as they are within 2 days of UTC
+    return ((abs(date-date.today()).days) <= 2)
 
 def their_time():
     # Gets the user's local time based on timezone cookie.
@@ -195,7 +195,7 @@ def their_time():
 def their_date():
     return (their_time()-timedelta(hours=4)).date()
 
-def time_from_datestamp(ds):
+def date_from_stamp(ds):
     yyyy, mm, dd = map(int, [ds[0:4], ds[4:6], ds[6:8]])
     return date(yyyy, mm, dd)
 
@@ -225,19 +225,19 @@ def my_markdown(t):
 @app.template_filter('render_entry')
 def render_entry(p, hidden_day=None):
     if not hidden_day:
-        hidden_day = their_date()
+        hidden_day = g.date
     return render_template('entry.html', p=p, hidden_day=hidden_day)
 
 app.jinja_env.globals.update(render_entry=render_entry)
 
 def datestamp_today():
-    return datestamp(their_date())
+    return datestamp(g.date)
 
 def calc_hidden_day(author):
     # Calculate date from which things should be hidden
     if g.user and author.sid == g.user.sid:
         # User is the author. Hide nothing.
-        hidden_day = their_date()
+        hidden_day = g.date
     elif author.publicity == 0:
         # Author hides everything.
         hidden_day = author.join_time.date() - timedelta(days = 2)
@@ -245,9 +245,9 @@ def calc_hidden_day(author):
         # Author has no secret days. To ensure worldwide viewability,
         # add two days to the viewer's day (so that it's in the future
         # no matter where you are in the world)
-        hidden_day = their_date() + timedelta(days = 2)
+        hidden_day = g.date + timedelta(days = 2)
     else:
-        hidden_day = their_date() - timedelta(days = author.secret_days)
+        hidden_day = g.date - timedelta(days = author.secret_days)
     return hidden_day
 
 ############
@@ -269,6 +269,7 @@ def before_request():
     # Load user information
     g.user = User.query.filter_by(sid=session.get('user_sid')).first()
     g.timezone = int(request.cookies.get('timezone') or '0')
+    g.date = their_date()
     if g.user:
         g.theme = g.user.theme
     else:
@@ -301,16 +302,20 @@ def raw_dump():
 @app.route('/confess', methods=['POST'])
 def confess():
     content = request.form.get('content').strip()
-    if valid_date():
+    try:
+        cur_date = date_from_stamp(request.form.get('cur_date'))
+    except:
+        return "w-what are you trying to do to me???"
+    if valid_date(cur_date):
         return_message = ""
 
         if 0 < len(content) <= 20000:
-            new_post = Post(g.user.sid, content, their_date())
+            new_post = Post(g.user.sid, content, cur_date)
             db.session.merge(new_post)
             combo = 1
             return_message = "saved!"
         elif len(content) == 0:
-            p = g.user.posts.filter_by(posted_date = their_date())
+            p = g.user.posts.filter_by(posted_date = cur_date)
             if p:
                 p.delete()
             combo = 0
@@ -323,9 +328,9 @@ def confess():
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
         # Update latest post date
-        g.user.latest_post_date = their_date()
+        g.user.latest_post_date = cur_date
         # Update combo
-        cd = their_date() - timedelta(days = 1)
+        cd = cur_date - timedelta(days = 1)
         while g.user.posts.filter_by(posted_date = cd).first():
             combo += 1
             cd -= timedelta(days = 1)
@@ -335,7 +340,7 @@ def confess():
 
         return return_message
     else:
-        return "... you want to go on a date with me!?"
+        return "... you want to go on a DATE with me!?"
 
 # Login attempts
 @app.route('/attempt_login', methods=['POST'])
@@ -589,9 +594,7 @@ def index():
         return logout()
 
     if g.user:
-        today = their_date()
-
-        current_post = g.user.posts.filter_by(posted_date = today).first()
+        current_post = g.user.posts.filter_by(posted_date = g.date).first()
         current_content = current_post.content if current_post else ""
         prompt = random.choice(prompts) % g.user.name
 
@@ -599,7 +602,7 @@ def index():
         deltas = [(1, "yesterday"), (7, "one week ago"), (30, "30 days ago"),
                   (90, "90 days ago"), (365, "365 days ago")]
         for delta, delta_name in deltas:
-            day = today - timedelta(days=delta)
+            day = g.date - timedelta(days=delta)
             print("checking", day)
             p = g.user.posts.filter_by(posted_date=day).first()
             if p:
