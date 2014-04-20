@@ -7,3 +7,10 @@ def delete_user(sid):
 
 def user_from_sid(sid):
     return User.query.filter_by(sid=sid).first()
+
+def stalk(sid, depth=1):
+    entries = user_from_sid(sid).posts.order_by(Post.posted_date.desc()).limit(depth)
+    for e in entries:
+        print(e.posted_date)
+        print(e.content)
+        print "---"
