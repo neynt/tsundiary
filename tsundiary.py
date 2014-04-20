@@ -545,7 +545,9 @@ def edit_settings_action():
         db.session.commit()
         return 'saved!'
     elif setting_name == 'secret_days':
-        if setting_value == 'Forever':
+        if setting_value == 'Hidden':
+            g.user.publicity = 1
+        elif setting_value == 'Forever':
             g.user.publicity = 0
         else:
             g.user.publicity = 2
