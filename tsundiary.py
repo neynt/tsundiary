@@ -213,14 +213,24 @@ def nice_date(d):
 def pretty_date(d):
     return d.strftime("%A, %B %-d, %Y")
 
+def filter_iframe(name, value):
+    if name in ('allowfullscreen'):
+        return True
+    if name == 'src':
+        p = urlparse(value)
+        print(p.netloc)
+        return (not p.netloc) or p.netloc in {'www.youtube.com', 'youtube.com'}
+    return False
+
 @app.template_filter('my_markdown')
 def my_markdown(t):
     return bleach.clean(markdown(t, extensions=['nl2br']),
             ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
              'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote',
-             'pre', 'code', 'hr'],
+             'pre', 'code', 'hr', 'iframe'],
             {'img': ['src', 'alt', 'title'],
-             'a': ['href', 'title']})
+             'a': ['href', 'title'],
+             'iframe': filter_iframe})
 
 @app.template_filter('render_entry')
 def render_entry(p, hidden_day=None):
