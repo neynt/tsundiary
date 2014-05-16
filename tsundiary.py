@@ -522,9 +522,12 @@ def userlist_all():
     return render_template('userlist.html', all_users=all_users)
 
 @app.route('/h-hello...')
-@app.route('/about')
 def who_am_i():
     return render_template('what-is-this.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/markdown')
 def markdown_guide():
