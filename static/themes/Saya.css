@@ -13,7 +13,8 @@ div#nav a.cur_page { color: #18342E; border-color: #16526B; border-bottom-color:
 
 /* Posts */
 .cloud, .post { border-width: 1px; border-color: #178666; }
-.post_date { border-color: #178666; color: #71AB99; }
+hr { border-color: #178666; }
+.post_date { color: #71AB99; }
 
 /* Footer */
-div#foot { border-color: #16526B; background-color: #5989A0; color: #AE0600; }
+div#foot { border-color: #16526B; background-color: #88CDA1; color: #AE0600; }

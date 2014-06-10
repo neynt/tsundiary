@@ -4,7 +4,12 @@
 
 <div class='post'>
     <div class='post_date'>today</div>
-    <textarea id='edit_area' placeholder="{{ prompt }}" >{{ current_content }}</textarea>
+    <hr />
+    <div class='post_body'>
+      <p>
+      <textarea id='edit_area' placeholder="{{ prompt }}" >{{ current_content }}</textarea>
+      </p>
+    </div>
     <div class='status_area'>
         <span id='char_count'>&nbsp;</span>
         <span id='save_status' style='float:right'><a href='/markdown'>M&darr; enabled</a></span>
@@ -17,6 +22,7 @@
     <div class='post_date'>
       <span title='{{ p.posted_date | prettydate }}'>{{ delta_name }}</span>
     </div>
+    <hr />
     <div class='post_body'>{{ p.content | my_markdown | safe }}</div>
     </div>
     {% endfor %}

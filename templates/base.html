@@ -6,6 +6,7 @@
 
     <script src='/static/jquery.min.js' type='text/javascript'></script>
     <!-- Include the excellent Dosis font. -->
+
     <link href='//fonts.googleapis.com/css?family=Dosis:300' rel='stylesheet' type='text/css'>
     <link href='/static/style.css' rel='stylesheet' />
     {% if author %}
@@ -28,7 +29,7 @@
     {% if g.user %}
         {% for target, text, title in [
             ('/', "<i class='fa fa-pencil'></i>", "Write"),
-            ('/~' + g.user.sid, "<i class='fa fa-bars'></i>", "Archive"),
+            ('/~' + g.user.sid, "<i class='fa fa-calendar'></i>", "Archive"),
             ('/settings', "<i class='fa fa-cog'></i>", "Options"),
         ]%}
             {% if request.path == target or request.path.startswith(target + '/') %}
@@ -43,16 +44,7 @@
             hi, {{ g.user.name }}!
         </div>
     {% else %}
-        {% for target, text in [
-            ('/', "tsundiary"),
-        ]%}
-            {% if request.path == target %}
-            <a href='{{target}}' class='cur_page'>{{text | safe}}</a>
-            {% else %}
-            <a href='{{target}}'>{{text | safe}}</a>
-            {% endif %}
-        {% endfor %}
-
+        <a href='/'>tsundiary</a>
         <div style='float: right'>(tsundere diary)</div>
     {% endif %}
     </div>
