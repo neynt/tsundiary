@@ -1,19 +1,22 @@
 /* Base */
-body { color: #322D38; background-color: #EFEDFA; }
+body { color: #2E3033; background-color: #E6F3FF; }
 
 /* Links */
-a { color: #E41D00; }
+a { color: #EF820E; }
 
-/* Nav bar */
-div#top { background-color: #94ADED; border-color: #413C63; }
+/* Top and bottom backgrounds */
+div#top, div#foot { background-color: transparent; }
+
+/* Nav separator border */
+div#top { border-color: transparent; }
 
 /* Nav links */
-div#nav a { color: #FFFFFF; background: transparent; border-color: transparent; }
-div#nav a.cur_page { color: #413C63; border-color: #413C63; border-bottom-color: transparent; background: #EFEDFA; }
+div#nav a { color: #EF820E; background: transparent; border-color: transparent; }
+div#nav a.cur_page { border-bottom-color: #EF820E; }
 
 /* Posts */
-.cloud, .post { border-width: 1px; border-color: rgba(44, 43, 97, 0.6); }
-hr { border-color: rgba(44, 43, 97, 0.6); }
+.cloud, .post { border-width: 1px; border-color: rgba(64, 64, 64, 0.0); }
+.cloud hr, .post hr { border-color: rgba(64, 64, 64, 0.0); }
 
 /* Footer */
-div#foot { border-color: #413C63; background-color: #94ADED; color: #EFEDFA; }
+div#foot { border: 0; color: #EF820E; }
