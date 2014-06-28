@@ -9,6 +9,6 @@ div#top { border-color: transparent; }
 div#nav a { color: #000; background: transparent; border-color: transparent; }
 div#nav a.cur_page { border-bottom-color: #000; }
 
-.cloud, .post { border-width: 1px; border-color: rgba(64, 64, 64, 0.5); }
+.cloud, .post { border-width: 0.1em; border-color: rgba(64, 64, 64, 0.5); }
 
 div#foot { border: 0; color: #000; }

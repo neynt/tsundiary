@@ -15,8 +15,8 @@ div#nav a.cur_page { border-bottom-color: #DB9B8F; }
 div#content { padding-bottom: 130px; }
 
 /* Posts */
-.cloud, .post { border-width: 1px; border-color: rgba(32, 32, 32, 0.5); }
-hr { border-top: 1px dashed #E79295; }
+.cloud, .post { border-width: 0.1em; border-color: rgba(32, 32, 32, 0.5); }
+hr { border-top: 0.1em dashed #E79295; }
 
 /* Footer */
 div#foot { border-top: 16px dashed #E1A49F; background-color: #DA7072; color: #FAE9CD; }

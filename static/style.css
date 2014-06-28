@@ -12,6 +12,7 @@ body { font-size: 12pt; height: 100%; text-rendering: optimizeLegibility; }
        only screen and (min-resolution: 120dpi)
 {
   body { font-size: 24pt; }
+  div#top { font-size: 1.3em; }
 }
 
 /* Colors */
@@ -44,7 +45,7 @@ h3 { font-size: 1.1em; font-weight: normal; }
 div#wrap { position: relative; min-height: 100%; }
 
 /* "cloud" container */
-.cloud, .post { border-width: 2px; border-style: solid; border-radius: 5px; padding: 0; }
+.cloud, .post { border-width: 0.15em; border-style: solid; border-radius: 5px; padding: 0; }
 
 /* Post editing components */
 #edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
@@ -85,7 +86,7 @@ input { background-color: #fff; }
 
 input[type="text"], input[type="email"], input[type="password"] { width: 90%; border: 0; }
 
-select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 2px; padding: 2px; }
+select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 0.1em solid rgba(0, 0, 0, 0.5); border-radius: 0.2em; padding: 0.15em; }
 
 /* Submit buttons */
 .submitbutton { width: 90%; margin: 0; border: 0; border-radius: 0; background: transparent; }
@@ -103,14 +104,14 @@ hr { margin: 10px 0; border: 0; border-top: 1px solid #b3b3b3; }
 .cloud hr { margin: 0 0; }
 
 /* Top bar */
-div#top { text-align: left; background-color: #d2d2d2; border-bottom: 2px solid #b3b3b3; margin-bottom: 30px; padding-top: 10px; }
+div#top { text-align: left; background-color: #d2d2d2; border-bottom: 0.15em solid #b3b3b3; margin-bottom: 2em; padding-top: 1em; }
 
 #logo { display: inline-block; margin: 10px 10px -30px; }
 
-div#nav { display: block; max-width: 35em; margin: 0 auto; padding: 0.5em 0.5em 10px; }
-div#nav a, div#nav input[type=submit] { background-color: #eeeeee; color: #777; padding: 8px 10px 10px; border: 2px solid #b3b3b3; border-radius: 5px 5px 0 0; text-decoration: none; }
+div#nav { display: block; max-width: 35em; margin: 0 auto; padding: 0.5em 0.5em 0.5em; }
+div#nav a { background-color: #eeeeee; color: #777; padding: 0.5em 0.5em 0.5em; border: 0.15em solid #b3b3b3; border-radius: 0.3em 0.3em 0 0; text-decoration: none; }
 div#nav a.action_link { border: 0; background: 0; }
-div#nav a.cur_page { border-bottom: 2px solid #eeeeee; }
+div#nav a.cur_page { border-bottom: 0.15em solid #eeeeee; }
 
 /* Content div */
 div#content { min-width: 10em; max-width: 35em; margin: 0 auto; padding: 0 0.5em 10em; }

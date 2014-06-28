@@ -31,7 +31,6 @@
 {% endif %}
 
 <script>
-
 var timer = null;
 var textarea = $('#edit_area');
 var old_content = textarea.val();
@@ -58,22 +57,22 @@ function prime_update() {
 }
 
 function update_char_count() {
-    count = unescape(encodeURIComponent(textarea.val())).length;
+    var count = unescape(encodeURIComponent(textarea.val())).length;
     $('#char_count').html(count + '/' + CHAR_LIMIT);
 
     // Scale textarea
-    textarea.css("height", Math.max(textarea[0].scrollHeight, 80) + "px");
+    textarea.css("height", textarea[0].scrollHeight + "px");
 
     return count;
 }
 
 function content_changed() {
     var count = update_char_count();
+    update_char_count();
     clearTimeout(timer);
 
     if (count <= CHAR_LIMIT) {
-        // Just right.
-        $('#char_count').removeClass('error');
+        //$('#char_count').removeClass('error');
         old_content = textarea.val();
     }
     else {
@@ -91,7 +90,6 @@ $( document ).ready(function () {
     // This is an ugly fix.
     setTimeout(update_char_count, 100);
 });
-
 </script>
 
 {% endblock %}

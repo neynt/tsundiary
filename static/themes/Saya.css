@@ -15,7 +15,7 @@ div#nav a { color: #4A9572; background: transparent; border-color: transparent; 
 div#nav a.cur_page { border-bottom-color: #4A9572; }
 
 /* Posts */
-.cloud, .post, select { border-width: 1px; border-color: #DD4D66; }
+.cloud, .post, select { border-width: 0.1em; border-color: #DD4D66; }
 
 /* Footer */
 div#foot { border: 0; color: #4A9572; }
