@@ -20,7 +20,7 @@
 <p>
 Latest entry: {{ user.latest_post_date | nicedate }}<br />
 Entries: {{ user.num_entries }}
-{% if user.combo > 1 %}{% endif %}
+{% if user.combo > 1 %} - Combo: {{ user.combo }}{% endif %}
 </p>
 {% endfor %}
 
