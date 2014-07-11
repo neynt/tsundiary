@@ -22,5 +22,5 @@ div#nav a.cur_page { border-bottom-color: #E74F79; }
 div#foot { border: 0; color: #E74F79; }
 
 /* and a little extra */
-.about::before { content: 'yandiary 0v0' }
+.about::after { content: 'yandiary 0v0' }
 .about span { display: none; }

@@ -2,11 +2,14 @@
 
 {% block content %}
 
-<h1>ツンダイアリー</h1>
-<p>tsundiary is a place to write.</p>
-<p>You get a new page every day at 4 a.m. I'll also show you old pages at certain intervals.</p>
+<div style="text-align: center">
+<p>Hi. I'm tsundiary.</p>
+<p>I'm a place to write.</p>
+<p>You get a new page every day at 4 a.m.</p>
+<p>I'll also show you old pages at certain intervals.</p>
 <p>That's it.</p>
 <p>... b-but I'm n-not offering this web service because I l-like you or anything, baka!</p>
+</div>
 
 <h1>Testimonials</h1>
 <blockquote>
@@ -21,11 +24,13 @@
 
 <h1>Example</h1>
 <p>This is pretty much what tsundiary looks like.</p>
-<div class='cloud'>
-  <div class="post_date">
-    Today
+<div class='post'>
+  <div class='post_date'>Today</div>
+  <div class='post_body'>
+    <p>
+    <textarea id="edit_area" placeholder="... hi! How are you today?"></textarea>
+    </p>
   </div>
-  <textarea id="edit_area" placeholder="... hi! How are you today?"></textarea>
   <div class='status_area'>
     <span id='char_count'>&nbsp;</span>
     <span id='save_status' style='float:right'><a href='/markdown'>M&darr;</a></span>
@@ -62,7 +67,7 @@
 var content = "ATASHI WA ... KIMI GA SUKI NO DE ..."
 var timer = null;
 
-var BYTE_LIMIT = 1000; 
+var BYTE_LIMIT = 10000; 
 
 function prime_update() {
     $('#save_status').html('writing...')
@@ -73,7 +78,7 @@ function prime_update() {
 
 function update_char_count() {
     count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    $('#char_count').html((BYTE_LIMIT - count));
+    $('#char_count').html((count + '/' + BYTE_LIMIT));
 
     // Scale textarea
     var textarea = $('#edit_area');

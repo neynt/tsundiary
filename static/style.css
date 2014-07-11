@@ -68,7 +68,7 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .post_body { margin: -5px 0 5px; padding: 0px 10px 0px; word-wrap: break-word; }
 
 /* post body stuff */
-img { display: block; max-width: 100%; margin: 0 auto; }
+.post_body img { display: block; max-width: 100%; margin: 0 auto; }
 textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .status_area { color: #999; margin: 10px 10px 10px; }
 .error { color: #ff491e; }

@@ -64,7 +64,8 @@
 var processScroll = true;
 var last_date = '{{ posts[-1].posted_date }}';
 function proc_scroll () {
-    if (processScroll && $(window).scrollTop() > $(document).height() - $(window).height() - 400) {
+  {# Always have 1000 pixels available #}
+    if (processScroll && $(window).scrollTop() > $(document).height() - $(window).height() - 1000) {
         processScroll = false;
         $.get('/+{{ author.sid }}/' + last_date,
           function (data) {
@@ -73,6 +74,7 @@ function proc_scroll () {
             if (last_date) {
               $('#posts').append(new_post);
               processScroll = true;
+              proc_scroll(); // If this wasn't enough, load even more!
             }
           }
         );
