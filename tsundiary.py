@@ -227,7 +227,7 @@ def my_markdown(t):
     return bleach.clean(markdown(t, extensions=['nl2br']),
             ['p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
              'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote',
-             'pre', 'code', 'hr', 'iframe'],
+             'pre', 'code', 'hr', 'iframe', 'sup', 'sub'],
             {'img': ['src', 'alt', 'title'],
              'a': ['href', 'title'],
              'iframe': filter_iframe})
