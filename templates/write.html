@@ -61,6 +61,7 @@ function update_char_count() {
     $('#char_count').html(count + '/' + CHAR_LIMIT);
 
     // Scale textarea
+    textarea.css("height", "5em");
     textarea.css("height", textarea[0].scrollHeight + "px");
 
     return count;
@@ -85,11 +86,12 @@ function content_changed() {
 };
 
 textarea.bind('input propertychange', content_changed);
-$( document ).ready(function () {
+
+window.onload = function () {
     update_char_count();
     // This is an ugly fix.
-    setTimeout(update_char_count, 100);
-});
+    setTimeout(update_char_count, 200);
+};
 </script>
 
 {% endblock %}

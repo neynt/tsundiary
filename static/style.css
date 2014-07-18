@@ -19,19 +19,19 @@ body { font-size: 12pt; height: 100%; text-rendering: optimizeLegibility; }
 body { background-color: #eee; color: #777; }
 .cloud, .post { color: #000; background-color: #fff; border-color: #b3b3b3; }
 
-p { padding: 5px 0; }
+p { padding: 0.3em 0; }
 
 /* Links, in general */
 a { color: #333; text-decoration: none; }
 a:hover, a.selected_date { text-decoration: underline; }
 
 /* Quotes */
-blockquote { border-left: 4px solid #b3b3b3; padding: 0 5%; margin: 5pt 0; margin-left: -10px; }
+blockquote { border-left: 4px solid #b3b3b3; padding: 0 5%; margin: 0.5em 0; margin-left: -10px; }
 cite { display: block; text-align: right; margin-top: -10px; margin-bottom: 20px; }
 
 /* Fonts */
 div#wrap, input, textarea { font-size: 1em; font-family: Dosis; }
-pre { border-left: 4px solid #b3b3b3; padding: 5pt 5%; margin: 10pt 0; margin-left: -10px; white-space: pre-wrap; }
+pre { border-left: 4px solid #b3b3b3; padding: 0.5em 5%; margin: 1em 0; margin-left: -10px; white-space: pre-wrap; }
 code { font-family: 'Inconsolata', monospace; }
 
 input { font-size: 1.1em; }
@@ -50,7 +50,7 @@ div#wrap { position: relative; min-height: 100%; }
 /* Post editing components */
 #edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
 textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
-.status_area { color: #999; margin: 10px 10px 10px; }
+.status_area { color: #999; margin: 0 0.6em 0.6em; }
 .error { color: #ff491e; }
 
 /* User profile elements */
@@ -61,17 +61,14 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .post { margin: 5px 0; clear: both; }
 
 /* Post decoration */
-.post_date { display: block; margin: 10px 0; text-align: center; color: #999; }
+.post_date { display: block; margin: 0.6em 0; text-align: center; color: #999; }
 .hidden { border: 0; padding: 0; }
 
 /* Post body */
-.post_body { margin: -5px 0 5px; padding: 0px 10px 0px; word-wrap: break-word; }
+.post_body { margin: 0.3em 0; padding: 0 0.6em 0; word-wrap: break-word; }
 
 /* post body stuff */
 .post_body img { display: block; max-width: 100%; margin: 0 auto; }
-textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
-.status_area { color: #999; margin: 10px 10px 10px; }
-.error { color: #ff491e; }
 
 ul { margin: 0; list-style-type: square; }
 li { margin: 0 0 5px; margin-left: 20px; }
@@ -86,7 +83,7 @@ input { background-color: #fff; }
 
 input[type="text"], input[type="email"], input[type="password"] { width: 90%; border: 0; }
 
-select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 0.1em solid rgba(0, 0, 0, 0.5); border-radius: 0.2em; padding: 0.15em; }
+select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 0.1em solid rgba(0, 0, 0, 0.5); border-radius: 0.2em; padding: 0.4em; }
 
 /* Submit buttons */
 .submitbutton { width: 90%; margin: 0; border: 0; border-radius: 0; background: transparent; }
@@ -99,7 +96,7 @@ select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-inde
 .last { padding-bottom: 10px; margin-bottom: 1px; }
 
 /* The horizontal line */
-hr { margin: 10px 0; border: 0; border-top: 1px solid #b3b3b3; }
+hr { margin: 0; border: 0; border-top: 1px solid #b3b3b3; }
 /* ... in clouds */
 .cloud hr { margin: 0 0; }
 
