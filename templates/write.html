@@ -61,8 +61,10 @@ function update_char_count() {
     $('#char_count').html(count + '/' + CHAR_LIMIT);
 
     // Scale textarea
+    var orig_scroll = $(document).scrollTop();
     textarea.css("height", "5em");
     textarea.css("height", textarea[0].scrollHeight + "px");
+    $(document).scrollTop(orig_scroll);
 
     return count;
 }
