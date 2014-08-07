@@ -6,8 +6,21 @@
 
 <h1>{{ author.name }}</h1>
 
-{# Dates nav #}
 <div style='float:right; text-align: right; width: 60%'>
+
+{# Other nav #}
+{% for link, target in [
+('Recent entries', '/~%s' % author.sid),
+] %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target }}'>{{ link }}</a>
+{% else %}
+<a href='{{ target }}'>{{ link }}</a>
+{% endif %}
+{% endfor %}
+<br />
+
+{# Dates nav #}
 {% for year, months in dates.items() %}
 {{ year }}: 
 {% for month in months %}
@@ -21,18 +34,6 @@
 <br />
 {% endfor %}
 
-{# Other nav #}
-{% for link, target in [
-('Recent entries', '/~%s' % author.sid),
-('All entries ever', '/~%s/all' % author.sid)
-] %}
-|
-{% if request.path == target %}
-<a class='selected_date' href='{{ target }}'>{{ link }}</a>
-{% else %}
-<a href='{{ target }}'>{{ link }}</a>
-{% endif %}
-{% endfor %}
 </div>
 
 {# Stats #}
