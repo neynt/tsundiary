@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="text-align: center; margin: 0 auto;">
+    <p id='login_status'>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    &nbsp;
+    </p>
+    <div id='login_box' class='input_box cloud'>
+      <form action='/register' method='post'>
+        <input name='username' class='first' type='text' placeholder="username" /><br />
+        <input name='password' type='password' placeholder="password" /><br />
+        <input name='email' class='last' type='email' placeholder="email" /><br />
+        <input name='invite_key' type='hidden' value='nope' />
+        <hr />
+        <input id='submitbutton' class='submitbutton first last' type='submit' value='register' />
+      </form>
+    </div>
+</div>
+
+{% endblock %}
+

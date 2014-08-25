@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>secret userlist</h1>
+{% for link, target in [
+('longest', '/userlist'),
+('latest', '/userlist/latest'),
+('all', '/userlist/all')
+] %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target }}'>{{ link }}</a>
+{% else %}
+<a href='{{ target }}'>{{ link }}</a>
+{% endif %}
+{% endfor %}
+
+{% for user in all_users %}
+<h2><a href='/~{{ user.sid }}'>{{ user.name }}</a></h2>
+<p>
+Latest entry: {{ user.latest_post_date | nicedate }}<br />
+Entries: {{ user.num_entries }}
+{% if user.combo > 1 %} - Combo: {{ user.combo }}{% endif %}
+</p>
+{% endfor %}
+
+{% endblock %}

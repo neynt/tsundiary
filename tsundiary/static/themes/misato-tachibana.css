@@ -1,0 +1,23 @@
+/* Base */
+body { color: #33302E; background-color: #F5EACA; }
+
+/* Links */
+a { color: #C1494B; }
+
+/* Nav bar */
+div#top { background-color: #DB9B8F; border-color: #F5EACA; }
+
+/* Nav bar links */
+div#nav a { color: #FAE9CD; background: transparent; border-color: transparent; }
+div#nav a.cur_page { border-bottom-color: #DB9B8F; }
+
+/* Content section */
+div#content { padding-bottom: 130px; }
+
+/* Posts */
+.cloud, .post { border-width: 0.1em; border-color: rgba(32, 32, 32, 0.5); }
+hr { border-top: 0.1em dashed #E79295; }
+
+/* Footer */
+div#foot { border-top: 16px dashed #E1A49F; background-color: #DA7072; color: #FAE9CD; }
+div#foot a { color: #FAE9CD; }

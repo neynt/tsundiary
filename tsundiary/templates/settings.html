@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="margin: 0 auto;">
+  <h1 id='status'>Settings</h1>
+
+  <h2>Theme</h2>
+  <p>
+  <select id='option_theme'>
+    {% for name,tid in [
+    ('Default Grey', 'default'),
+    ('Classic Orange', 'classic'),
+    ('Minimal Black', 'minimal'),
+    ('Misato Tachibana Peach', 'misato-tachibana'),
+    ('Rei Ayanami Blue/Orange', 'rei-ayanami'),
+    ('Saya Green/Red', 'saya'),
+    ('Yuno Gasai', 'yuno'),
+    ]
+    %}
+    <option value='{{ tid }}' {% if tid == g.user.theme %}selected{% endif %} >{{ name }}</option>
+    {% endfor %}
+  </select>
+  </p>
+
+  <h2>Privacy</h2>
+  <p>
+  <select id='option_secret_days'>
+    <option value='0' {% if g.user.secret_days == 0 %}selected{% endif %}>None</option>
+    <option value='1' {% if g.user.secret_days == 1 %}selected{% endif %}>Hide entries until the day ends</option>
+    {% for i in [7, 30] %}
+    <option value='{{ i }}' {% if i == g.user.secret_days %}selected{% endif %} >Hide entries for {{ i }} days after they are written</option>
+    {% endfor %}
+    <option value='Hidden' {% if g.user.publicity == 1 %}selected{% endif %} >Hidden from userlist</option>
+    <option value='Forever' {% if g.user.publicity == 0 %}selected{% endif %} >Completely private</option>
+  </select>
+  </p>
+
+  <h2>Change password</h2>
+  <p>
+  <div class='cloud input_box'>
+    <input id="cur_pass" type="password" placeholder="Current password" class='first'><br />
+    <input id="new_pass" type="password" placeholder="New password"><br />
+    <input id="new_pass_confirm" type="password" placeholder="New password again" class='last'><br />
+    <hr />
+    <input type="submit" id="change_password" class='submitbutton first last' value='Change password'></input>
+  </div>
+  </p>
+
+</div>
+
+<script>
+
+function save_setting(setting_name, setting_value) {
+    $.post('change_setting', { setting_name: setting_name, setting_value: setting_value },
+        function(data) {
+            $('#status').html('Settings (' + data + ')');
+            if (data == 'refresh to see theme') {
+              location.reload();
+            }
+        }
+    );
+    $('#status').html('Settings (saving...)');
+}
+
+function save_password() {
+    old_pass = $('#cur_pass').val();
+    new_pass = $('#new_pass').val();
+    if (new_pass != $('#new_pass_confirm').val()) {
+        alert("Passwords don't match.");
+        return;
+    }
+    $.post('change_password', { old_pass: old_pass, new_pass: new_pass },
+        function(data) {
+            alert(data);
+            if (data == 'password changed!') {
+                $('#cur_pass').val('');
+                $('#new_pass').val('');
+                $('#new_pass_confirm').val('');
+            }
+        }
+    );
+}
+
+function check_key(e) {
+    if (e.keyCode == 13) {
+        save_password();
+    }
+}
+
+$('#option_private').click(function(){
+  save_setting('private', $('#option_private').is(':checked') ? 1 : 0);
+});
+$('#option_secret_days').on('change', function (e) {
+  save_setting('secret_days', $('#option_secret_days').val());
+});
+$('#option_theme').on('change', function (e) {
+  save_setting('theme', $('#option_theme').val());
+});
+
+$('#change_password').click(save_password);
+$('#new_pass_confirm').keyup(check_key);
+$('#new_pass').keyup(check_key);
+
+</script>
+
+{% endblock %}
+
