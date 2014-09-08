@@ -27,8 +27,7 @@ app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
 # Sessions last for 100 years
 app.permanent_session_lifetime = timedelta(days=36500)
 
-# Import the rest of the tsundiary stuff
-from tsundiary.views import *
+import tsundiary.views
 from tsundiary.models import User
 from tsundiary.utils import their_date
 
