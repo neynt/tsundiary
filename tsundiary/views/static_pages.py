@@ -1,7 +1,13 @@
 from tsundiary.views import *
 
 # Route static files
-static_file_dir = os.path.dirname(os.path.realpath(__file__)) + '/static'
+static_file_dir = os.path.join(app.root_path, 'static')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(static_file_dir, "favicon.ico",
+            mimetype='image/vnd.microsoft.icon')
+
 @app.route('/static/<path:filename>')
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)

@@ -13,10 +13,6 @@ from tsundiary.utils import *
 def page_not_found(e=None):
     return render_template('404.html'), 404
 
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(static_file_dir, "favicon.ico")
-
 # Raw dump for data liberation.
 @app.route('/raw_dump')
 def raw_dump():
