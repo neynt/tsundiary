@@ -2,9 +2,12 @@ Flask==0.10.1
 Flask-Bootstrap==3.2.0.2
 Flask-SQLAlchemy==1.0
 Jinja2==2.6
+Mako==1.0.0
 Markdown==2.3.1
+MarkupSafe==0.23
 SQLAlchemy==0.8.3
 Werkzeug==0.8.3
+alembic==0.6.7
 bleach==1.2.2
 docopt==0.4.0
 gunicorn==18.0
