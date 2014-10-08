@@ -23,6 +23,22 @@
   </select>
   </p>
 
+  <h2>Favorite color</h2>
+  <p>
+  <select id='option_theme'>
+    {% for name,tid in [
+    ('Red', 'ff0000'),
+    ('Blue', '0000ff'),
+    ('Green', '00ff00'),
+    ('Black', '000000'),
+    ('White', 'ffffff'),
+    ]
+    %}
+    <option value='{{ tid }}' {% if tid == g.user.theme %}selected{% endif %} >{{ name }}</option>
+    {% endfor %}
+  </select>
+  </p>
+
   <h2>Privacy</h2>
   <p>
   <select id='option_secret_days'>
