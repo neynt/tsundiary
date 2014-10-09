@@ -4,6 +4,6 @@ from tsundiary.views import *
 def api_my_current_entry():
     p = g.user.posts.filter(Post.posted_date == g.date).first()
     if p:
-        return json.dumps({ 'timestamp': (p.update_time - datetime(1970, 1, 1)).total_seconds(), 'content': p.content })
+        return json.dumps({ 'timestamp': unix_timestamp(p.update_time), 'content': p.content })
     else:
         return json.dumps({ 'timestamp': 'null', 'content': '' })

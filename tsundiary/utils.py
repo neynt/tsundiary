@@ -20,6 +20,9 @@ def their_date():
     """Returns the user's date based on timezone cookie."""
     return (their_time()-timedelta(hours=4)).date()
 
+def unix_timestamp(dt):
+    return (dt - datetime(1970, 1, 1)).total_seconds()
+
 def date_from_stamp(ds):
     """Returns a date object from a datestamp string (e.g. 20140120)"""
     yyyy, mm, dd = map(int, [ds[0:4], ds[4:6], ds[6:8]])

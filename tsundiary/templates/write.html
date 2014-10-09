@@ -36,16 +36,7 @@ var textarea = $('#edit_area');
 var old_content = textarea.val();
 var cur_date = "{{ g.date.strftime('%Y%m%d') }}";
 var last_timestamp = 0;
-
-$.getJSON('/api/my_current_entry', function(data) {
-    var mydate = new Date(data['timestamp']*1000);
-    last_timestamp = mydate.getTime();
-
-    $('#edit_area').val(data['content']);
-
-    // MY BODY IS READY
-    textarea.bind('input propertychange', content_changed);
-});
+var writing = false;
 
 var CHAR_LIMIT = 10000;
 
@@ -56,12 +47,16 @@ function confess() {
         function (data) {
             d = JSON.parse(data);
             $('#save_status').html(d['message']);
+            last_timestamp = d['timestamp'];
+            console.log('last timestamp updated to ', last_timestamp);
+            writing = false;
         }
     );
-};
+}
 
 function prime_update() {
     $('#save_status').html('writing...')
+    writing = true;
     timer = setTimeout(function() {
         $('#save_status').html('saving...')
         confess();
@@ -97,13 +92,31 @@ function content_changed() {
         update_char_count();
     }
     prime_update();
-};
+}
+
+function get_updates(callback) {
+    $.getJSON('/api/my_current_entry', function(data) {
+        if (!writing) {
+            var mydate = new Date(data['timestamp']*1000);
+            var myts = mydate.getTime()/1000;
+            if (myts > last_timestamp + 0.5) {
+                $('#edit_area').val(data['content']);
+                $('#save_status').html('synced.');
+                last_timestamp = myts;
+                update_char_count();
+            }
+        }
+
+        // Get more updates
+        setTimeout(get_updates, 1000);
+    });
+}
 
 window.onload = function () {
-    update_char_count();
-    // This is an ugly fix.
-    setTimeout(update_char_count, 200);
+    get_updates(update_char_count);
+    textarea.bind('input propertychange', content_changed);
 };
+
 </script>
 
 {% endblock %}
