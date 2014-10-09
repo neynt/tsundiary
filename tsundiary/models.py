@@ -66,6 +66,7 @@ class Post(db.Model):
                          primary_key=True,
                          index=True)
     posted_date = db.Column(db.Date, primary_key=True, index=True)
+    update_time = db.Column(db.DateTime)
     content = db.Column(db.String)
     user = db.relationship('User',
                            backref=db.backref('posts', lazy='dynamic'))
