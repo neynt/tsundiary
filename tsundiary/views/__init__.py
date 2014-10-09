@@ -31,3 +31,4 @@ from tsundiary.views.register import *
 from tsundiary.views.settings import *
 from tsundiary.views.static_pages import *
 from tsundiary.views.userlist import *
+from tsundiary.views.api import *

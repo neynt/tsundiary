@@ -24,6 +24,7 @@ class User(db.Model):
     secret_days = db.Column(db.Integer)
     publicity = db.Column(db.Integer)
     theme = db.Column(db.String)
+    color = db.Column(db.String)
     latest_post_date = db.Column(db.Date, index=True)
 
     def verify_password(self, password):
