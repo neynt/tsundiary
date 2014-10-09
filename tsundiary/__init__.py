@@ -5,6 +5,8 @@ from urlparse import urlparse, urlunparse
 from datetime import datetime, date, timedelta
 from flask import Flask, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 #################
 # Initialization
@@ -20,7 +22,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 # Set up Flask app
 app = Flask(__name__)
 # Database URL, or sqlite in-memory database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # Secret key (for sessions/cookies)
 app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
 
@@ -29,8 +31,12 @@ app.permanent_session_lifetime = timedelta(days=36500)
 
 # Import the rest of the tsundiary stuff
 from tsundiary.views import *
-from tsundiary.models import User
+from tsundiary.models import User, db
 from tsundiary.utils import their_date
+
+migrate = Migrate(app, db)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 ############
 # App funcs
@@ -56,7 +62,3 @@ def before_request():
         g.theme = g.user.theme
     else:
         g.theme = None
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=os.environ.get('DEBUG') or False)
