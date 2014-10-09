@@ -7,7 +7,7 @@
     <hr />
     <div class='post_body'>
       <p>
-      <textarea id='edit_area' placeholder="{{ prompt }}" >{{ current_content }}</textarea>
+      <textarea id='edit_area' placeholder="{{ prompt }}" ></textarea>
       </p>
     </div>
     <div class='status_area'>
@@ -35,6 +35,17 @@ var timer = null;
 var textarea = $('#edit_area');
 var old_content = textarea.val();
 var cur_date = "{{ g.date.strftime('%Y%m%d') }}";
+var last_timestamp = 0;
+
+$.getJSON('/api/my_current_entry', function(data) {
+    var mydate = new Date(data['timestamp']*1000);
+    last_timestamp = mydate.getTime();
+
+    $('#edit_area').val(data['content']);
+
+    // MY BODY IS READY
+    textarea.bind('input propertychange', content_changed);
+});
 
 var CHAR_LIMIT = 10000;
 
@@ -43,7 +54,8 @@ function confess() {
     content = textarea.val();
     $.post('/confess', { content: content, cur_date: cur_date },
         function (data) {
-            $('#save_status').html(data);
+            d = JSON.parse(data);
+            $('#save_status').html(d['message']);
         }
     );
 };
@@ -86,8 +98,6 @@ function content_changed() {
     }
     prime_update();
 };
-
-textarea.bind('input propertychange', content_changed);
 
 window.onload = function () {
     update_char_count();

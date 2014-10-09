@@ -7,12 +7,15 @@ def confess():
     try:
         cur_date = date_from_stamp(request.form.get('cur_date'))
     except:
-        return "w-what are you trying to do to me???"
-    if valid_date(cur_date):
+        return {'success': 0, 'message': "w-what are you trying to do to me???"}
+    if not valid_date(cur_date):
+        return json.dumps({'success': 0, 'message': "... you want to go on a DATE with me!?"})
+    else:
         return_message = ""
 
         if 0 < len(content) <= 20000:
             new_post = Post(g.user.sid, content, cur_date)
+            new_post.update_time = datetime.now()
             db.session.merge(new_post)
             combo = 1
             return_message = "saved!"
@@ -40,6 +43,4 @@ def confess():
 
         db.session.commit()
 
-        return return_message
-    else:
-        return "... you want to go on a DATE with me!?"
+        return json.dumps({'success': 1, 'message': return_message})
