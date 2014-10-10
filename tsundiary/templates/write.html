@@ -109,6 +109,7 @@ function get_updates() {
     });
 }
 
+update_char_count(); // all I want is for my sound to multiply
 window.onload = function () {
     update_char_count();
     textarea.bind('input propertychange', content_changed);
