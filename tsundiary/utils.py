@@ -20,6 +20,7 @@ def their_date():
     """Returns the user's date based on timezone cookie."""
     return (their_time()-timedelta(hours=4)).date()
 
+@app.template_filter('unix_timestamp')
 def unix_timestamp(dt):
     return (dt - datetime(1970, 1, 1)).total_seconds()
 

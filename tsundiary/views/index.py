@@ -11,7 +11,13 @@ def index():
 
     if g.user:
         current_post = g.user.posts.filter_by(posted_date = g.date).first()
-        current_content = current_post.content if current_post else ""
+        if current_post:
+            current_content = current_post.content
+            update_time = unix_timestamp(current_post.update_time)
+        else:
+            current_content = ""
+            update_time = 0
+
         prompt = random.choice(PROMPTS) % g.user.name
 
         old_posts = []
@@ -30,6 +36,7 @@ def index():
                 'write.html',
                 old_posts = old_posts,
                 prompt = prompt,
+                update_time = update_time,
                 current_content = current_content)
     else:
         return render_template('front.html')
