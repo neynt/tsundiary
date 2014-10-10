@@ -14,6 +14,7 @@ def confess():
         p = g.user.posts.filter_by(posted_date = cur_date)
         if p:
             p.delete()
+            db.session.commit()
         combo = 0
 
         return_success = 1
@@ -27,9 +28,8 @@ def confess():
         new_post = Post(g.user.sid, content, cur_date)
         new_post.update_time = datetime.now()
         db.session.merge(new_post)
-        combo = 1
-
         db.session.commit()
+        combo = 1
 
         # Update number of entries
         g.user.num_entries = g.user.posts.count()
