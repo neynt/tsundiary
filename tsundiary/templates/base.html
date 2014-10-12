@@ -15,7 +15,7 @@
     <link href='/static/style.css' rel='stylesheet' />
     {% if author %}
     <link href='/static/themes/{{author.theme}}.css' rel='stylesheet' />
-    <link href='/colors/{{author.theme}}/{{author.color}}.css' />
+    <link href='/colors/{{author.theme}}/{{author.color}}.css' rel='stylesheet' />
     {% elif g.theme %}
     <link href='/static/themes/{{g.theme}}.css' rel='stylesheet' />
     <link href='/colors/{{g.theme}}/{{g.color}}.css' rel='stylesheet' />
