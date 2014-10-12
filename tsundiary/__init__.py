@@ -60,5 +60,7 @@ def before_request():
     g.date = their_date()
     if g.user:
         g.theme = g.user.theme
+        g.color = g.user.color
     else:
         g.theme = None
+        g.color = None
