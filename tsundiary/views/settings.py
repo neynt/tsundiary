@@ -38,6 +38,13 @@ def edit_settings_action():
         g.user.theme = setting_value
         db.session.commit()
         return 'refresh to see theme'
+    elif setting_name == 'color':
+        # User selection of color is taken as a suggestion only.
+        # Each theme will incorporate the colors differently.
+        g.user.color = setting_value
+        print("I am now a", g.user.color)
+        db.session.commit()
+        return 'refresh to see color'
     else:
         return 'error'
     return 'Jim messed up'

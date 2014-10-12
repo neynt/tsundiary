@@ -25,16 +25,20 @@
 
   <h2>Favorite color</h2>
   <p>
-  <select id='option_theme'>
+  <select id='option_color'>
     {% for name,tid in [
-    ('Red', 'ff0000'),
-    ('Blue', '0000ff'),
-    ('Green', '00ff00'),
-    ('Black', '000000'),
-    ('White', 'ffffff'),
+    ('Red', '0,100,100'),
+    ('Orange', '35,100,100'),
+    ('Yellow', '60,100,100'),
+    ('Green', '120,100,100'),
+    ('Cyan', '180,100,100'),
+    ('Blue', '215,100,100'),
+    ('Purple', '270,100,100'),
+    ('Black', '0,0,0'),
+    ('White', '0,0,100'),
     ]
     %}
-    <option value='{{ tid }}' {% if tid == g.user.theme %}selected{% endif %} >{{ name }}</option>
+    <option value='{{ tid }}' {% if tid == g.user.color %}selected{% endif %} >{{ name }}</option>
     {% endfor %}
   </select>
   </p>
@@ -71,7 +75,7 @@ function save_setting(setting_name, setting_value) {
     $.post('change_setting', { setting_name: setting_name, setting_value: setting_value },
         function(data) {
             $('#status').html('Settings (' + data + ')');
-            if (data == 'refresh to see theme') {
+            if (data.lastIndexOf('refresh') === 0) {
               location.reload();
             }
         }
@@ -113,6 +117,9 @@ $('#option_secret_days').on('change', function (e) {
 $('#option_theme').on('change', function (e) {
   save_setting('theme', $('#option_theme').val());
 });
+$('#option_color').on('change', function (e) {
+  save_setting('color', $('#option_color').val());
+});
 
 $('#change_password').click(save_password);
 $('#new_pass_confirm').keyup(check_key);
@@ -121,4 +128,3 @@ $('#new_pass').keyup(check_key);
 </script>
 
 {% endblock %}
-
