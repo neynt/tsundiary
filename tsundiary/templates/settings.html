@@ -30,13 +30,16 @@
     {% for name,tid in [
     ('Red', '0,100,100'),
     ('Orange', '35,100,100'),
-    ('Yellow', '60,100,100'),
+    ('Yellow', '50,100,100'),
     ('Green', '120,100,100'),
     ('Cyan', '180,100,100'),
     ('Blue', '215,100,100'),
     ('Purple', '270,100,100'),
     ('Black', '0,0,0'),
+    ('Grey', '0,50,100'),
     ('White', '0,0,100'),
+    ('Saya Green', '152,100,100'),
+    ('Tsundiary Orange', '17,100,100'),
     ]
     %}
     <option value='{{ tid }}' {% if tid == g.user.color %}selected{% endif %} >{{ name }}</option>
