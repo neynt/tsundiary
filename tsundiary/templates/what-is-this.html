@@ -2,38 +2,19 @@
 
 {% block content %}
 
-<div style="text-align: center">
-<p>Hi. I'm tsundiary.</p>
-<p>I'm a place to write.</p>
-<p>You get a new page every day at 4 a.m.</p>
-<p>I'll also show you old pages at certain intervals.</p>
-<p>That's it.</p>
-<p>... b-but I'm n-not offering this web service because I l-like you or anything, baka!</p>
-</div>
-
-<h1>Testimonials</h1>
-<blockquote>
-"Tsundiary brought out the inner weeb inside me! Domo arigato! Tsundiary no koto ga suki!"
-</blockquote>
-<blockquote>
-"I met a really amazing cute friend by reading their Tsundiary! Without Tsundiary, I might have never been able to meet this awesome person, or understand them as well!"
-</blockquote>
-<blockquote>
-"It's a most trustworthy website."
-</blockquote>
-
-<h1>Example</h1>
-<p>This is pretty much what tsundiary looks like.</p>
+<h1>tsundiary looks like this.</h1>
 <div class='post'>
   <div class='post_date'>Today</div>
+  <hr />
   <div class='post_body'>
     <p>
     <textarea id="edit_area" placeholder="... hi! How are you today?"></textarea>
     </p>
   </div>
+  <hr />
   <div class='status_area'>
     <span id='char_count'>&nbsp;</span>
-    <span id='save_status' style='float:right'><a href='/markdown'>M&darr;</a></span>
+    <span id='save_status' style='float:right'><a href='/markdown'>M&darr; enabled</a></span>
   </div>
 </div>
 
@@ -41,26 +22,58 @@
   <div class='post_date'>
     yesterday
   </div>
+  <hr />
   <div class='post_body'>
-    <p>I got the job! I get to meet my new coworkers tomorrow. I wonder what they'll be like...</p>
+    <p>Packed my bags. I hope I'm not forgetting anything.</p>
   </div>
 </div>
 <div class='post'>
   <div class='post_date'>
-    <span title='yup'>one week ago</span>
+    one week ago
   </div>
+  <hr />
   <div class='post_body'>
-    <p>Drank a delicious cup of green tea. 日本語を勉強してるよ！</p>
+    <p>I got a job in Japan! Can't wait to move there~</p>
   </div>
 </div>
 <div class='post'>
   <div class='post_date'>
     30 days ago
   </div>
+  <hr />
+  <div class='post_body'>
+    <p>Applied for a bunch of jobs.</p>
+  </div>
+</div>
+<div class='post'>
+  <div class='post_date'>
+    90 days ago
+  </div>
+  <hr />
   <div class='post_body'>
     <p>Finally finished Rin's route on <a href='http://www.katawa-shoujo.com/'>Katawa Shoujo</a>. ;_; The feels...</p>
   </div>
 </div>
+<div class='post'>
+  <div class='post_date'>
+    365 days ago
+  </div>
+  <hr />
+  <div class='post_body'>
+    <p>Passed my driver's license test!</p>
+  </div>
+</div>
+
+<h1>tsundiary is place to write.</h1>
+
+<p>You automatically get a new entry every day at 4 AM.</p>
+<p>You are also shown your old entries at certain intervals (such as 7 days, 30 days, 90 days, and 365 days).</p>
+<p>That's it.</p>
+
+<h1>good things have been said about tsundiary.</h1>
+<p>"Tsundiary brought out the inner weeb inside me! Domo arigato! Tsundiary no koto ga suki!"</p>
+<p>"I met a really amazing cute friend by reading their Tsundiary! Without Tsundiary, I might have never been able to meet this awesome person, or understand them as well!"</p>
+<p>"It's a most trustworthy website."</p>
 
 <script>
 
@@ -78,11 +91,15 @@ function prime_update() {
 
 function update_char_count() {
     count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    $('#char_count').html((count + '/' + BYTE_LIMIT));
+    if (count > 0) {
+        $('#char_count').html((count));
+    } else {
+        $('#char_count').html('&nbsp;');
+    }
 
     // Scale textarea
     var textarea = $('#edit_area');
-    textarea.css("height", Math.max(textarea[0].scrollHeight-1, 80) + "px");
+    textarea.css("height", "5em");
     textarea.css("height", Math.max(textarea[0].scrollHeight, 80) + "px");
 
     return count;

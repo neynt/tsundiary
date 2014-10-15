@@ -39,6 +39,7 @@
             ('/', "<i class='fa fa-pencil'></i>", "Write"),
             ('/~' + g.user.sid, "<i class='fa fa-bars'></i>", "Archive"),
             ('/settings', "<i class='fa fa-cog'></i>", "Settings"),
+            ('/stalk', "<i class='fa fa-heart'></i>", "Stalk"),
         ]%}
             {% if request.path == target or request.path.startswith(target + '/') %}
             <a href='{{target}}' class='cur_page' title='{{title}}'>{{text | safe}}</a>

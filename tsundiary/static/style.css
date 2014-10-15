@@ -41,7 +41,7 @@ div#wrap { position: relative; min-height: 100%; }
 /* Post editing components */
 #edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
 textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
-.status_area { color: #999; margin: 0 0.6em 0.6em; }
+.status_area { color: #999; margin: 0.6em; }
 .error { color: #ff491e; }
 
 /* User profile elements */

@@ -12,11 +12,11 @@ def favicon():
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
 
-@app.route('/h-hello...')
+@app.route('/what-is-this')
 def who_am_i():
     return render_template('what-is-this.html')
 
-@app.route('/about')
+@app.route('/about-me')
 def about():
     return render_template('about.html')
 
