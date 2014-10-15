@@ -16,7 +16,7 @@ def static_file(filename):
 def who_am_i():
     return render_template('what-is-this.html')
 
-@app.route('/about-me')
+@app.route('/about')
 def about():
     return render_template('about.html')
 
@@ -30,4 +30,3 @@ if google:
     @app.route('/' + google)
     def submit_to_botnet():
         return "google-site-verification: " + google
-
