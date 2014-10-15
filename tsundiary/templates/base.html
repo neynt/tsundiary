@@ -37,8 +37,8 @@
     {% if g.user %}
         {% for target, text, title in [
             ('/', "<i class='fa fa-pencil'></i>", "Write"),
-            ('/~' + g.user.sid, "<i class='fa fa-calendar'></i>", "Archive"),
-            ('/settings', "<i class='fa fa-cog'></i>", "Options"),
+            ('/~' + g.user.sid, "<i class='fa fa-bars'></i>", "Archive"),
+            ('/settings', "<i class='fa fa-cog'></i>", "Settings"),
         ]%}
             {% if request.path == target or request.path.startswith(target + '/') %}
             <a href='{{target}}' class='cur_page' title='{{title}}'>{{text | safe}}</a>
