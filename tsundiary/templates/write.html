@@ -66,7 +66,11 @@ function prime_update() {
 
 function update_char_count() {
     var count = unescape(encodeURIComponent(textarea.val())).length;
-    $('#char_count').html(count + '/' + CHAR_LIMIT);
+    if (count > 0) {
+        $('#char_count').html(count);
+    } else {
+        $('#char_count').html('&nbsp;');
+    }
 
     // Scale textarea
     var orig_scroll = $(document).scrollTop();
