@@ -30,6 +30,7 @@ from tsundiary.views.login import *
 from tsundiary.views.logout import *
 from tsundiary.views.register import *
 from tsundiary.views.settings import *
+from tsundiary.views.stalk import *
 from tsundiary.views.static_pages import *
 from tsundiary.views.theme_color import *
 from tsundiary.views.userlist import *
