@@ -53,7 +53,7 @@ class User(db.Model):
         # publicity
         # 0: completely hidden1: anyone with the link  2. link in user list
         self.publicity = 2
-        self.theme = 'Default'
+        self.theme = 'classic'
         self.color = '0,100,100'
 
     def __repr__(self):
