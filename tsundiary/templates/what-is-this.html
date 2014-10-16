@@ -2,6 +2,18 @@
 
 {% block content %}
 
+<div style='text-align: center; margin: 10% 0;'>
+
+<h1>tsundiary is a place to record your life.</h1>
+
+<p>You automatically get a new entry every day at 4 a.m.</p>
+<p>You are also shown your old entries at certain intervals.</p>
+<p>That's it. We're trying to keep it simple.</p>
+
+<h1><a href='{{ url_for('register') }}'>start using tsundiary!</a></h1>
+
+</div>
+
 <div style='text-align: center'>
 <h1>tsundiary looks like this</h1>
 </div>
@@ -55,18 +67,6 @@
   <div class='post_body'>
     <p>Finally finished Rin's route on <a href='http://www.katawa-shoujo.com/'>Katawa Shoujo</a>. ;_; The feels...</p>
   </div>
-</div>
-
-<div style='text-align: center; margin: 30% 0;'>
-
-<h1>tsundiary is a place to record your life.</h1>
-
-<p>You automatically get a new entry every day at 4 a.m.</p>
-<p>You are also shown your old entries at certain intervals.</p>
-<p>That's it. We're trying to keep it simple.</p>
-
-<h1><a href='{{ url_for('register') }}'>start using tsundiary!</a></h1>
-
 </div>
 
 <script>
