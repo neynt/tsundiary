@@ -15,8 +15,7 @@ PROMPTS = [
     "It's your privilege that I'm wasting my time listening to you, %s...",
     "Don't get me wrong, %s, it's not like I'm worried about you.",
     "If you think I'm gonna miss you, think again, %s.",
-    ("I-it's not like I'm listening to you"
-     "because I like you or anything, %s..."),
+    ("I-it's not like I'm listening to you because I like you or anything, %s..."),
     ## More specific prompts
     "How did it go, %s? ... not that I'm expecting much!",
     "I'll forgive you, but just this time, got it, %s?",
