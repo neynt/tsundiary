@@ -2,6 +2,7 @@ from tsundiary.views import *
 
 def render_diary(author, posts, title="Recent entries"):
     hidden_day = calc_hidden_day(author)
+    cutoff_day = calc_cutoff_day(author)
 
     # Generate months/years that the user actually posted something
     # e.g. 2014: Jan Feb Mar May
@@ -11,11 +12,14 @@ def render_diary(author, posts, title="Recent entries"):
         d = r[0]
         dates[d.year].add(d.month)
 
+    print("### Someone's trying to look at ", hidden_day)
+
     return render_template(
             "user.html",
             author = author,
             posts = posts,
             hidden_day = hidden_day,
+            cutoff_day = cutoff_day,
             dates = dates,
             month_name = calendar.month_name,
             title = title
@@ -62,4 +66,3 @@ def diary_preview(author_sid):
         return render_diary(author, posts)
     else:
         return page_not_found()
-

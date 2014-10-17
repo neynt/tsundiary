@@ -22,7 +22,7 @@
 
 {# Dates nav #}
 {% for year, avail_months in dates.items() %}
-{{ year }}: 
+{{ year }}:
 {% for month in range(1, 13) %}
 {% set target = '/~%s/%d/%d' % (author.sid, year, month) %}
 {% if month in avail_months %}
@@ -56,7 +56,7 @@
 <div id='posts'>
 {% block posts %}
 {% for p in posts %}
-{{ render_entry(p, hidden_day) | safe }}
+{{ render_entry(p, hidden_day, cutoff_day) | safe }}
 {% endfor %}
 {% endblock %}
 </div>

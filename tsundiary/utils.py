@@ -73,9 +73,10 @@ def my_markdown(t):
     )
 
 @app.template_filter('render_entry')
-def render_entry(p, hidden_day=None):
+def render_entry(p, hidden_day, cutoff_day):
     """Renders the HTML for a single tsundiary entry."""
-    return render_template('entry.html', p=p, hidden_day=hidden_day)
+    print("Rendering with a hidden day of ", hidden_day, " and a cutoff of ", cutoff_day)
+    return render_template('entry.html', p=p, hidden_day=hidden_day, cutoff_day=cutoff_day)
 
 app.jinja_env.globals.update(render_entry=render_entry)
 
@@ -87,7 +88,7 @@ def calc_hidden_day(author):
 
     # User is the author. Hide nothing.
     if g.user and author.sid == g.user.sid:
-        hidden_day = g.date + timedelta(days=9001)
+        hidden_day = g.date + timedelta(days=2)
     # Author hides everything.
     elif author.publicity == 0:
         hidden_day = author.join_time.date() - timedelta(days=2)
@@ -95,10 +96,18 @@ def calc_hidden_day(author):
     # add two days to the viewer's day (so that it's in the future
     # no matter where you are in the world)
     elif author.secret_days == 0:
-        hidden_day = g.date + timedelta(days=9001)
+        hidden_day = g.date + timedelta(days=2)
     else:
         hidden_day = g.date - timedelta(days=author.secret_days)
     return hidden_day
+
+def calc_cutoff_day(author):
+    # User is the author. Hide nothing.
+    if g.user and g.user.sid == author.sid:
+        cutoff_day = date(1, 1, 1)
+    else:
+        cutoff_day = g.date - timedelta(days=30)
+    return cutoff_day
 
 def uidify(string):
     """Turn a string (e.g. a username) into a uid for db prettiness."""
