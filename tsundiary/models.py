@@ -55,6 +55,7 @@ class User(db.Model):
         self.publicity = 2
         self.theme = 'classic'
         self.color = '0,100,100'
+        latest_post_date = date(1900,1,1)
 
     def __repr__(self):
         return '<User %r>' % self.name

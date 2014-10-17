@@ -12,6 +12,10 @@ def favicon():
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
 
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(static_file_dir, request.path[1:])
+
 @app.route('/what-is-this')
 def who_am_i():
     return render_template('what-is-this.html')
