@@ -102,7 +102,9 @@ function content_changed() {
 function get_updates() {
     $.getJSON('/api/my_current_entry', function(data) {
         if (!writing) {
-            cur_date = data['datestamp'];
+            if ('datestamp' in obj) {
+                cur_date = data['datestamp'];
+            }
             var mydate = new Date(data['timestamp']*1000);
             var myts = mydate.getTime()/1000;
             if (myts > last_timestamp + 0.5) {
