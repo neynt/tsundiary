@@ -7,7 +7,7 @@ def confess():
     try:
         cur_date = date_from_stamp(request.form.get('cur_date'))
     except:
-        return {'success': 0, 'message': "w-what are you trying to do to me???"}
+        return json.dumps({'success': 0, 'message': "w-what are you trying to do to me???"})
     if not valid_date(cur_date):
         return json.dumps({'success': 0, 'message': "... you want to go on a DATE with me!?"})
     elif len(content) == 0:
