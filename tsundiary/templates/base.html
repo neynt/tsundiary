@@ -27,7 +27,9 @@
 
     <!-- Set timezone in a cookie. -->
     <script type='text/javascript'>
-        document.cookie = 'timezone=' + new Date().getTimezoneOffset();
+        var d = new Date();
+        d.setYear(d.getYear() + 1); // Expire in one year
+        document.cookie = 'timezone=' + new Date().getTimezoneOffset() + "; expires=" + d.toUTCString();
     </script>
 </head>
 <body>
