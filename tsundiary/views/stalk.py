@@ -4,7 +4,7 @@ from tsundiary.views import *
 @app.route('/stalk/<authors>')
 def stalk_list_given(authors):
     authorlist = authors.split(',')
-    posts = []
+    posts = defaultdict(list)
 
     # Save stalks
     if g.user:
@@ -17,15 +17,20 @@ def stalk_list_given(authors):
         if not author:
             continue
 
-        latest_post = author.posts.order_by(Post.posted_date.desc()).first()
-
         hidden_day = calc_hidden_day(author)
         cutoff_day = calc_cutoff_day(author)
 
-        if latest_post:
-            posts.append((author, latest_post, hidden_day, cutoff_day))
+        latest_posts = author.posts.order_by(Post.posted_date.desc()).filter(Post.posted_date <= hidden_day).limit(1).all()
 
-    return render_template('stalk.html', posts=posts)
+        if latest_posts:
+            for p in latest_posts:
+                posts[p.posted_date].append((author, p, hidden_day, cutoff_day))
+
+    posts_by_date = []
+    for d in sorted(posts.keys(), reverse=True):
+        posts_by_date.append((d, posts[d]))
+
+    return render_template('stalk.html', posts_by_date=posts_by_date)
 
 # Add a user to a user's stalk list.
 @app.route('/stalkadd', methods=['POST'])
