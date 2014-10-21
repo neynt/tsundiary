@@ -1,5 +1,6 @@
 from tsundiary.views import *
 from tsundiary.prompts import PROMPTS
+import hashlib
 
 # Index/home!
 @app.route('/', methods=['GET', 'POST'])
@@ -18,7 +19,7 @@ def index():
             current_content = ""
             update_time = 0
 
-        prompt = random.choice(PROMPTS) % g.user.name
+        prompt = PROMPTS[int(hashlib.md5(datestamp(g.date)).hexdigest(), 16) % len(PROMPTS)] % g.user.name
 
         old_posts = []
         deltas = [(1, "yesterday"), (7, "one week ago"), (30, "30 days ago"),
