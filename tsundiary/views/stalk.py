@@ -7,7 +7,7 @@ def stalk_list_given(authors):
     posts = []
 
     for authorname in authorlist:
-        author = User.query().filter_by(sid = uidify(authorname)).first()
+        author = User.query.filter_by(sid = uidify(authorname)).first()
 
         if not author:
             continue
@@ -17,10 +17,10 @@ def stalk_list_given(authors):
         hidden_day = calc_hidden_day(author)
         cutoff_day = calc_cutoff_day(author)
 
-        if latest:
+        if latest_post:
             posts.append((author, latest_post, hidden_day, cutoff_day))
 
-    return render_template('stalk.html', posts=p)
+    return render_template('stalk.html', posts=posts)
 
 # Stalk users.
 @app.route('/stalk')

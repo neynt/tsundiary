@@ -2,7 +2,14 @@
 
 {% block content %}
 
+{% if posts %}
+{% for author, latest_post, hidden_day, cutoff_day in posts %}
+<h2>{{ author.name }}</h2>
+{{ render_entry(latest_post, hidden_day, cutoff_day) | safe }}
+{% endfor %}
+{% else %}
 <h1>Stalk</h1>
-<p>Hm. I wonder what this page might be used for in the future.</p>
+<p>After stalk, add /a,comma,separated,list,of,users,you,would,like,to,stalk</p>
+{% endif %}
 
 {% endblock %}
