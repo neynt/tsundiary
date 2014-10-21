@@ -52,8 +52,8 @@ PROMPTS = [
     "I'm so happy I'm your friend, %s!",
     #"I hope you can find happiness, %s!",
     #"I really like your personality, %s!",
-    #"Keep on going, %s!",
-    #"%s, m-may I have a hug?",
+    "Keep going, %s!",
+    "%s, m-may I have a hug?",
     #"%s, w-would you like a hug?",
     #u"%sのことが大好きです！(*/////∇/////*)",
 ]
