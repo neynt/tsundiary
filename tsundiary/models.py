@@ -25,6 +25,7 @@ class User(db.Model):
     publicity = db.Column(db.Integer)
     theme = db.Column(db.String)
     color = db.Column(db.String)
+    stalks = db.Column(db.String)
     latest_post_date = db.Column(db.Date, index=True)
 
     def verify_password(self, password):
@@ -55,6 +56,7 @@ class User(db.Model):
         self.publicity = 2
         self.theme = 'classic'
         self.color = '0,100,100'
+        self.stalks = ''
         latest_post_date = date(1900,1,1)
 
     def __repr__(self):
