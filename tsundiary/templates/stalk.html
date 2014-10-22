@@ -6,7 +6,7 @@
 {% for date, posts in posts_by_date %}
 <h1>{{ date | prettydate }}</h1>
 {% for author, latest_post, hidden_day, cutoff_day in posts %}
-<h2>{{ author.name }}</h2>
+<h2><a href="/~{{ author.sid }}">{{ author.name }}</a></h2>
 {{ render_entry(latest_post, hidden_day, cutoff_day) | safe }}
 {% endfor %}
 {% endfor %}
