@@ -8,6 +8,6 @@
   <span title="{{ p.posted_date | prettydate }}">{{ p.posted_date | nicedate }}</span>
 </div>
 <hr />
-<div class='post_body'>{{ p.content.lower() | my_markdown | safe }}</div>
+<div class='post_body'>{{ p.content | my_markdown | safe }}</div>
 {% endif %}
 </div>
