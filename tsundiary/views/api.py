@@ -6,4 +6,4 @@ def api_my_current_entry():
     if p:
         return json.dumps({ 'timestamp': unix_timestamp(p.update_time), 'content': p.content, "datestamp": datestamp(p.posted_date) })
     else:
-        return json.dumps({ 'timestamp': 'null', 'content': '' })
+        return json.dumps({ 'timestamp': 'null', 'content': '', 'datestamp': datestamp(g.date) })
