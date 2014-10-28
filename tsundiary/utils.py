@@ -33,18 +33,40 @@ def datestamp(d):
     """Turns a date object into a datestamp (e.g. "20140120")"""
     return d.strftime("%Y%m%d")
 
-@app.template_filter('nicedate')
+@app.template_filter('prettydate')
 def nice_date(d):
-    """Returns the date formatted nicely."""
+    """Returns the date formatted prettily.
+       e.g.: January 20, 2014"""
+
     if d:
-        return d.strftime("%B %-d, %Y")
+        return d.strftime("%A, %b %-d, %Y").lower()
     else:
         return "Never!"
 
-@app.template_filter('prettydate')
+@app.template_filter('nicedate')
 def pretty_date(d):
-    """Returns the date formatted prettily."""
-    return d.strftime("%A, %B %-d, %Y")
+    """Returns the date formatted nicely, substituted when possible.
+       e.g.: Monday, January 20, 2014
+             Today
+             Yesterday
+             Last Wednesday
+             Two Wednesdays ago"""
+    if d:
+        days = (their_date() - d).days
+        if days == 0:
+            return "today"
+        elif days == 1:
+            return "yesterday"
+        elif days < 7:
+            return d.strftime("%A").lower()
+        elif days == 7:
+            return "one week ago"
+        elif their_date().year == d.year:
+            return d.strftime("%a, %b %-d").lower()
+        else:
+            return nice_date(d)
+    else:
+        return "Never!"
 
 def filter_iframe(name, value):
     """Returns True if an iframe is allowed."""
