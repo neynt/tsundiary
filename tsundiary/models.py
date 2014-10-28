@@ -21,6 +21,7 @@ class User(db.Model):
     join_time = db.Column(db.DateTime, index=True)
     num_entries = db.Column(db.Integer, index=True)
     combo = db.Column(db.Integer, index=True)
+    timezone = db.Column(db.Integer)
     secret_days = db.Column(db.Integer)
     publicity = db.Column(db.Integer)
     theme = db.Column(db.String)
@@ -50,6 +51,7 @@ class User(db.Model):
         self.join_time = datetime.now()
         self.num_entries = 0
         self.combo = 0
+        self.timezone = 0 # UTC
         self.secret_days = 0
         # publicity
         # 0: completely hidden1: anyone with the link  2. link in user list

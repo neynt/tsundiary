@@ -56,7 +56,15 @@ def before_request():
 
     # Load user information
     g.user = User.query.filter_by(sid=session.get('user_sid')).first()
-    g.timezone = int(request.cookies.get('timezone') or '0')
+
+    if 'timezone' in request.cookies:
+        g.timezone = int(request.cookies['timezone'])
+        if g.timezone != g.user.timezone:
+            g.user.timezone = g.timezone
+            db.session.commit()
+    else:
+        g.timezone = g.user.timezone or 0
+
     g.date = their_date()
     if g.user:
         g.theme = g.user.theme
