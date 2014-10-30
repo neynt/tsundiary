@@ -62,8 +62,10 @@ def before_request():
         if g.timezone != g.user.timezone:
             g.user.timezone = g.timezone
             db.session.commit()
-    else:
+    elif g.user:
         g.timezone = g.user.timezone or 0
+    else:
+        g.timezone = 0
 
     g.date = their_date()
     if g.user:
