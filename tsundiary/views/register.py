@@ -38,7 +38,7 @@ def register_action():
         new_user = User(username, password)
         new_user.email = email
         new_user.invite_key = invite_key
-        new_user.timezone = g.date
+        new_user.timezone = g.timezone
         db.session.add(new_user)
         db.session.commit()
         session['user_sid'] = new_user.sid
