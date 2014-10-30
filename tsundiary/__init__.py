@@ -57,7 +57,7 @@ def before_request():
     # Load user information
     g.user = User.query.filter_by(sid=session.get('user_sid')).first()
 
-    if 'timezone' in request.cookies:
+    if g.user and 'timezone' in request.cookies:
         g.timezone = int(request.cookies['timezone'])
         if g.timezone != g.user.timezone:
             g.user.timezone = g.timezone
