@@ -26,12 +26,9 @@ def index():
                   (90, "90 days ago"), (365, "365 days ago")]
         for delta, delta_name in deltas:
             day = g.date - timedelta(days=delta)
-            print("checking", day)
             p = g.user.posts.filter_by(posted_date=day).first()
             if p:
                 old_posts.append((delta_name, p))
-
-        print(old_posts)
 
         return render_template(
                 'write.html',
