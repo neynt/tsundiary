@@ -55,9 +55,12 @@ def pretty_date(d):
         days = (their_date() - d).days
         if days == 0:
             return "today"
+        elif days == -1:
+            # It happens with timezone differences
+            return "tomorrow"
         elif days == 1:
             return "yesterday"
-        elif days < 7:
+        elif 0 < days < 7:
             return d.strftime("%A").lower()
         elif days == 7:
             return "one week ago"
