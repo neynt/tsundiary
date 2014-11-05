@@ -56,6 +56,7 @@ def before_request():
         'tsundiary.com'
     }:
         urlparts_list = list(urlparts)
+        urlparts_list[0] = 'https'
         urlparts_list[1] = 'www.tsundiary.com'
         return redirect(urlunparse(urlparts_list), code=301)
 
