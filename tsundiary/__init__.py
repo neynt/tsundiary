@@ -7,7 +7,6 @@ from flask import Flask, redirect, session, request, g
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from flask_sslify import SSLify
 
 #################
 # Initialization
@@ -27,9 +26,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # Secret key (for sessions/cookies)
 app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
-
-# Automatically redirect to https
-#sslify = SSLify(app)
 
 # Sessions last for 100 years
 app.permanent_session_lifetime = timedelta(days=36500)
