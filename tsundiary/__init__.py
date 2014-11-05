@@ -49,16 +49,16 @@ manager.add_command('db', MigrateCommand)
 @app.before_request
 def before_request():
     # Redirect non-www.com requests to www.com
-    urlparts = urlparse(request.url)
-    if urlparts.netloc in {
-        'tsundiary.tk',
-        'www.tsundiary.tk',
-        'tsundiary.com'
-    }:
-        urlparts_list = list(urlparts)
-        urlparts_list[0] = 'https'
-        urlparts_list[1] = 'www.tsundiary.com'
-        return redirect(urlunparse(urlparts_list), code=301)
+    #urlparts = urlparse(request.url)
+    #if urlparts.netloc in {
+    #    'tsundiary.tk',
+    #    'www.tsundiary.tk',
+    #    'tsundiary.com'
+    #}:
+    #    urlparts_list = list(urlparts)
+    #    urlparts_list[0] = 'https'
+    #    urlparts_list[1] = 'www.tsundiary.com'
+    #    return redirect(urlunparse(urlparts_list), code=301)
 
     # Load user information
     g.user = User.query.filter_by(sid=session.get('user_sid')).first()
