@@ -25,8 +25,12 @@
     <link href='/favicon.ico' rel='icon' type='image/x-icon' />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Set timezone in a cookie. -->
     <script type='text/javascript'>
+        // Redirect to https. (can't do server-side because cloudflare flexible ssl ^_^
+        if (window.location.protocol != "https:") {
+            window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+        }
+        // Set timezone in a cookie.
         var d = new Date();
         d.setYear(d.getYear() + 1); // Expire in one year
         document.cookie = 'timezone=' + new Date().getTimezoneOffset() + "; expires=" + d.toUTCString();
