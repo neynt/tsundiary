@@ -26,10 +26,12 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
     <script type='text/javascript'>
+        {% if not config["DEBUG"] %}
         // Redirect to https. (can't do server-side because cloudflare flexible ssl ^_^
         if (window.location.protocol != "https:") {
             window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
         }
+        {% endif %}
         // Set timezone in a cookie.
         var d = new Date();
         d.setYear(d.getYear() + 1); // Expire in one year
@@ -57,10 +59,11 @@
         <div style='float: right; display: inline-block;'>
           hi, {{ g.user.name }}! <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
         </div>
-    {% else %}
-        <a href='/'><img src='/static/logo.png' alt='tsundiary' width=200 height=48 style="display: block; margin: 0 auto" /></a>
     {% endif %}
     </div>
+    {% if not g.user %}
+    <a href='/'><img src='/static/logo.png' alt='tsundiary' width=200 height=48 style="display: block; margin: 0 auto" /></a>
+    {% endif %}
 </div>
 <div id="content">
 {% block content %}
