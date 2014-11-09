@@ -57,7 +57,11 @@
         {% endfor %}
 
         <div style='float: right; display: inline-block;'>
-          hi, {{ g.user.name }}! <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
+          hi, {{ g.user.name }}!
+          {% if g.user.num_entries > 1 %}
+          you have {{ g.user.num_entries }} entries.
+          {% endif %}
+          <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
         </div>
     {% endif %}
     </div>
