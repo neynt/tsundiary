@@ -29,19 +29,6 @@ def confess():
         new_post = Post(g.user.sid, content, cur_date)
         new_post.update_time = datetime.now()
         db.session.merge(new_post)
-        db.session.commit()
-        combo = 1
-
-        # Update number of entries
-        g.user.num_entries = g.user.posts.count()
-        # Update latest post date
-        g.user.latest_post_date = cur_date
-        # Update combo
-        cd = cur_date - timedelta(days = 1)
-        while g.user.posts.filter_by(posted_date = cd).first():
-            combo += 1
-            cd -= timedelta(days = 1)
-        g.user.combo = combo
 
         db.session.commit()
 
@@ -49,4 +36,17 @@ def confess():
         return_message = "saved!"
         return_timestamp = unix_timestamp(new_post.update_time)
 
-    return json.dumps({'success': return_success, 'message': return_message, 'timestamp': return_timestamp})
+    # Update number of entries
+    g.user.num_entries = g.user.posts.count()
+    # Update latest post date
+    g.user.latest_post_date = cur_date
+    # Update combo
+    combo = 1
+    cd = cur_date - timedelta(days = 1)
+    while g.user.posts.filter_by(posted_date = cd).first():
+        combo += 1
+        cd -= timedelta(days = 1)
+    g.user.combo = combo
+    db.session.commit()
+
+    return json.dumps({'success': return_success, 'message': return_message, 'timestamp': return_timestamp, 'num_entries': g.user.num_entries})

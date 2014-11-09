@@ -50,6 +50,7 @@ function confess() {
             $('#save_status').html(d['message']);
             last_timestamp = d['timestamp'];
             console.log('last timestamp updated to ', last_timestamp);
+            $('#num_entries').html(d['num_entries']);
             writing = false;
         }
     );
