@@ -39,8 +39,10 @@
 </head>
 <body>
 
-  {% if author and (not g.theme or author.theme != g.theme) %}
+  {% if author and author.theme != g.theme %}
   <link href='/static/themes/{{author.theme}}.css' rel='stylesheet' />
+  {% endif %}
+  {% if author and author.color != g.color %}
   <link href='/colors/{{author.theme}}/{{author.color}}.css' rel='stylesheet' />
   {% endif %}
 
