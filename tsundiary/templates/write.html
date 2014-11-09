@@ -32,7 +32,8 @@
 {% endif %}
 
 <script>
-var timer = null;
+var save_timer = null;
+var update_interval = null;
 var textarea = $('#edit_area');
 var old_content = textarea.val();
 var cur_date = "{{ g.date.strftime('%Y%m%d') }}";
@@ -49,8 +50,8 @@ function confess() {
             d = JSON.parse(data);
             $('#save_status').html(d['message']);
             last_timestamp = d['timestamp'];
-            console.log('last timestamp updated to ', last_timestamp);
             $('#num_entries').html(d['num_entries']);
+            console.log('last timestamp updated to ', last_timestamp);
             writing = false;
         }
     );
@@ -59,7 +60,7 @@ function confess() {
 function prime_update() {
     $('#save_status').html('writing...')
     writing = true;
-    timer = setTimeout(function() {
+    save_timer = setTimeout(function() {
         $('#save_status').html('saving...')
         confess();
     }, 500);
@@ -85,7 +86,7 @@ function update_char_count() {
 function content_changed() {
     var count = update_char_count();
     update_char_count();
-    clearTimeout(timer);
+    clearTimeout(save_timer);
 
     if (count <= CHAR_LIMIT) {
         //$('#char_count').removeClass('error');
@@ -119,11 +120,19 @@ function get_updates() {
 }
 
 update_char_count(); // all I want is for my sound to multiply
-window.onload = function () {
+
+InstantClick.on('change', function (isInitialLoad) {
     update_char_count();
     textarea.bind('input propertychange', content_changed);
-    setInterval(get_updates, 1000);
-};
+    if (update_interval) clearInterval(update_interval);
+    update_interval = setInterval(get_updates, 1000);
+});
+
+//window.onload = function () {
+//    update_char_count();
+//    textarea.bind('input propertychange', content_changed);
+//    setInterval(get_updates, 1000);
+//};
 
 </script>
 

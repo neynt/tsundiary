@@ -13,17 +13,15 @@
 
     <!-- My stuff -->
     <link href='/static/style.css' rel='stylesheet' />
-    {% if author %}
-    <link href='/static/themes/{{author.theme}}.css' rel='stylesheet' />
-    <link href='/colors/{{author.theme}}/{{author.color}}.css' rel='stylesheet' />
-    {% elif g.theme %}
-    <link href='/static/themes/{{g.theme}}.css' rel='stylesheet' />
-    <link href='/colors/{{g.theme}}/{{g.color}}.css' rel='stylesheet' />
-    {% else %}
-    <link href='/static/themes/classic.css' rel='stylesheet' />
-    {% endif %}
     <link href='/favicon.ico' rel='icon' type='image/x-icon' />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    {% if g.theme %}
+    <link href='/static/themes/{{g.theme}}.css' rel='stylesheet' data-instant-track />
+    <link href='/colors/{{g.theme}}/{{g.color}}.css' rel='stylesheet' data-instant-track />
+    {% else %}
+    <link href='/static/themes/classic.css' rel='stylesheet' data-instant-track />
+    {% endif %}
 
     <script type='text/javascript'>
         {% if not config["DEBUG"] %}
@@ -37,8 +35,15 @@
         d.setYear(d.getYear() + 1); // Expire in one year
         document.cookie = 'timezone=' + new Date().getTimezoneOffset() + "; expires=" + d.toUTCString();
     </script>
+    <script src="/static/instantclick.min.js" data-no-instant></script>
 </head>
 <body>
+
+  {% if author %}
+  <link href='/static/themes/{{author.theme}}.css' rel='stylesheet' />
+  <link href='/colors/{{author.theme}}/{{author.color}}.css' rel='stylesheet' />
+  {% endif %}
+
 <div id="wrap">
 <div id="top">
     <div id='nav'>
@@ -61,7 +66,9 @@
           {% if g.user.num_entries > 1 %}
           you have <span id='num_entries'>{{ g.user.num_entries }}</span> entries.
           {% endif %}
-          <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out'><i class='fa fa-sign-out'></i></a>
+          <a href='/logout?user={{ g.user.sid }}' class='action_link', title='Log out' data-no-instant>
+            <i class='fa fa-sign-out'></i>
+          </a>
         </div>
     {% endif %}
     </div>
@@ -81,5 +88,6 @@
 {% endif %}
 
 </div>
+<script data-no-instant>InstantClick.init();</script>
 </body>
 </html>
