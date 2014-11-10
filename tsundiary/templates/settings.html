@@ -9,19 +9,26 @@
   <p>
   <select id='option_theme'>
     {% for name,tid in [
-    ('Understated Grey', 'default'),
     ('Classic Orange', 'classic'),
     ('Minimal Black/Grey', 'minimal'),
-    ('Misato Tachibana Peach', 'misato-tachibana'),
-    ('Rei Ayanami Blue/Orange', 'rei-ayanami'),
-    ('Saya Green/Red', 'saya'),
+    ('Misato Tachibana', 'misato-tachibana'),
+    ('Rei Ayanami', 'rei-ayanami'),
+    ('Saya', 'saya'),
     ('Yuno Gasai', 'yuno'),
-    ('Colorful (based on favorite color)', 'colorful'),
+    ('Based on favorite color', 'colorful'),
     ]
     %}
     <option value='{{ tid }}' {% if tid == g.user.theme %}selected{% endif %} >{{ name }}</option>
     {% endfor %}
   </select>
+    {% set creds = {
+      'misato-tachibana': '<a href="http://konachan.com/post/show/102801">Misato Tachibana vector source</a>',
+      'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei vector source</a>',
+      'saya': '<a href="http://www.zerochan.net/671274">Saya source</a>'
+    } %}
+    {% if g.theme in creds %}
+    <p>{{ creds[g.theme] | safe }}</p>
+    {% endif %}
   </p>
 
   <h2>Favorite color</h2>

@@ -1,25 +1,12 @@
 /* Base */
-body { color: #380517; background: url('/static/img/yuno.png') no-repeat bottom right fixed, linear-gradient(to right, #FCE3E4, #FCE3E4); background-size: auto 100%; }
+body { color: #380517; background: url('/static/img/yuno.jpg') no-repeat bottom right fixed, linear-gradient(to right, #FCE3E4, #FCE3E4); background-size: auto 100%; }
 
-/* Links */
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #FCE3E4; background-color: #E74F79; }
+
+/* Content links */
 a { color: #E74F79; }
-
-/* Top and bottom backgrounds */
-div#top { background-color: transparent; }
-div#foot { background-color: transparent; }
-
-/* Nav separator border */
-div#top { border-color: transparent; }
-
-/* Nav links */
-div#nav a { color: #E74F79; background: transparent; border-color: transparent; }
-div#nav a.cur_page { border-bottom-color: #E74F79; }
-
-/* Posts */
-.cloud, .post, select { border-width: 0.1em; border-color: #E74F79; }
-
-/* Footer */
-div#foot { border: 0; color: #E74F79; }
+a:hover, a.selected_date { color: #FCE3E4; background-color: #E74F79; }
 
 /* and a little extra */
 .about::after { content: 'yandiary 0v0' }

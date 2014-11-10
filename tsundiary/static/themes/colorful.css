@@ -1,21 +1,9 @@
 /* Base */
-body { color: #111; background-color: #eee; }
+body { color: #111; }
 
-/* Links */
-a { color: #02b; }
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #E0EFE8; background-color: #4A9572; }
 
-/* Top and bottom backgrounds */
-div#top, div#foot { background-color: transparent; }
-
-/* Nav separator border */
-div#top { border-color: transparent; }
-
-/* Nav links */
-div#nav a { color: #000; background: transparent; border-color: transparent; }
-div#nav a.cur_page { border-bottom-color: #000; }
-
-/* Posts */
-.cloud, .post { border-width: 0.1em; border-color: rgba(64, 64, 64, 0.5); }
-
-/* Footer */
-div#foot { border: 0; color: #000; }
+/* Content links */
+a { color: #4A9572; }
+a:hover, a.selected_date { color: #E0EFE8; background-color: #4A9572; }

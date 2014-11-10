@@ -1,22 +1,9 @@
 /* Base */
-body { color: #2E3033; background-color: #E6F3FF; }
+body { color: #2E3033; background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right fixed, linear-gradient(to right, #E6F3FF, #E6F3FF); background-size: auto 90%; }
 
-/* Links */
-a { color: #FF8300; }
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #E6F3FF; background-color: #e7282d; }
 
-/* Top and bottom backgrounds */
-div#top, div#foot { background-color: transparent; }
-
-/* Nav separator border */
-div#top { border-color: transparent; }
-
-/* Nav links */
-div#nav a { color: #FF8300; background: transparent; border-color: transparent; }
-div#nav a.cur_page { border-bottom-color: #FF8300; }
-
-/* Posts */
-.cloud, .post, select { border-width: 0.1em; border-style: solid; border-color: rgba(255, 131, 0, 1.0); }
-.cloud hr, .post hr { border-color: transparent; }
-
-/* Footer */
-div#foot { border: 0; color: #FF8300; }
+/* Content links */
+a { color: #e7282d; }
+a:hover, a.selected_date { color: #E6F3FF; background-color: #e7282d; }

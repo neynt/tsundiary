@@ -7,14 +7,14 @@ html { height: 100%; overflow-y: scroll; }
 body { font-size: 12pt; height: 100%; text-rendering: optimizeLegibility; }
 
 /* Colors */
-body { background-color: #eee; color: #777; }
+body { background-color: #FFEFE8; color: #33302E; }
 .cloud, .post { color: #000; background-color: #fff; border-color: #b3b3b3; }
 
 p { padding: 0.3em 0; }
 
 /* Links, in general */
-a { color: #333; text-decoration: none; }
-a:hover, a.selected_date { text-decoration: underline; }
+a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 2px; margin: 0 -1px; }
+a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
 
 /* Quotes */
 blockquote { border-left: 4px solid #b3b3b3; padding: 0 5%; margin: 0.5em 0; margin-left: -10px; }
@@ -25,18 +25,18 @@ div#wrap, input, textarea { font-size: 1em; font-family: Dosis; }
 pre { border-left: 4px solid #b3b3b3; padding: 0.5em 5%; margin: 1em 0; margin-left: -10px; white-space: pre-wrap; }
 code { font-family: 'Inconsolata', monospace; }
 
-input { font-size: 1.1em; }
-textarea { font-size: 1em; }
+input { font-size: 12pt; }
+textarea { font-size: 12pt; }
 
-h1 { padding: 10px 0 5px; font-size: 2em; font-weight: normal; }
-h2 { padding: 10px 0 5px; font-size: 1.5em; font-weight: normal; }
-h3 { font-size: 1.1em; font-weight: normal; }
+h1 { padding: 10px 0 5px; font-size: 24pt; font-weight: normal; }
+h2 { padding: 10px 0 5px; font-size: 18pt; font-weight: normal; }
+h3 { font-size: 14pt; font-weight: normal; }
 
 /* Wrapper for main content */
 div#wrap { position: relative; min-height: 100%; }
 
 /* "cloud" container */
-.cloud, .post { border-width: 0.15em; border-style: solid; border-radius: 5px; padding: 0; }
+.cloud, .post { border-width: 0.15em; border-style: solid; border-color: rgba(0, 0, 0, 0.0); border-radius: 5px; padding: 0; }
 
 /* Post editing components */
 #edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
@@ -74,7 +74,7 @@ input { background-color: #fff; }
 
 input[type="text"], input[type="email"], input[type="password"] { width: 90%; border: 0; }
 
-select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 0.1em solid rgba(0, 0, 0, 0.5); border-radius: 0.2em; padding: 0.4em; }
+select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-indent: 0.01px; text-overflow: ''; font-family: 'Dosis', sans-serif; font-size: 1em; background-color: #ffffff; border: 0.1em solid rgba(0, 0, 0, 0.0); border-radius: 0.2em; padding: 0.4em; }
 
 /* Submit buttons */
 .submitbutton { width: 90%; margin: 0; border: 0; border-radius: 0; background: transparent; }
@@ -87,22 +87,19 @@ select { width: 100%; -webkit-appearance: none; -moz-appearance: none; text-inde
 .last { padding-bottom: 10px; margin-bottom: 1px; }
 
 /* The horizontal line */
-hr { margin: 0; border: 0; border-top: 1px solid #b3b3b3; }
+hr { margin: 0; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.0); }
 /* ... in clouds */
 .cloud hr { margin: 0 0; }
 
 /* Top bar */
-div#top { text-align: left; background-color: #d2d2d2; border-bottom: 0.15em solid #b3b3b3; margin-bottom: 2em; padding-top: 1em; }
-
-#logo { display: inline-block; margin: 10px 10px -30px; }
-
+div#top { text-align: left; border-bottom: 2px solid rgba(0, 0, 0, 0.0); margin-bottom: 20px; padding-top: 20px; }
 div#nav { display: block; max-width: 35em; margin: 0 auto; padding: 0.5em 0.5em 0.5em; }
-div#nav a { background-color: #eeeeee; color: #777; padding: 0.5em 0.5em 0.5em; border: 0.15em solid #b3b3b3; border-radius: 0.3em 0.3em 0 0; text-decoration: none; }
+div#nav a { padding: 8px; margin: 1px; border: 2px solid rgba(0, 0, 0, 0.0); border-radius: 0.3em; text-decoration: none; }
 div#nav a.action_link { border: 0; background: 0; }
-div#nav a.cur_page { border-bottom: 0.15em solid #eeeeee; }
+div#nav a.cur_page { background: #FF4800; color: #FFEFE8; }
 
 /* Content div */
 div#content { min-width: 10em; max-width: 35em; margin: 0 auto; padding: 0 0.5em 10em; }
 
 /* Footer div */
-div#foot { background-color: #d2d2d2; color: #777; border-top: 2px solid #b3b3b3; position: absolute; padding: 20px 0px; left: 0; right: 0; bottom: 0; text-align: center; }
+div#foot { color: #777; border-top: 2px solid rgba(0, 0, 0, 0.0); position: absolute; padding: 20px 0px; left: 0; right: 0; bottom: 0; text-align: center; }

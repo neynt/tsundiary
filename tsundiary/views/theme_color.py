@@ -50,8 +50,7 @@ def theme_color(theme_name, colors):
         btn = Color(h, s, v)
         if btn.getBrightness() > 0.6:
              btn.scaleBrightness(0.8)
-        colors.append("body { background-color: %s; }" % bg.getHexRGB())
+        colors.append("body { background: %s; }" % bg.getHexRGB())
         colors.append("a { color: %s; }" % btn.getHexRGB())
-        colors.append("div#nav a { color: %s; }" % btn.getHexRGB())
-        colors.append("div#nav a.cur_page { border-bottom-color: %s; }" % btn.getHexRGB())
+        colors.append("a:hover, a.selected_date, div#nav a:hover, div#nav a.cur_page { color: %s; background-color: %s; }" % (bg.getHexRGB(), btn.getHexRGB()))
         return Response('\n'.join(colors), mimetype='text/css')

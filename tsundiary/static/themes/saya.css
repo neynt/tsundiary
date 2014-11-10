@@ -1,21 +1,9 @@
 /* Base */
-body { color: #33302E; background-color: #E0EFE8; }
+body { color: #33302E; background: url('/static/img/saya.jpg') no-repeat bottom right fixed, linear-gradient(to right, #E0EFE8, #E0EFE8); background-size: auto 90%; }
 
-/* Links */
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #E0EFE8; background-color: #4A9572; }
+
+/* Content links */
 a { color: #4A9572; }
-
-/* Top and bottom backgrounds */
-div#top, div#foot { background-color: transparent; }
-
-/* Nav separator border */
-div#top { border-color: transparent; }
-
-/* Nav links */
-div#nav a { color: #4A9572; background: transparent; border-color: transparent; }
-div#nav a.cur_page { border-bottom-color: #4A9572; }
-
-/* Posts */
-.cloud, .post, select { border-width: 0.1em; border-color: #DD4D66; }
-
-/* Footer */
-div#foot { border: 0; color: #4A9572; }
+a:hover, a.selected_date { color: #E0EFE8; background-color: #4A9572; }

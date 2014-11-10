@@ -124,8 +124,9 @@ update_char_count(); // all I want is for my sound to multiply
 InstantClick.on('change', function (isInitialLoad) {
     update_char_count();
     textarea.bind('input propertychange', content_changed);
-    if (update_interval) clearInterval(update_interval);
-    update_interval = setInterval(get_updates, 1000);
+    if (!update_interval) {
+      update_interval = setInterval(get_updates, 1000);
+    }
 });
 
 //window.onload = function () {

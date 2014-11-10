@@ -1,21 +1,9 @@
 /* Base */
-body { color: #33302E; background-color: #FFEFE8; }
+body { background: #FFEFE8; }
 
-/* Links */
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #FFEFE8; background-color: #FF4800; }
+
+/* Content links */
 a { color: #FF4800; }
-
-/* Top and bottom backgrounds */
-div#top, div#foot { background-color: transparent; }
-
-/* Nav separator border */
-div#top { border-color: transparent; }
-
-/* Nav links */
-div#nav a { color: #FF4800; background: transparent; border-color: transparent; }
-div#nav a.cur_page { border-bottom-color: #FF4800; }
-
-/* Posts */
-.cloud, .post, select { border-width: 0.1em; border-color: rgba(64, 64, 64, 0.5); }
-
-/* Footer */
-div#foot { border: 0; color: #FF4800; }
+a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
