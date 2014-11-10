@@ -17,7 +17,7 @@ a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 2px; m
 a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
 
 /* Quotes */
-blockquote { border-left: 4px solid #b3b3b3; padding: 0 5%; margin: 0.5em 0; margin-left: -10px; }
+blockquote { border-left: 4px solid #FF4800; border-radius: 4px; padding: 5px 20px; margin: 10px 0; }
 cite { display: block; text-align: right; margin-top: -10px; margin-bottom: 20px; }
 
 /* Fonts */
