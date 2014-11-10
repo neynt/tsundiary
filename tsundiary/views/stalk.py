@@ -43,9 +43,9 @@ def stalk_list_add():
     return redirect('/stalk')
 
 # Remove a user from a user's stalk list.
-@app.route('/stalkdel', methods=['POST'])
-def stalk_list_del():
-    del_author = request.form.get('victim')
+@app.route('/stalkdel/<victim>', methods=['GET'])
+def stalk_list_del(victim):
+    del_author = victim
     if not g.user:
         return page_not_found()
     authorlist = g.user.stalks.split(',')
