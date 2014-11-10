@@ -1,5 +1,5 @@
 /* Base */
-body, div#nav a { color: #111; background-color: #eee; }
+body { color: #111; background-color: #eee; }
 
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page { color: #eee; background-color: #111; }
