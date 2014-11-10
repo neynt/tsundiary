@@ -1,0 +1,9 @@
+/* Base */
+body { color: #331122; background: url('/static/img/kyoko-sakura.jpg') no-repeat bottom right fixed, linear-gradient(to right, #f9e3e6, #f9e3e6); background-size: auto 80%; }
+
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page { color: #f9e3e6; background-color: #b65d69; }
+
+/* Content links */
+a { color: #b65d69; }
+a:hover, a.selected_date { color: #f9e3e6; background-color: #b65d69; }
