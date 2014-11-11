@@ -9,6 +9,7 @@ body { font-size: 12pt; height: 100%; text-rendering: optimizeLegibility; backgr
 /* Colors */
 body { background-color: #FFEFE8; color: #33302E; }
 .cloud, .post { color: #000; background-color: #fff; border-color: #b3b3b3; }
+#instantclick-bar { background: #FF4800; }
 
 p { padding: 0.3em 0; }
 

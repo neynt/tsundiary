@@ -1,6 +1,8 @@
 /* Base */
 body { color: #33302E; background: url('/static/img/saya.jpg') no-repeat bottom right fixed, linear-gradient(to right, #E0EFE8, #E0EFE8); background-size: auto 90%; }
 
+#instantclick-bar { background: #4A9572; }
+
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page { color: #E0EFE8; background-color: #4A9572; }
 

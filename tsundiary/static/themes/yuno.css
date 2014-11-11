@@ -1,6 +1,8 @@
 /* Base */
 body { color: #380517; background: url('/static/img/yuno.jpg') no-repeat bottom right fixed, linear-gradient(to right, #FCE3E4, #FCE3E4); background-size: auto 100%; }
 
+#instantclick-bar { background: #E74F79; }
+
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page { color: #FCE3E4; background-color: #E74F79; }
 

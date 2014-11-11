@@ -1,6 +1,8 @@
 /* Base */
 body { color: #2E3033; background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right fixed, linear-gradient(to right, #E6F3FF, #E6F3FF); background-size: auto 90%; }
 
+#instantclick-bar { background: #e7282d; }
+
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page { color: #E6F3FF; background-color: #e7282d; }
 
