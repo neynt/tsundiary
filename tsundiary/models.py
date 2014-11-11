@@ -56,10 +56,10 @@ class User(db.Model):
         # publicity
         # 0: completely hidden1: anyone with the link  2. link in user list
         self.publicity = 2
-        self.theme = 'classic'
+        self.theme = 'default'
         self.color = '0,100,100'
         self.stalks = ''
-        latest_post_date = date(1900,1,1)
+        self.latest_post_date = date(1900,1,1)
 
     def __repr__(self):
         return '<User %r>' % self.name
