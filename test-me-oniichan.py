@@ -41,6 +41,20 @@ class TsundiaryTestCase(unittest.TestCase):
         rv = self.login("testuser123", "12345pineapple")
         assert 'Once you have a history' in rv.data
 
+    def test_settings(self):
+        rv = self.register("testuser123", "12345pineapple")
+        rv = self.login("testuser123", "12345pineapple")
+        assert 'Once you have a history' in rv.data
+        rv = self.app.get('/settings')
+        assert 'Change password' in rv.data
+        rv = self.app.post('/change_setting', data={
+            'setting_name': 'theme',
+            'setting_value': 'saya'
+            })
+        assert 'refresh to see theme' in rv.data
+        rv = self.app.get('/settings')
+        assert 'Saya source' in rv.data
+
 if __name__ == '__main__':
     print("Onii-chan, your test suite is too comprehensive!!")
     unittest.TextTestRunner().run(
