@@ -8,7 +8,9 @@
 {% for author, latest_post, hidden_day, cutoff_day in posts %}
 <h2>
   <a href="/~{{ author.sid }}">{{ author.name }}</a>
-  (<a href='/stalkdel/{{ author.sid }}' data-no-instant>unstalk</a>)
+  <span style='float:right'>
+    [<a href='/stalkdel/{{ author.sid }}' data-no-instant>unstalk</a>]
+  </span>
 </h2>
 {{ render_entry(latest_post, hidden_day, cutoff_day) | safe }}
 {% endfor %}
