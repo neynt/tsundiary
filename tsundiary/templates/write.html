@@ -50,7 +50,7 @@ function confess() {
             d = JSON.parse(data);
             $('#save_status').html(d['message']);
             last_timestamp = d['timestamp'];
-            $('#num_entries').html(d['num_entries']);
+            //$('#num_entries').html(d['num_entries']);
             console.log('last timestamp updated to ', last_timestamp);
             writing = false;
         }
