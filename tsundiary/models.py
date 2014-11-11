@@ -56,7 +56,7 @@ class User(db.Model):
         # publicity
         # 0: completely hidden1: anyone with the link  2. link in user list
         self.publicity = 2
-        self.theme = 'default'
+        self.theme = 'classic'
         self.color = '0,100,100'
         self.stalks = ''
         self.latest_post_date = date(1900,1,1)
