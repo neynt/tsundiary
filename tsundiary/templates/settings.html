@@ -8,30 +8,39 @@
   <h2>Theme</h2>
   <p>
   <select id='option_theme'>
+    {% set exists = [] %}
     {% for t in themes %}
       <option value='{{ t }}'
       {% if t == g.theme %}
-        {% set selected=True %}
+        {% if exists.append(True) %}{% endif %}
         selected
       {% endif %}>{{ theme_nicename[t] }}
       </option>
     {% endfor %}
 
-    {% if g.theme not in themes %}
+    {% if not exists %}
       <option value='{{ g.theme }}' selected>{{ theme_nicename[g.theme] if g.theme in theme_nicename else g.theme }}</option>
     {% endif %}
   </select>
-    {% if g.theme in theme_creds %}
-    <p>{{ theme_creds[g.theme] | safe }}</p>
-    {% endif %}
   </p>
+  {% if g.theme in theme_creds %}
+  <p>{{ theme_creds[g.theme] | safe }}</p>
+  {% endif %}
 
   <h2>Favorite color</h2>
   <p>
   <select id='option_color'>
+    {% set exists = [] %}
     {% for name,tid in theme_colors %}
-    <option value='{{ tid }}' {% if tid == g.user.color %}selected{% endif %} >{{ name }}</option>
+      <option value='{{ tid }}'
+      {% if tid == g.user.color %}
+        {% if exists.append(True) %}{% endif %}
+        selected
+      {% endif %} >{{ name }}</option>
     {% endfor %}
+    {% if not exists %}
+      <option value='{{ g.user.color }}' selected>custom color: hsv({{ g.user.color }})</option>
+    {% endif %}
   </select>
   </p>
 
