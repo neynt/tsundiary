@@ -19,15 +19,17 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     invite_key = db.Column(db.String)
     join_time = db.Column(db.DateTime, index=True)
-    num_entries = db.Column(db.Integer, index=True)
-    combo = db.Column(db.Integer, index=True)
-    timezone = db.Column(db.Integer)
-    secret_days = db.Column(db.Integer)
-    publicity = db.Column(db.Integer)
-    theme = db.Column(db.String)
-    color = db.Column(db.String)
-    stalks = db.Column(db.String)
-    latest_post_date = db.Column(db.Date, index=True)
+    num_entries = db.Column(db.Integer, index=True, default=0)
+    combo = db.Column(db.Integer, index=True, default=0)
+    timezone = db.Column(db.Integer, default=0)
+    secret_days = db.Column(db.Integer, default=0)
+
+    # 0: completely hidden  1: anyone with the link  2. link in user list
+    publicity = db.Column(db.Integer, default=0)
+    theme = db.Column(db.String, default='classic')
+    color = db.Column(db.String, default='0,100,100')
+    stalks = db.Column(db.String, default='')
+    latest_post_date = db.Column(db.Date, index=True, default=date(1900,1,1))
 
     def verify_password(self, password):
         """ Checks whether a user's password is equal to the given string."""
@@ -49,20 +51,9 @@ class User(db.Model):
         self.email = email
         self.invite_key = invite_key
         self.join_time = datetime.now()
-        self.num_entries = 0
-        self.combo = 0
-        self.timezone = 0 # UTC
-        self.secret_days = 0
-        # publicity
-        # 0: completely hidden1: anyone with the link  2. link in user list
-        self.publicity = 2
-        self.theme = 'classic'
-        self.color = '0,100,100'
-        self.stalks = ''
-        self.latest_post_date = date(1900,1,1)
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<User %r (%r)>' % (self.name, self.sid)
 
 class Post(db.Model):
     """ A user's post. """
