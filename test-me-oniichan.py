@@ -1,4 +1,5 @@
 import tsundiary
+from datetime import datetime, date
 import os
 import tempfile
 import unittest
@@ -54,6 +55,25 @@ class TsundiaryTestCase(unittest.TestCase):
         assert 'refresh to see theme' in rv.data
         rv = self.app.get('/settings')
         assert 'Saya source' in rv.data
+
+    def test_posting(self):
+        rv = self.register("testuser123", "12345pineapple")
+        rv = self.login("testuser123", "12345pineapple")
+
+        rv = self.app.post('/confess', data={
+            'content': 'I am a well-rounded cake.',
+            'cur_date': tsundiary.utils.datestamp(date.today())
+            })
+        assert 'saved!' in rv.data
+
+        rv = self.app.get('/')
+        assert 'I am a well-rounded cake.' in rv.data
+
+        rv = self.app.post('/confess', data={
+            'content': '',
+            'cur_date': tsundiary.utils.datestamp(date.today())
+            })
+        assert 'deleted!' in rv.data
 
 if __name__ == '__main__':
     print("Onii-chan, your test suite is too comprehensive!!")
