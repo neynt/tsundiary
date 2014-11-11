@@ -41,9 +41,7 @@ def theme_color(theme_name, colors):
     h,s,v = map(int, colors.split(','))
     base = Color(h, s, v)
     colors = []
-    if theme_name in ['default', 'classic', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno']:
-        return Response("", mimetype='text/css')
-    elif theme_name == 'colorful':
+    if theme_name == 'colorful':
         bg = Color(h, s, v)
         bg.mapValue(0.5, 1.0)
         bg.scaleSaturation(0.1)
@@ -54,3 +52,5 @@ def theme_color(theme_name, colors):
         colors.append("a { color: %s; }" % btn.getHexRGB())
         colors.append("a:hover, a.selected_date, div#nav a:hover, div#nav a.cur_page { color: %s; background-color: %s; }" % (bg.getHexRGB(), btn.getHexRGB()))
         return Response('\n'.join(colors), mimetype='text/css')
+    else:
+        return Response("", mimetype='text/css')
