@@ -34,6 +34,7 @@ app.permanent_session_lifetime = timedelta(days=36500)
 from tsundiary.views import *
 from tsundiary.models import User, db
 from tsundiary.utils import their_date
+import tsundiary.jinja_env
 
 migrate = Migrate(app, db)
 manager = Manager(app)

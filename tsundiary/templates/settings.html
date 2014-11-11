@@ -8,48 +8,28 @@
   <h2>Theme</h2>
   <p>
   <select id='option_theme'>
-    {% for name,tid in [
-    ('Classic Orange', 'classic'),
-    ('Minimal Black/Grey', 'minimal'),
-    ('Misato Tachibana', 'misato-tachibana'),
-    ('Rei Ayanami', 'rei-ayanami'),
-    ('Saya', 'saya'),
-    ('Yuno Gasai', 'yuno'),
-    ('Based on favorite color', 'colorful'),
-    ]
-    %}
-    <option value='{{ tid }}' {% if tid == g.user.theme %}selected{% endif %} >{{ name }}</option>
+    {% for t in themes %}
+      <option value='{{ t }}'
+      {% if t == g.theme %}
+        {% set selected=True %}
+        selected
+      {% endif %}>{{ theme_nicename[t] }}
+      </option>
     {% endfor %}
+
+    {% if g.theme not in themes %}
+      <option value='{{ g.theme }}' selected>{{ theme_nicename[g.theme] if g.theme in theme_nicename else g.theme }}</option>
+    {% endif %}
   </select>
-    {% set creds = {
-      'misato-tachibana': '<a href="http://konachan.com/post/show/102801">Misato Tachibana vector source</a>',
-      'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei vector source</a>',
-      'saya': '<a href="http://www.zerochan.net/671274">Saya source</a>',
-      'kyoko-sakura': "An artist drew this Kyoko, I'm sure."
-    } %}
-    {% if g.theme in creds %}
-    <p>{{ creds[g.theme] | safe }}</p>
+    {% if g.theme in theme_creds %}
+    <p>{{ theme_creds[g.theme] | safe }}</p>
     {% endif %}
   </p>
 
   <h2>Favorite color</h2>
   <p>
   <select id='option_color'>
-    {% for name,tid in [
-    ('Red', '0,100,100'),
-    ('Orange', '35,100,100'),
-    ('Yellow', '50,100,100'),
-    ('Green', '120,100,80'),
-    ('Cyan', '180,100,80'),
-    ('Blue', '215,100,100'),
-    ('Purple', '270,100,100'),
-    ('Black', '0,0,0'),
-    ('Grey', '0,0,70'),
-    ('White', '0,0,100'),
-    ('Saya Green', '152,100,100'),
-    ('Tsundiary Orange', '17,100,100'),
-    ]
-    %}
+    {% for name,tid in theme_colors %}
     <option value='{{ tid }}' {% if tid == g.user.color %}selected{% endif %} >{{ name }}</option>
     {% endfor %}
   </select>
