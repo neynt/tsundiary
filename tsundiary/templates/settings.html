@@ -49,9 +49,6 @@
   <select id='option_secret_days'>
     <option value='0' {% if g.user.secret_days == 0 %}selected{% endif %}>None</option>
     <option value='1' {% if g.user.secret_days == 1 %}selected{% endif %}>Hide entries until the day ends</option>
-    {% for i in [7, 30] %}
-    <option value='{{ i }}' {% if i == g.user.secret_days %}selected{% endif %}>Hide entries for {{ i }} days after they are written</option>
-    {% endfor %}
     {% if g.user.publicity == 1 %}<option value='Hidden' selected>Hidden from userlist</option>{% endif %}
     <option value='Forever' {% if g.user.publicity == 0 %}selected{% endif %} >Completely private</option>
   </select>
