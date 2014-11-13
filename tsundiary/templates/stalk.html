@@ -14,9 +14,9 @@
 </style>
 
 {% if posts_by_date %}
-{% for date, posts in posts_by_date %}
+{% for date, entries in posts_by_date %}
 <h1>{{ date | nicedate }}</h1>
-{% for author, latest_post, hidden_day, cutoff_day in posts %}
+{% for author, entry, hidden_day, cutoff_day in entries %}
 <div class="stalked_user">
 <h2>
   <a href="/~{{ author.sid }}">{{ author.name }}</a>
@@ -24,7 +24,20 @@
     [<a href='/stalkdel/{{ author.sid }}' data-no-instant>unstalk</a>]
   </span>
 </h2>
-{{ render_entry(latest_post, hidden_day, cutoff_day) | safe }}
+
+{# TODO: Refactor this elsewhere. #}
+<div class='post' data-date='{{ entry.posted_date }}'>
+{% if entry.posted_date > hidden_day or entry.posted_date < cutoff_day %}
+<div class='post_date hidden'>
+  <span title="{{ entry.posted_date | prettydate }}">{{ entry.posted_date | nicedate }} - hidden</span>
+</div>
+{% else %}
+<div class='post_body'>
+  {{ entry.content | my_markdown | safe }}
+</div>
+{% endif %}
+</div>
+
 </div>
 {% endfor %}
 {% endfor %}
