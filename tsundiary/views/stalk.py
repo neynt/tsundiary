@@ -1,26 +1,27 @@
 from tsundiary.views import *
 
 # Stalk a list of authors.
-@app.route('/stalk/<authors>')
-def stalk_list_given(authors):
-    authorlist = authors.split(',')
+@app.route('/stalk')
+def stalk_list_given():
+    if not g.user:
+        return page_not_found()
+    if not g.user.stalks:
+        g.user.stalks = ''
+
+    victims = g.user.stalks.split(',')
     posts = defaultdict(list)
 
-    # Save stalks
-    if g.user:
-        g.user.stalks = authors
-        db.session.commit()
-
-    for authorname in authorlist:
-        author = User.query.filter_by(sid = uidify(authorname)).first()
+    for victim_name in victims:
+        author = User.query.filter_by(sid = uidify(victim_name)).first()
 
         if not author:
             continue
 
+        oldest_date = their_date() - timedelta(days=2)
+
         hidden_day = calc_hidden_day(author)
         cutoff_day = calc_cutoff_day(author)
-
-        latest_posts = author.posts.order_by(Post.posted_date.desc()).filter(Post.posted_date <= hidden_day).limit(1).all()
+        latest_posts = author.posts.order_by(Post.posted_date.desc()).filter(Post.posted_date >= oldest_date).all()
 
         if latest_posts:
             for p in latest_posts:
@@ -35,11 +36,15 @@ def stalk_list_given(authors):
 # Add a user to a user's stalk list.
 @app.route('/stalkadd', methods=['POST'])
 def stalk_list_add():
-    add_author = request.form.get('victim')
+    victim = request.form.get('victim')
     if not g.user:
         return page_not_found()
-    g.user.stalks += "," + add_author
-    db.session.commit()
+
+    cur_victims = g.user.stalks.split(',')
+    if victim not in cur_victims:
+        g.user.stalks += "," + uidify(victim)
+        db.session.commit()
+
     return redirect('/stalk')
 
 # Remove a user from a user's stalk list.
@@ -53,13 +58,3 @@ def stalk_list_del(victim):
     g.user.stalks = ','.join(authorlist)
     db.session.commit()
     return redirect('/stalk')
-
-# Stalk users.
-@app.route('/stalk')
-def stalk_list():
-    if g.user and g.user.stalks:
-        return stalk_list_given(g.user.stalks)
-    elif g.user:
-        return render_template('stalk.html')
-    else:
-        return page_not_found()
