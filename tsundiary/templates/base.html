@@ -24,12 +24,6 @@
     {% endif %}
 
     <script type='text/javascript'>
-        {% if not config["DEBUG"] %}
-        // Redirect to https. (can't do server-side because cloudflare flexible ssl ^_^
-        if (window.location.protocol != "https:") {
-            window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
-        }
-        {% endif %}
         // Set timezone in a cookie.
         var d = new Date();
         d.setYear(d.getYear() + 1); // Expire in one year
