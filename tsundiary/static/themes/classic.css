@@ -1,6 +1,8 @@
 /* Base */
 body { background: #FFEFE8; }
 
+#instantclick-bar { background: #FF4800; }
+
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page { color: #FFEFE8; background-color: #FF4800; }
 

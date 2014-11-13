@@ -38,7 +38,10 @@ class Color():
 # Theme colors.
 @app.route('/colors/<theme_name>/<colors>.css', methods=['GET'])
 def theme_color(theme_name, colors):
-    h,s,v = map(int, colors.split(','))
+    try:
+        h,s,v = map(int, colors.split(','))
+    except:
+        return Response("", mimetype='text/css')
     base = Color(h, s, v)
     colors = []
     if theme_name == 'colorful':
@@ -51,6 +54,7 @@ def theme_color(theme_name, colors):
         colors.append("body { background: %s; }" % bg.getHexRGB())
         colors.append("a { color: %s; }" % btn.getHexRGB())
         colors.append("a:hover, a.selected_date, div#nav a:hover, div#nav a.cur_page { color: %s; background-color: %s; }" % (bg.getHexRGB(), btn.getHexRGB()))
+        colors.append("#instantclick-bar { background: %s; }" % (btn.getHexRGB()))
         return Response('\n'.join(colors), mimetype='text/css')
     else:
         return Response("", mimetype='text/css')
