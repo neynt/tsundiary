@@ -2,17 +2,30 @@
 
 {% block content %}
 
+<style>
+.stalked_user .stalked_user_controls {
+  float: right;
+  opacity: 0.0;
+  transition: opacity 0.1s;
+}
+.stalked_user:hover .stalked_user_controls {
+  opacity: 1.0;
+}
+</style>
+
 {% if posts_by_date %}
 {% for date, posts in posts_by_date %}
 <h1>{{ date | nicedate }}</h1>
 {% for author, latest_post, hidden_day, cutoff_day in posts %}
+<div class="stalked_user">
 <h2>
   <a href="/~{{ author.sid }}">{{ author.name }}</a>
-  <span style='float:right'>
+  <span class="stalked_user_controls">
     [<a href='/stalkdel/{{ author.sid }}' data-no-instant>unstalk</a>]
   </span>
 </h2>
 {{ render_entry(latest_post, hidden_day, cutoff_day) | safe }}
+</div>
 {% endfor %}
 {% endfor %}
 {% else %}
