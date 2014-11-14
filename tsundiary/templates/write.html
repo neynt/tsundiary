@@ -26,6 +26,7 @@
 
 {% if old_posts %}
     {% for delta_name, p in old_posts %}
+    <div class='post'>
     <div class='post_top'>
       <span class='post_date'>
         {{ p.posted_date | nicedate }}
@@ -35,7 +36,9 @@
       </span>
     </div>
     <hr />
-    <div class='post_body'>{{ p.content | my_markdown | safe }}</div>
+    <div class='post_body'>
+      {{ p.content | my_markdown | safe }}
+    </div>
     </div>
     {% endfor %}
 {% else %}
