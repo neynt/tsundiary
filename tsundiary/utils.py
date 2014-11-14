@@ -39,7 +39,7 @@ def nice_date(d):
        e.g.: January 20, 2014"""
 
     if d:
-        return d.strftime("%A, %b %-d, %Y").lower()
+        return d.strftime("%A, %B %-d, %Y")
     else:
         return "Never!"
 
@@ -49,25 +49,24 @@ def pretty_date(d):
        e.g.: Monday, January 20, 2014
              Today
              Yesterday
-             Last Wednesday
-             Two Wednesdays ago"""
+             Last Wednesday"""
     if d:
         days = (their_date() - d).days
         if days == 0:
-            return "today"
+            return "Today"
         elif days == -1:
             # It happens with timezone differences
-            return "tomorrow"
+            return "Tomorrow"
         elif days == 1:
-            return "yesterday"
+            return "Yesterday"
         elif 0 < days < 7:
-            return d.strftime("%A").lower()
+            return d.strftime("Last %A")
         elif days == 7:
-            return "one week ago"
+            return "One week ago"
         elif their_date().year == d.year:
-            return d.strftime("%a, %b %-d").lower()
+            return d.strftime("%a, %B %-d")
         else:
-            return nice_date(d)
+            return d.strftime("%a, %B %-d, %Y")
     else:
         return "Never!"
 

@@ -4,8 +4,15 @@
   <span title="{{ p.posted_date | prettydate }}">{{ p.posted_date | nicedate }} - hidden</span>
 </div>
 {% else %}
-<div class='post_date'>
-  <span title="{{ p.posted_date | prettydate }}">{{ p.posted_date | nicedate }}</span>
+<div class='post_top'>
+  <span class='post_date' title="{{ p.posted_date | prettydate }}">
+    {{ p.posted_date | nicedate }}
+  </span>
+  <span class="post_controls">
+    {% if p.user.name == g.user.name %}
+      !!!
+    {% endif %}
+  </span>
 </div>
 <hr />
 <div class='post_body'>{{ p.content | my_markdown | safe }}</div>

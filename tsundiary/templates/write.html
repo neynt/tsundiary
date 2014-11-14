@@ -3,7 +3,14 @@
 {% block content %}
 
 <div class='post'>
-    <div class='post_date'>today</div>
+    <div class='post_top'>
+      <span class='post_date'>
+        Today
+      </span>
+      <span class="post_controls">
+        !!!
+      </span>
+    </div>
     <hr />
     <div class='post_body'>
       <p>
@@ -19,9 +26,13 @@
 
 {% if old_posts %}
     {% for delta_name, p in old_posts %}
-    <div class='post'>
-    <div class='post_date'>
-      <span title='{{ p.posted_date | prettydate }}'>{{ delta_name }}</span>
+    <div class='post_top'>
+      <span class='post_date'>
+        {{ nice_date(p.posted_date) }}
+      </span>
+      <span class="post_controls">
+        !!!
+      </span>
     </div>
     <hr />
     <div class='post_body'>{{ p.content | my_markdown | safe }}</div>

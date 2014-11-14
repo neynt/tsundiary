@@ -40,7 +40,7 @@ class Color():
 def theme_color(theme_name, colors):
     try:
         h,s,v = map(int, colors.split(','))
-    except:
+    except TypeError:
         return Response("", mimetype='text/css')
     base = Color(h, s, v)
     colors = []

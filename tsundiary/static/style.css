@@ -53,8 +53,19 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .post { margin: 5px 0; clear: both; }
 
 /* Post decoration */
-.post_date { display: block; margin: 0.6em 0; text-align: center; color: #999; }
+.post_top { display: block; margin: 10px; text-align: center; color: #999; position: relative; }
+.post_date { display: inline; }
 .hidden { border: 0; padding: 0; }
+
+/* Post controls */
+.post .post_controls {
+  opacity: 0.0;
+  transition: opacity 0.1s;
+  position: absolute; right: 0;
+}
+.post:hover .post_controls {
+  opacity: 1.0;
+}
 
 /* Post body */
 .post_body { margin: 0.3em 0; padding: 0 0.6em 0; word-wrap: break-word; }

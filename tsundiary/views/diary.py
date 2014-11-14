@@ -28,11 +28,14 @@ def render_diary(author, posts, title="Recent entries"):
 # A certain selection of dates from a user's diary.
 @app.route('/~<author_sid>/<year>/<month>')
 def diary(author_sid, year, month):
-    if year < 1900 or month < 1 or month > 12:
+    try:
+        yyyy, mm = int(year), int(month)
+    except TypeError:
+        return page_not_found()
+    if yyyy < 1900 or mm < 1 or mm > 12:
         return page_not_found()
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        yyyy, mm = int(year), int(month)
         min_date = date(yyyy, mm, 1)
         max_date = date(yyyy, mm, calendar.monthrange(yyyy, mm)[1])
         posts = author.posts\
