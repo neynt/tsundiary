@@ -40,7 +40,8 @@ def stalk_list_add():
     if not g.user:
         return page_not_found()
 
-    cur_victims = g.user.stalks.split(',')
+    stalks = g.user.stalks or ''
+    cur_victims = stalks.split(',')
     if victim not in cur_victims:
         g.user.stalks += "," + uidify(victim)
         db.session.commit()

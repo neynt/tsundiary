@@ -28,7 +28,7 @@
     {% for delta_name, p in old_posts %}
     <div class='post_top'>
       <span class='post_date'>
-        {{ nicedate(p.posted_date) }}
+        {{ p.posted_date | nicedate }}
       </span>
       <span class="post_controls">
         !!!
