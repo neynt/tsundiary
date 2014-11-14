@@ -28,8 +28,8 @@
 {# TODO: Refactor this elsewhere. #}
 <div class='post' data-date='{{ entry.posted_date }}'>
 {% if entry.posted_date > hidden_day or entry.posted_date < cutoff_day %}
-<div class='post_date hidden'>
-  <span title="{{ entry.posted_date | prettydate }}">{{ entry.posted_date | nicedate }} - hidden</span>
+<div class='post_top hidden'>
+  <span class='post_date' title="{{ entry.posted_date | prettydate }}">{{ entry.posted_date | nicedate }} - hidden</span>
 </div>
 {% else %}
 <div class='post_body'>
