@@ -25,25 +25,42 @@ def render_diary(author, posts, title="Recent entries"):
             title = title
             )
 
-# A certain selection of dates from a user's diary.
-@app.route('/~<author_sid>/<year>/<month>')
-def diary(author_sid, year, month):
-    try:
-        yyyy, mm = int(year), int(month)
-    except TypeError:
-        return page_not_found()
-    if yyyy < 1900 or mm < 1 or mm > 12:
-        return page_not_found()
+# A single page from a user's diary.
+@app.route('/~<author_sid>/<int:year>/<int:month>/<int:day>')
+def diary(author_sid, year, month, day):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        min_date = date(yyyy, mm, 1)
-        max_date = date(yyyy, mm, calendar.monthrange(yyyy, mm)[1])
-        posts = author.posts\
-            .filter(Post.posted_date >= min_date)\
-            .filter(Post.posted_date <= max_date)\
-            .order_by(Post.posted_date.asc())\
-            .all()
-        return render_diary(author, posts, min_date.strftime('%B %Y'))
+        try:
+            the_date = date(yyyy, mm, day)
+        except ValueError:
+            return page_not_found()
+        else:
+            posts = author.posts\
+                    .filter(Post.posted_date >= min_date)\
+                    .filter(Post.posted_date <= max_date)\
+                    .order_by(Post.posted_date.asc())\
+                    .all()
+            return render_diary(author, posts, min_date.strftime('%B %Y'))
+    else:
+        return page_not_found()
+
+# A certain selection of dates from a user's diary.
+@app.route('/~<author_sid>/<int:year>/<int:month>')
+def diary(author_sid, year, month):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        try:
+            min_date = date(year, month, 1)
+            max_date = date(year, month, calendar.monthrange(year, month)[1])
+        except ValueError:
+            return page_not_found()
+        else:
+            posts = author.posts\
+                    .filter(Post.posted_date >= min_date)\
+                    .filter(Post.posted_date <= max_date)\
+                    .order_by(Post.posted_date.asc())\
+                    .all()
+            return render_diary(author, posts, min_date.strftime('%B %Y'))
     else:
         return page_not_found()
 
