@@ -1,0 +1,20 @@
+{% extends "diary.html" %}
+
+{% block heading %}
+<a href="/~{{ author.sid }}">{{ author.name }}</a>
+{% endblock %}
+
+{% block usernav %}
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block stats %}
+{% endblock %}
+
+{% block posts %}
+{% for p in posts %}
+{{ render_entry(p, hidden_day, cutoff_day) | safe }}
+{% endfor %}
+{% endblock %}

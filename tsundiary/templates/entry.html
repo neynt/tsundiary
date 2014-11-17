@@ -11,8 +11,11 @@
     {{ p.posted_date | nicedate }}
   </span>
   <span class="post_controls">
+    <a href="/~{{ p.user.sid }}/{{ p.posted_date.strftime("%Y/%m/%d") }}"><i class="fa fa-link"></i></a>
     {% if p.user.name == g.user.name %}
-      !!!
+      {#
+      <a href="#"><i class="fa fa-eye" title="I wonder what this button will do in the future..." data-no-instant></i></a>
+      #}
     {% endif %}
   </span>
 </div>

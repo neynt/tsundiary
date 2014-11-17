@@ -4,11 +4,11 @@
 
 {% if author.publicity > 0 or g.user.sid == author.sid %}
 
-<h1>{{ author.name }}<span style='float:right;'></span></h1>
+<h1>{% block heading %}{{ author.name }}{% endblock %}</h1>
 
+{% block usernav %}
 <div style='float:right; text-align: right; width: 60%'>
 
-{# Other nav #}
 {% for link, target in [
 ('Recent entries', '/~%s' % author.sid),
 ] %}
@@ -37,22 +37,23 @@
 {% endfor %}
 
 </div>
+{% endblock %}
 
-{# Stats #}
+{% block stats %}
 <span class='stat'>
   <i class="fa fa-edit" title='Number of entries'></i> {{ author.num_entries }} day{% if author.num_entries != 1 %}s{% endif %} of entries
 </span><br />
 <span class='stat'>
   <i class="fa fa-star" title='Combo'></i> {{ author.combo }} day combo
 </span>
+{% endblock %}
 
 {% if posts %}
-{# Header #}
+
 {% block header %}
 <h1 style='clear:both'>{{ title }}</h1>
 {% endblock %}
 
-{# Posts #}
 <div id='posts'>
 {% block posts %}
 {% for p in posts %}

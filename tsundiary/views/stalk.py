@@ -43,7 +43,7 @@ def stalk_list_add():
     stalks = g.user.stalks or ''
     cur_victims = stalks.split(',')
     if victim not in cur_victims:
-        g.user.stalks += "," + uidify(victim)
+        g.user.stalks = stalks + "," + uidify(victim)
         db.session.commit()
 
     return redirect('/stalk')
