@@ -27,7 +27,7 @@ def render_diary(author, posts, title="Recent entries"):
 
 # A single page from a user's diary.
 @app.route('/~<author_sid>/<int:year>/<int:month>/<int:day>')
-def diary(author_sid, year, month, day):
+def diary_day(author_sid, year, month, day):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         try:
@@ -46,7 +46,7 @@ def diary(author_sid, year, month, day):
 
 # A certain selection of dates from a user's diary.
 @app.route('/~<author_sid>/<int:year>/<int:month>')
-def diary(author_sid, year, month):
+def diary_month(author_sid, year, month):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         try:
@@ -79,7 +79,7 @@ def diary_special(author_sid, command):
 
 # Last secret_days + 1 entries of a user's diary.
 @app.route('/~<author_sid>')
-def diary_preview(author_sid):
+def diary(author_sid):
     # Dict of year: [list months]
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
