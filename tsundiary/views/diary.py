@@ -15,7 +15,7 @@ def render_diary(author, posts, title="Recent entries"):
     print("### Someone's trying to look at ", hidden_day)
 
     return render_template(
-            "user.html",
+            "diary.html",
             author = author,
             posts = posts,
             hidden_day = hidden_day,
@@ -31,16 +31,12 @@ def diary_day(author_sid, year, month, day):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         try:
-            the_date = date(yyyy, mm, day)
+            the_date = date(year, month, day)
         except ValueError:
             return page_not_found()
         else:
-            posts = author.posts\
-                    .filter(Post.posted_date >= min_date)\
-                    .filter(Post.posted_date <= max_date)\
-                    .order_by(Post.posted_date.asc())\
-                    .all()
-            return render_diary(author, posts, min_date.strftime('%B %Y'))
+            post = author.posts.filter(Post.posted_date == the_date).first()
+            return render_diary(author, [post])
     else:
         return page_not_found()
 
