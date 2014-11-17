@@ -61,13 +61,13 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .post .post_controls {
   opacity: 0.0;
   transition: opacity 0.1s;
+  margin: -5px -6px 0 0;
   position: absolute;
   right: 0;
 }
 .post .post_controls a {
   display: inline-block;
   padding: 5px 6px;
-  margin: -5px -6px 0 0;
 }
 .post:hover .post_controls {
   opacity: 1.0;

@@ -36,7 +36,10 @@ def diary_day(author_sid, year, month, day):
             return page_not_found()
         else:
             post = author.posts.filter(Post.posted_date == the_date).first()
-            return render_diary(author, [post], the_date.strftime('%B %d, %Y'), template="diary-single.html")
+            if post:
+                return render_diary(author, [post], the_date.strftime('%B %d, %Y'), template="diary-single.html")
+            else:
+                return page_not_found()
     else:
         return page_not_found()
 
