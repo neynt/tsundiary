@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<div class='post'>
+<div class='post' data-date='{{ g.date.strftime('%Y-%m-%d') }}'>
     <div class='post_top'>
       <span class='post_date'>
         Today
       </span>
       <span class="post_controls">
-        !!!
+        <a href="/~{{ g.user.sid }}/{{ g.date.strftime("%Y/%m/%d") }}"><i class="fa fa-link"></i></a>
       </span>
     </div>
     <hr />
@@ -20,19 +20,22 @@
     <hr />
     <div class='status_area'>
         <span id='char_count'>&nbsp;</span>
-        <span id='save_status' style='float:right'><a href='/markdown'>M&darr; enabled</a></span>
+        <span id='save_status' style='float:right'><a href='/markdown'>Tip: M&darr; enabled</a></span>
     </div>
 </div>
 
 {% if old_posts %}
     {% for delta_name, p in old_posts %}
-    <div class='post'>
+    <div class='post' data-date='{{ p.posted_date }}'>
     <div class='post_top'>
       <span class='post_date'>
         {{ delta_name }}
       </span>
       <span class="post_controls">
-        !!!
+        <a href="/~{{ p.user.sid }}/{{ p.posted_date.strftime("%Y/%m/%d") }}"><i class="fa fa-link"></i></a>
+        {% if p.user.sid == g.user.sid %}
+          <a class='hide_button{% if p.hidden %} activated_control{% endif %}' title="Hide post for 10 years"><i class="fa fa-eye" data-no-instant></i><i class="fa fa-eye-slash" data-no-instant></i></a>
+        {% endif %}
       </span>
     </div>
     <hr />

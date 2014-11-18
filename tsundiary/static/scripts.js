@@ -90,10 +90,6 @@ window.get_updates = function() {
     update_char_count();
 }
 
-InstantClick.on('change', function (isInitialLoad) {
-    //update_char_count();
-});
-
 //window.onload = function () {
 //    update_char_count();
 //    textarea.bind('input propertychange', content_changed);
@@ -126,3 +122,33 @@ function proc_scroll () {
 $(window).scroll(proc_scroll);
 proc_scroll();
 */
+
+// Make "hide/unhide" buttons work.
+
+function toggle_post_hidden(post_date, hide_button) {
+  $.post('/toggle_post_hidden', { post_date: post_date }, function(data) {
+    d = JSON.parse(data);
+    if (d['entry_hidden']) {
+      hide_button.addClass('activated_control');
+    }
+    else {
+      hide_button.removeClass('activated_control');
+    }
+  });
+}
+
+window.bind_post_controls = function () {
+  $('.post_controls').each(function (index) {
+    var controls = $(this);
+    var hide_button = controls.children('.hide_button');
+    hide_button.click(function () {
+      toggle_post_hidden(controls.parent().parent().data('date'), hide_button);
+    });
+  });
+};
+
+// Stuff to do on a new page
+InstantClick.on('change', function (isInitialLoad) {
+    //update_char_count();
+    bind_post_controls();
+});

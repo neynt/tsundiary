@@ -126,11 +126,11 @@ def calc_hidden_day(author):
     return hidden_day
 
 def calc_cutoff_day(author):
-    # User is the author. Hide nothing.
+    # Hide nothing.
     if g.user and g.user.sid == author.sid:
         cutoff_day = date(1, 1, 1)
     else:
-        cutoff_day = g.date - timedelta(days=30)
+        cutoff_day = date(1, 1, 1)
     return cutoff_day
 
 def uidify(string):

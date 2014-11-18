@@ -14,7 +14,7 @@ body { background-color: #FFEFE8; color: #33302E; }
 p { padding: 0.3em 0; }
 
 /* Links, in general */
-a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 1px; margin: 0; }
+a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 1px; margin: 0; cursor: pointer; }
 a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
 
 /* Quotes */
@@ -59,20 +59,22 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 
 /* Post controls */
 .post .post_controls {
-  opacity: 0.0;
   transition: opacity 0.1s;
   margin: -5px -6px 0 0;
   position: absolute;
   right: 0;
 }
 .post .post_controls a {
+  opacity: 0.0;
   display: inline-block;
   padding: 5px 6px;
 }
-.post:hover .post_controls {
-  opacity: 1.0;
-}
-
+.post:hover .post_controls a { opacity: 1.0; }
+.post_controls .fa-eye-slash { display: none; }
+.activated_control .fa-eye { display: none; }
+.activated_control .fa-eye-slash { display: inline-block; }
+.post .post_controls a.activated_control { opacity: 1.0; }
+.post:hover .post_controls a.activated_control { opacity: 1.0; }
 /* Post body */
 .post_body { margin: 0.3em 0; padding: 0 0.6em 0; word-wrap: break-word; }
 
