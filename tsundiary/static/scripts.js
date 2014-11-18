@@ -85,6 +85,9 @@ window.get_updates = function() {
             }
         }
     });
+
+    // for good measure
+    update_char_count();
 }
 
 InstantClick.on('change', function (isInitialLoad) {
