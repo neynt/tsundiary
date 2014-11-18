@@ -22,7 +22,7 @@ def index():
         prompt = PROMPTS[int(hashlib.md5(datestamp(g.date)).hexdigest(), 16) % len(PROMPTS)] % g.user.name
 
         old_posts = []
-        deltas = [(1, "yesterday"), (7, "one week ago"), (30, "30 days ago"),
+        deltas = [(1, "Yesterday"), (7, "One week ago"), (30, "30 days ago"),
                   (90, "90 days ago"), (365, "365 days ago")]
         for delta, delta_name in deltas:
             day = g.date - timedelta(days=delta)
