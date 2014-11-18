@@ -14,7 +14,7 @@ body { background-color: #FFEFE8; color: #33302E; }
 p { padding: 0.3em 0; }
 
 /* Links, in general */
-a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 2px; margin: 0 -1px; }
+a { color: #FF4800; text-decoration: none; border-radius: 3px; padding: 0 1px; margin: 0; }
 a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
 
 /* Quotes */
@@ -42,7 +42,7 @@ div#wrap { position: relative; min-height: 100%; }
 /* Post editing components */
 #edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
 textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
-.status_area { color: #999; margin: 0.6em; }
+.status_area { color: #999; margin: 0.6em; position: relative; }
 .error { color: #ff491e; }
 
 /* User profile elements */
