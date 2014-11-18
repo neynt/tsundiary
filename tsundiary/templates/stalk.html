@@ -27,7 +27,7 @@
 
 {# TODO: Refactor this elsewhere. #}
 <div class='post' data-date='{{ entry.posted_date }}'>
-{% if entry.posted_date > hidden_day or entry.posted_date < cutoff_day %}
+{% if entry.posted_date > hidden_day or entry.posted_date < cutoff_day or (author.sid != g.user.sid and entry.hidden) %}
 <div class='post_top hidden'>
   <span class='post_date' title="{{ entry.posted_date | prettydate }}">{{ entry.posted_date | nicedate }} - hidden</span>
 </div>
