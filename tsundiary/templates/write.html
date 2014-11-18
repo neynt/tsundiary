@@ -52,8 +52,8 @@ window.old_content = textarea.val();
 textarea.bind('input propertychange', content_changed);
 if (!window.update_interval) {
   window.update_interval = setInterval(get_updates, 1000);
+  update_char_count();
 }
-
 </script>
 
 {% endblock %}
