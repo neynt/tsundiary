@@ -88,7 +88,7 @@ window.get_updates = function() {
 }
 
 InstantClick.on('change', function (isInitialLoad) {
-    update_char_count();
+    //update_char_count();
 
 });
 
