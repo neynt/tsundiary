@@ -1,6 +1,6 @@
 from tsundiary.views import *
 
-def render_diary(author, posts, title="Recent entries", template="diary.html"):
+def render_diary(author, posts, title="", template="diary.html"):
     hidden_day = calc_hidden_day(author)
     cutoff_day = calc_cutoff_day(author)
 
