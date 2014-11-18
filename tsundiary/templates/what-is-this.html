@@ -6,117 +6,20 @@
 
 <h1>tsundiary is a place to record your life.</h1>
 
-<p>You automatically get a new entry every day at 4 a.m.</p>
-<p>You are also shown your old entries at certain intervals.</p>
-<p>That's it. We're trying to keep it simple.</p>
+<p>Every day, you get a blank entry that looks like this. You can write whatever you want in it.</p>
+
+<div class="post">
+  <div class="post_body">
+    <p><textarea id="edit_area" placeholder="How was your day? N-not that I care or anything..."></textarea></p>
+  </div>
+</div>
+
+<p>Every night, at 4 a.m., the previous day's entry is set in stone and you get a new one.</p>
+<p>You are also shown your old entries at certain time intervals, like a week, a month, and a year.</p>
 
 <h1><a href='{{ url_for('register') }}'>start using tsundiary!</a></h1>
 
+<p>check out <a href="/~neynt">mine</a> for an example</p>
+
 </div>
-
-<div style='text-align: center'>
-<h1>tsundiary looks like this</h1>
-</div>
-<div class='post'>
-  <div class='post_date'>Today</div>
-  <hr />
-  <div class='post_body'>
-    <p>
-    <textarea id="edit_area" placeholder="... hi! How are you today?"></textarea>
-    </p>
-  </div>
-  <hr />
-  <div class='status_area'>
-    <span id='char_count'>&nbsp;</span>
-    <span id='save_status' style='float:right'><a href='/markdown'>M&darr; enabled</a></span>
-  </div>
-</div>
-
-<div class='post'>
-  <div class='post_date'>
-    yesterday
-  </div>
-  <hr />
-  <div class='post_body'>
-    <p>Packed my bags. I hope I'm not forgetting anything.</p>
-  </div>
-</div>
-<div class='post'>
-  <div class='post_date'>
-    one week ago
-  </div>
-  <hr />
-  <div class='post_body'>
-    <p>I got a job in Japan! Can't wait to move there~</p>
-  </div>
-</div>
-<div class='post'>
-  <div class='post_date'>
-    30 days ago
-  </div>
-  <hr />
-  <div class='post_body'>
-    <p>Applied for a bunch of jobs.</p>
-  </div>
-</div>
-<div class='post'>
-  <div class='post_date'>
-    90 days ago
-  </div>
-  <hr />
-  <div class='post_body'>
-    <p>Finally finished Rin's route on <a href='http://www.katawa-shoujo.com/'>Katawa Shoujo</a>. ;_; The feels...</p>
-  </div>
-</div>
-
-<script>
-
-var content = "ATASHI WA ... KIMI GA SUKI NO DE ..."
-var timer = null;
-
-var BYTE_LIMIT = 10000;
-
-function prime_update() {
-    $('#save_status').html('writing...')
-    timer = setTimeout(function() {
-        $('#save_status').html('please log in to save');
-    }, 500);
-}
-
-function update_char_count() {
-    count = unescape(encodeURIComponent($('#edit_area').val())).length;
-    if (count > 0) {
-        $('#char_count').html((count));
-    } else {
-        $('#char_count').html('&nbsp;');
-    }
-
-    // Scale textarea
-    var textarea = $('#edit_area');
-    textarea.css("height", "5em");
-    textarea.css("height", Math.max(textarea[0].scrollHeight, 80) + "px");
-
-    return count;
-}
-
-function content_changed() {
-    var count = update_char_count();
-    clearTimeout(timer);
-
-    if (count <= BYTE_LIMIT) {
-        // Just right.
-        prime_update();
-    }
-    else {
-        // Too long.
-        $('#char_count').addClass('error');
-        $('#save_status').html('too long');
-    }
-};
-
-$('#edit_area').bind('input propertychange', content_changed);
-$( document ).load(update_char_count());
-
-</script>
-
 {% endblock %}
