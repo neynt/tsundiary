@@ -52,6 +52,7 @@
 window.last_timestamp = {{ update_time }};
 window.textarea = $('#edit_area');
 window.old_content = textarea.val();
+window.cur_date = "{{ g.date.strftime('%Y%m%d') }}";
 textarea.bind('input propertychange', content_changed);
 if (!window.update_interval) {
   window.update_interval = setInterval(get_updates, 1000);

@@ -4,7 +4,7 @@
 var save_timer = null;
 window.update_interval = null;
 window.old_content = null;
-var cur_date = "{{ g.date.strftime('%Y%m%d') }}";
+window.cur_date = "";
 window.last_timestamp = null;
 var writing = false;
 
