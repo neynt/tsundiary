@@ -73,7 +73,10 @@ window.get_updates = function() {
     $.getJSON('/api/my_current_entry', function(data) {
         if (!writing) {
             if ('datestamp' in data) {
-                cur_date = data['datestamp'];
+                if (data['datestamp'] != cur_date) {
+                  // automatically reload at 4am, when day flips over
+                  location.reload(true);
+                }
             }
             var mydate = new Date(data['timestamp']*1000);
             var myts = mydate.getTime()/1000;
