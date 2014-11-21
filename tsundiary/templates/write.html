@@ -14,7 +14,7 @@
     <hr />
     <div class='post_body'>
       <p>
-      <textarea id='edit_area' placeholder="{{ prompt }}" >{{ current_content }}</textarea>
+      <textarea id='edit_area' placeholder="{{ prompt }}" onfocus="var saved_value = this.value; this.value = ''; this.value = saved_value;" >{{ current_content }}</textarea>
       </p>
     </div>
     <hr />

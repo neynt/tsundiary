@@ -154,4 +154,8 @@ window.bind_post_controls = function () {
 InstantClick.on('change', function (isInitialLoad) {
     //update_char_count();
     bind_post_controls();
+    if ('textarea' in window) {
+      update_char_count();
+      textarea.focus();
+    }
 });
