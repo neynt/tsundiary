@@ -1,6 +1,6 @@
 from tsundiary.views import *
 
-def render_diary(author, posts, title="", template="diary.html"):
+def render_diary(author, posts, title="", template="diary.html", **kwargs):
     hidden_day = calc_hidden_day(author)
     cutoff_day = calc_cutoff_day(author)
 
@@ -22,7 +22,8 @@ def render_diary(author, posts, title="", template="diary.html"):
             cutoff_day = cutoff_day,
             dates = dates,
             month_name = calendar.month_name,
-            title = title
+            title = title,
+            **kwargs
             )
 
 # A single page from a user's diary.
@@ -59,31 +60,60 @@ def diary_month(author_sid, year, month):
                     .filter(Post.posted_date <= max_date)\
                     .order_by(Post.posted_date.asc())\
                     .all()
-            return render_diary(author, posts, min_date.strftime('%B %Y'))
+            return render_diary(author, posts, min_date.strftime(''))
     else:
         return page_not_found()
 
-# Custom commands
-@app.route('/~<author_sid>/<command>')
-def diary_special(author_sid, command):
+# All
+@app.route('/~<author_sid>/all')
+def diary_special(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        if command == 'all':
-            posts = author.posts.order_by(Post.posted_date.desc()).all()
-            return render_diary(author, posts, "All entries")
-        else:
-            return page_not_found()
+        posts = author.posts.order_by(Post.posted_date.desc()).all()
+        return render_diary(author, posts, "All entries")
+    else:
+        return page_not_found()
+
+# Latest
+def diary_latest(author_sid):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        posts = author.posts.order_by(Post.posted_date.desc()).all()
+        return render_diary(author, posts, "")
+    else:
+        return page_not_found()
+
+@app.route('/~<author_sid>/search', methods=["GET"])
+def diary_search_page(author_sid):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        return render_diary(author, [], template="diary-search.html")
+    else:
+        return page_not_found()
+
+@app.route('/~<author_sid>', methods=["POST"])
+def diary_search(author_sid):
+    author = User.query.filter_by(sid = uidify(author_sid)).first()
+    if author:
+        print(request.form['search_term'])
+        posts = (author.posts
+                 .order_by(Post.posted_date.desc())
+                 .filter(Post.content.ilike('%%%s%%' % request.form['search_term']))
+                 .limit(10).all())
+        return render_diary(author, posts, template="diary-search.html",
+                            search_term = request.form['search_term'])
     else:
         return page_not_found()
 
 # Last secret_days + 1 entries of a user's diary.
-@app.route('/~<author_sid>')
+@app.route('/~<author_sid>', methods=['GET'])
+@app.route('/~<author_sid>/latest')
 def diary(author_sid):
     # Dict of year: [list months]
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         posts = (author.posts.order_by(Post.posted_date.desc())
-                 .limit(max(5, author.secret_days+3)).all())
-        return render_diary(author, posts)
+                 .limit(7).all())
+        return render_diary(author, posts, template="diary-search.html")
     else:
         return page_not_found()

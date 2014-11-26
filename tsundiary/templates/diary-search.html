@@ -1,0 +1,13 @@
+{% extends "diary.html" %}
+
+{% block header %}
+<h1 style='clear:both'></h1>
+
+<form action='/~{{ author.sid }}' method='post'>
+<input class='search_box' name='search_term' type="text" placeholder='Search' value="{{ search_term }}">
+</form>
+{% endblock %}
+
+{% block no_entries %}
+<p>No entries found.</p>
+{% endblock %}

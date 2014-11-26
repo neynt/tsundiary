@@ -6,21 +6,10 @@
 
 {% if author.publicity > 0 or g.user.sid == author.sid %}
 
-<h1>{% block heading %}{{ author.name }}{% endblock %}</h1>
+<h1>{% block heading %}<a href="/~{{ author.sid }}">{{ author.name }}</a>{% endblock %}</h1>
 
 {% block usernav %}
 <div style='float:right; text-align: right; width: 60%'>
-
-{% for link, target in [
-('Recent entries', '/~%s' % author.sid),
-] %}
-{% if request.path == target %}
-<a class='selected_date' href='{{ target }}'>{{ link }}</a>
-{% else %}
-<a href='{{ target }}'>{{ link }}</a>
-{% endif %}
-{% endfor %}
-<br />
 
 {# Dates nav #}
 {% for year, avail_months in dates.items() %}
@@ -38,6 +27,15 @@
 <br />
 {% endfor %}
 
+{% for link, target in [
+] %}
+{% if request.path == target %}
+<a class='selected_date' href='{{ target }}'>{{ link }}</a>
+{% else %}
+<a href='{{ target }}'>{{ link }}</a>
+{% endif %}
+{% endfor %}
+
 </div>
 {% endblock %}
 
@@ -50,18 +48,15 @@
 </span>
 {% endblock %}
 
-{% if posts %}
-
 {% block header %}
 <h1 style='clear:both'>{{ title }}</h1>
 {% endblock %}
 
+{% if posts %}
 <div id='posts'>
-{% block posts %}
 {% for p in posts %}
 {{ render_entry(p, hidden_day, cutoff_day) | safe }}
 {% endfor %}
-{% endblock %}
 </div>
 
 {# Autoload on scroll -- on main user page only #}
@@ -72,7 +67,9 @@
 {% endif %}
 
 {% else %}
-<p>No entries found.</p>
+{% block no_entries %}
+<p>This user hasn't written anything yet!</p>
+{% endblock %}
 {% endif %}
 
 {% else %} {# publicity is zero #}
