@@ -99,7 +99,7 @@ def diary_search(author_sid):
         posts = (author.posts
                  .order_by(Post.posted_date.desc())
                  .filter(Post.content.ilike('%%%s%%' % request.form['search_term']))
-                 .limit(10).all())
+                 .limit(100).all())
         return render_diary(author, posts, template="diary-search.html",
                             search_term = request.form['search_term'])
     else:
