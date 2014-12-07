@@ -16,7 +16,7 @@ app.jinja_env.globals.update(theme_creds = {
     'misato-tachibana': '<a href="http://konachan.com/post/show/102801">Misato Tachibana vector source</a>',
     'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei vector source</a>',
     'saya': '<a href="http://www.zerochan.net/671274">Saya source</a>',
-    'kyoko-sakura': "An artist drew this Kyoko, I'm sure."
+    'kyoko-sakura': '<a href="http://3071527.deviantart.com/art/kyoko-sakura-376238110">Kyoko source</a>'
 })
 
 app.jinja_env.globals.update(theme_colors = [
