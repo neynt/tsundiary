@@ -40,9 +40,9 @@ div#wrap { position: relative; min-height: 100%; }
 .cloud, .post { border-width: 0.15em; border-style: solid; border-color: rgba(0, 0, 0, 0.0); border-radius: 5px; padding: 0; }
 
 /* Post editing components */
-#edit_area { border: 0; background-color: #fff; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
+#edit_area { border: 0; background: transparent; word-wrap: break-word; width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; cursor: text; }
 textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
-.status_area { color: #999; margin: 0.6em; position: relative; }
+.status_area { color: rgba(0, 0, 0, 0.6); margin: 0.6em; position: relative; }
 .error { color: #ff491e; }
 
 /* User profile elements */
@@ -53,7 +53,7 @@ textarea { color: #000; resize: none; outline: none; overflow-y: hidden; }
 .post { margin: 5px 0; clear: both; }
 
 /* Post decoration */
-.post_top { display: block; margin: 10px; text-align: center; color: #999; position: relative; }
+.post_top { display: block; margin: 10px; text-align: center; color: rgba(0, 0, 0, 0.6); position: relative; }
 .post_date { display: inline; }
 .hidden { border: 0; padding: 0; }
 
