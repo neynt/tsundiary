@@ -55,7 +55,7 @@ window.old_content = textarea.val();
 window.cur_date = "{{ g.date.strftime('%Y%m%d') }}";
 textarea.bind('input propertychange', content_changed);
 if (!window.update_interval) {
-  window.update_interval = setInterval(get_updates, 1000);
+  window.update_interval = setInterval(get_updates, 3000);
   update_char_count();
 }
 </script>
