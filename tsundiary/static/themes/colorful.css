@@ -1,9 +1,37 @@
 /* Base */
-body { color: #111; }
-
+body {
+  color: #111111;
+  background: transparent;
+  background-attachment: fixed;
+  background-size: auto 80%;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #E0EFE8; background-color: #4A9572; }
-
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #000000;
+}
+#content {
+  background-color: rgba(0, 0, 0, 0);
+}
 /* Content links */
-a { color: #4A9572; }
-a:hover, a.selected_date { color: #E0EFE8; background-color: #4A9572; }
+a {
+  color: #000000;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #000000;
+}
+.post a:hover,
+.cloud a:hover {
+  color: transparent;
+}
+/* will be overridden by color-generated css */

@@ -1,20 +1,44 @@
 /* Base */
-body { color: #CFB6BB; background: url('/static/img/kyoko-armpits.jpg') no-repeat bottom right fixed, linear-gradient(to right, #943A4C, #943A4C); background-size: auto 80%; }
-
-#instantclick-bar { background: #FAFAFA; }
-
-.cloud, .post, input, select {
-  background-color: rgba(255, 255, 255, 1);
+body {
+  color: #cfb6bb;
+  background: url('/static/img/kyoko-armpits.jpg') no-repeat bottom right, linear-gradient(to right, #943a4c, #943a4c);
+  background-attachment: fixed;
+  background-size: auto 80%;
 }
-
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #ffffff; background-color: transparent; }
-
-#content {
-  background-color: rgba(148, 58, 76, 0.7);
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #b67985;
 }
-
+#content {
+  background-color: rgba(148, 58, 76, 0.85);
+}
 /* Content links */
-a { color: #B67985; outline: none; }
-a:hover, a.selected_date { color: #ffffff; background-color: transparent; }
-.post a:hover, .cloud a:hover { color: #943A4C; }
+a {
+  color: #b67985;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #b67985;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #943a4c;
+}
+div#nav a:hover,
+div#nav a.cur_page {
+  background-color: transparent;
+}
+a:hover,
+a.selected_date {
+  background-color: transparent;
+}

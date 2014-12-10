@@ -1,11 +1,36 @@
 /* Base */
-body { color: #111; background: #eee; }
-
-#instantclick-bar { background: #111; }
-
+body {
+  color: #111111;
+  background: #eeeeee;
+  background-attachment: fixed;
+  background-size: auto 80%;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #eee; background-color: #111; }
-
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #777777;
+}
+#content {
+  background-color: rgba(238, 238, 238, 0.85);
+}
 /* Content links */
-a { color: #02b; }
-a:hover, a.selected_date { background-color: #02b; color: #eee; }
+a {
+  color: #777777;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #777777;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #eeeeee;
+}

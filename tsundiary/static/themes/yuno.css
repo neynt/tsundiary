@@ -1,15 +1,43 @@
 /* Base */
-body { color: #380517; background: url('/static/img/yuno.jpg') no-repeat bottom right fixed, linear-gradient(to right, #FCE3E4, #FCE3E4); background-size: auto 100%; }
-
-#instantclick-bar { background: #E74F79; }
-
+body {
+  color: #380517;
+  background: url('/static/img/yuno.jpg') no-repeat bottom right, linear-gradient(to right, #fce3e4, #fce3e4);
+  background-attachment: fixed;
+  background-size: auto 100%;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #FCE3E4; background-color: #E74F79; }
-
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #e74f79;
+}
+#content {
+  background-color: rgba(252, 227, 228, 0.85);
+}
 /* Content links */
-a { color: #E74F79; }
-a:hover, a.selected_date { color: #FCE3E4; background-color: #E74F79; }
-
+a {
+  color: #e74f79;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #e74f79;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #fce3e4;
+}
 /* and a little extra */
-.about::after { content: 'yandiary 0v0' }
-.about span { display: none; }
+.about::after {
+  content: 'yandiary 0v0';
+}
+.about span {
+  display: none;
+}

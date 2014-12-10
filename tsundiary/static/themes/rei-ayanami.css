@@ -1,11 +1,36 @@
 /* Base */
-body { color: #2E3033; background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right fixed, linear-gradient(to right, #E6F3FF, #E6F3FF); background-size: auto 90%; }
-
-#instantclick-bar { background: #e7282d; }
-
+body {
+  color: #2e3033;
+  background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right, linear-gradient(to right, #e6f3ff, #e6f3ff);
+  background-attachment: fixed;
+  background-size: auto 80%;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #E6F3FF; background-color: #e7282d; }
-
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #e7282d;
+}
+#content {
+  background-color: rgba(230, 243, 255, 0.85);
+}
 /* Content links */
-a { color: #e7282d; }
-a:hover, a.selected_date { color: #E6F3FF; background-color: #e7282d; }
+a {
+  color: #e7282d;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #e7282d;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #e6f3ff;
+}

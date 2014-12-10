@@ -1,11 +1,36 @@
 /* Base */
-body { background: #FFEFE8; }
-
-#instantclick-bar { background: #FF4800; }
-
+body {
+  color: #33302e;
+  background: #ffefe8;
+  background-attachment: fixed;
+  background-size: auto 80%;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
 /* Nav bar links */
-div#nav a:hover, div#nav a.cur_page { color: #FFEFE8; background-color: #FF4800; }
-
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ffffff;
+  background-color: #ff4800;
+}
+#content {
+  background-color: rgba(255, 239, 232, 0.85);
+}
 /* Content links */
-a { color: #FF4800; }
-a:hover, a.selected_date { color: #FFEFE8; background-color: #FF4800; }
+a {
+  color: #ff4800;
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ffffff;
+  background-color: #ff4800;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #ffefe8;
+}

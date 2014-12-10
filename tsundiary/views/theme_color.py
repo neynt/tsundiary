@@ -52,6 +52,7 @@ def theme_color(theme_name, colors):
         if btn.getBrightness() > 0.6:
              btn.scaleBrightness(0.8)
         colors.append("body { background: %s; }" % bg.getHexRGB())
+        colors.append("#content { background: %s; }" % bg.getHexRGB())
         colors.append("a { color: %s; }" % btn.getHexRGB())
         colors.append("a:hover, a.selected_date, div#nav a:hover, div#nav a.cur_page { color: %s; background-color: %s; }" % (bg.getHexRGB(), btn.getHexRGB()))
         colors.append("#instantclick-bar { background: %s; }" % (btn.getHexRGB()))

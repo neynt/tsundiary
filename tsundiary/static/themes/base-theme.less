@@ -1,0 +1,36 @@
+@bg-size: 80%;
+
+/* Base */
+body {
+  color: @text-color;
+  background: @bg;
+  background-attachment: fixed;
+  background-size: auto @bg-size;
+}
+
+.cloud, .post, input, select {
+  background-color: @post-color;
+}
+
+/* Nav bar links */
+div#nav a:hover, div#nav a.cur_page {
+  color: @post-color;
+  background-color: @link-color;
+}
+
+#content {
+  background-color: fadeout(@bg-color, 15%);
+}
+
+/* Content links */
+a {
+  color: @link-color;
+  outline: none;
+}
+a:hover, a.selected_date {
+  color: @post-color;
+  background-color: @link-color;
+}
+.post a:hover, .cloud a:hover {
+  color: @bg-color;
+}
