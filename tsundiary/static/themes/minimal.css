@@ -2,7 +2,6 @@
 body {
   color: #111111;
   background: #eeeeee;
-  background-attachment: fixed;
   background-size: auto 80%;
 }
 .cloud,
@@ -14,23 +13,26 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ffffff;
-  background-color: #777777;
+  color: #333333;
 }
 #content {
   background-color: rgba(238, 238, 238, 0.85);
 }
 /* Content links */
 a {
-  color: #777777;
+  color: rgba(51, 51, 51, 0.5);
   outline: none;
 }
 a:hover,
 a.selected_date {
-  color: #ffffff;
-  background-color: #777777;
+  color: #333333;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #eeeeee;
+  color: #333333;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #333333;
 }

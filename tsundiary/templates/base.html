@@ -58,14 +58,14 @@
         {% endfor %}
 
         <div style='float: right;'>
-          <a href='/logout?user={{ g.user.sid }}' class='action_link' title='Sign out' data-no-instant>
+          <a href='/logout?user={{ g.user.sid }}' title='Sign out' data-no-instant>
             <i class='fa fa-sign-out'></i>
           </a>
         </div>
     {% endif %}
     </div>
     {% if not g.user %}
-    <a href='/'><img src='/static/img/logo.svg' alt='tsundiary' width=200 height=48 style="display: block; margin: 0 auto" /></a>
+    <a href='/'><img src='/static/img/logo-empty.svg' alt='tsundiary' width=60 height=60 style="display: block; margin: 0 auto" /></a>
     {% endif %}
 </div>
 <div id="content">
@@ -75,7 +75,7 @@
 
 {% if g.user %}
 <div id="foot">
-  <p><a class='about' href='{{ url_for('about') }}'><span>tsundiary</span></a></p>
+  <p><a class='about' href='{{ url_for('about') }}'><img src='/static/img/logo-empty.svg' width=60px height=60px></img><br><span>tsundiary</span></a></p>
 </div>
 {% endif %}
 

@@ -2,7 +2,6 @@
 body {
   color: #33302e;
   background: #ffefe8;
-  background-attachment: fixed;
   background-size: auto 80%;
 }
 .cloud,
@@ -14,23 +13,26 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ffffff;
-  background-color: #ff4800;
+  color: #ff4800;
 }
 #content {
   background-color: rgba(255, 239, 232, 0.85);
 }
 /* Content links */
 a {
-  color: #ff4800;
+  color: rgba(255, 72, 0, 0.5);
   outline: none;
 }
 a:hover,
 a.selected_date {
-  color: #ffffff;
-  background-color: #ff4800;
+  color: #ff4800;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #ffefe8;
+  color: #ff4800;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #ff4800;
 }

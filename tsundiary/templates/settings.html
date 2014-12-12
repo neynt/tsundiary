@@ -5,10 +5,9 @@
 {% block content %}
 
 <div style="margin: 0 auto;">
-  <h1 id='status'>Settings</h1>
-
   <h2>Theme</h2>
   <p>
+  <span class='css-select-moz'>
   <select id='option_theme'>
     {% set exists = [] %}
     {% for t in themes %}
@@ -24,13 +23,17 @@
       <option value='{{ g.theme }}' selected>{{ theme_nicename[g.theme] if g.theme in theme_nicename else g.theme }}</option>
     {% endif %}
   </select>
+  </span>
+
   </p>
   {% if g.theme in theme_creds %}
   <p>{{ theme_creds[g.theme] | safe }}</p>
   {% endif %}
 
+  {% if g.theme == 'colorful' %}
   <h2>Favorite color</h2>
   <p>
+  <span class='css-select-moz'>
   <select id='option_color'>
     {% set exists = [] %}
     {% for name,tid in theme_colors %}
@@ -44,7 +47,9 @@
       <option value='{{ g.user.color }}' selected>custom color: hsv({{ g.user.color }})</option>
     {% endif %}
   </select>
+  </span>
   </p>
+  {% endif %}
 
   <h2>Privacy</h2>
   <p>

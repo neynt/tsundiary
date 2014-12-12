@@ -2,7 +2,6 @@
 body {
   color: #cfb6bb;
   background: url('/static/img/kyoko-armpits.jpg') no-repeat bottom right, linear-gradient(to right, #943a4c, #943a4c);
-  background-attachment: fixed;
   background-size: auto 80%;
 }
 .cloud,
@@ -14,25 +13,28 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ffffff;
-  background-color: #b67985;
+  color: #b67985;
 }
 #content {
   background-color: rgba(148, 58, 76, 0.85);
 }
 /* Content links */
 a {
-  color: #b67985;
+  color: rgba(182, 121, 133, 0.5);
   outline: none;
 }
 a:hover,
 a.selected_date {
-  color: #ffffff;
-  background-color: #b67985;
+  color: #b67985;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #943a4c;
+  color: #b67985;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #b67985;
 }
 div#nav a:hover,
 div#nav a.cur_page {

@@ -4,7 +4,6 @@
 body {
   color: @text-color;
   background: @bg;
-  background-attachment: fixed;
   background-size: auto @bg-size;
 }
 
@@ -14,8 +13,7 @@ body {
 
 /* Nav bar links */
 div#nav a:hover, div#nav a.cur_page {
-  color: @post-color;
-  background-color: @link-color;
+  color: @link-color;
 }
 
 #content {
@@ -24,13 +22,17 @@ div#nav a:hover, div#nav a.cur_page {
 
 /* Content links */
 a {
-  color: @link-color;
+  color: fadeout(@link-color, 50%);
   outline: none;
 }
 a:hover, a.selected_date {
-  color: @post-color;
-  background-color: @link-color;
+  color: @link-color;
 }
 .post a:hover, .cloud a:hover {
-  color: @bg-color;
+  color: @link-color;
+}
+
+/* Quotes */
+blockquote, pre {
+  border-color: @link-color;
 }

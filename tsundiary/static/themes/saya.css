@@ -2,7 +2,6 @@
 body {
   color: #33302e;
   background: url('/static/img/saya.jpg') no-repeat bottom right, linear-gradient(to right, #e0efe8, #e0efe8);
-  background-attachment: fixed;
   background-size: auto 80%;
 }
 .cloud,
@@ -14,23 +13,26 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ffffff;
-  background-color: #4a9572;
+  color: #4a9572;
 }
 #content {
   background-color: rgba(224, 239, 232, 0.85);
 }
 /* Content links */
 a {
-  color: #4a9572;
+  color: rgba(74, 149, 114, 0.5);
   outline: none;
 }
 a:hover,
 a.selected_date {
-  color: #ffffff;
-  background-color: #4a9572;
+  color: #4a9572;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #e0efe8;
+  color: #4a9572;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #4a9572;
 }

@@ -2,7 +2,6 @@
 body {
   color: #111111;
   background: transparent;
-  background-attachment: fixed;
   background-size: auto 80%;
 }
 .cloud,
@@ -14,24 +13,27 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ffffff;
-  background-color: #000000;
+  color: #000000;
 }
 #content {
   background-color: rgba(0, 0, 0, 0);
 }
 /* Content links */
 a {
-  color: #000000;
+  color: rgba(0, 0, 0, 0.5);
   outline: none;
 }
 a:hover,
 a.selected_date {
-  color: #ffffff;
-  background-color: #000000;
+  color: #000000;
 }
 .post a:hover,
 .cloud a:hover {
-  color: transparent;
+  color: #000000;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #000000;
 }
 /* will be overridden by color-generated css */
