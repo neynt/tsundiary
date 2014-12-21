@@ -33,7 +33,6 @@ html {
 body {
   font-size: @font-size-normal;
   text-rendering: optimizeLegibility;
-  background-attachment: fixed;
 }
 
 /* "cloud" container */
@@ -113,6 +112,8 @@ h3 {
 div#wrap {
   position: relative;
   min-height: 100%;
+  padding-bottom: 300px;
+  box-sizing: border-box;
 }
 
 /* Post editing components */
@@ -351,13 +352,15 @@ div#content {
   min-width: @page-width/2;
   max-width: @page-width;
   margin: 0 auto;
-  padding: 0 0.5em 10em;
+  padding: @med;
+  border-radius: @med;
 }
 
 /* Footer div */
 div#foot {
   position: absolute;
   padding: @large-space 0px;
+  padding-top: 50%;
   left: 0;
   right: 0;
   bottom: 0;

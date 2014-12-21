@@ -3,6 +3,7 @@ body {
   color: #380517;
   background: url('/static/img/yuno.jpg') no-repeat bottom right, linear-gradient(to right, #fce3e4, #fce3e4);
   background-size: auto 100%;
+  background-attachment: fixed;
 }
 .cloud,
 .post,

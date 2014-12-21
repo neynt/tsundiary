@@ -3,6 +3,7 @@ body {
   color: #2e3033;
   background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right, linear-gradient(to right, #e6f3ff, #e6f3ff);
   background-size: auto 80%;
+  background-attachment: fixed;
 }
 .cloud,
 .post,

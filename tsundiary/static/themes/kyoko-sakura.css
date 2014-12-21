@@ -3,6 +3,7 @@ body {
   color: #cfb6bb;
   background: url('/static/img/kyoko-armpits.jpg') no-repeat bottom right, linear-gradient(to right, #943a4c, #943a4c);
   background-size: auto 80%;
+  background-attachment: fixed;
 }
 .cloud,
 .post,

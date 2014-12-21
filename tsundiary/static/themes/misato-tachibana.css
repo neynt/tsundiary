@@ -3,6 +3,7 @@ body {
   color: #33302e;
   background: url('/static/img/misato-tachibana.jpg') no-repeat bottom right, linear-gradient(to right, #f5eaca, #f5eaca);
   background-size: auto 60%;
+  background-attachment: fixed;
 }
 .cloud,
 .post,

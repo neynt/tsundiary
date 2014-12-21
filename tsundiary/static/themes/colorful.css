@@ -3,6 +3,7 @@ body {
   color: #111111;
   background: transparent;
   background-size: auto 80%;
+  background-attachment: fixed;
 }
 .cloud,
 .post,
