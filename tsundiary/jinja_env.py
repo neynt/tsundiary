@@ -1,3 +1,4 @@
+# encoding=utf-8
 from tsundiary import app
 
 app.jinja_env.globals.update(theme_nicename = {
@@ -13,10 +14,11 @@ app.jinja_env.globals.update(theme_nicename = {
 app.jinja_env.globals.update(themes = ['classic', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno', 'colorful'])
 
 app.jinja_env.globals.update(theme_creds = {
-    'misato-tachibana': '<a href="http://konachan.com/post/show/102801">Misato Tachibana vector source</a>',
-    'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei vector source</a>',
-    'saya': '<a href="http://www.zerochan.net/671274">Saya source</a>',
-    'kyoko-sakura': '<a href="http://3071527.deviantart.com/art/kyoko-sakura-376238110">Kyoko source</a>'
+    'misato-tachibana': '<a href="http://konachan.com/post/show/102801">Misato Tachibana source</a>.',
+    'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei source</a>.',
+    'saya': u'<a href="http://e-shuushuu.net/image/34277/">Saya source</a>. Artist: 中央東口 (Chuuou Higashiguchi).',
+    'yuno': '<a href="http://xyanderegirl.deviantart.com/art/Yuno-Gasai-Render-293856645">Yuno source</a>.',
+    'kyoko-sakura': '<a href="http://3071527.deviantart.com/art/kyoko-sakura-376238110">Kyoko source</a>.'
 })
 
 app.jinja_env.globals.update(theme_colors = [
