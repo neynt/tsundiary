@@ -313,7 +313,7 @@ div#content {
 div#foot {
   position: absolute;
   padding: 20px 0px;
-  padding-top: 50%;
+  padding-top: 0;
   left: 0;
   right: 0;
   bottom: 0;
