@@ -1,0 +1,39 @@
+/* Base */
+body {
+  color: #33302e;
+  background: url('/static/img/tsun-chan.jpg') no-repeat bottom right, linear-gradient(to right, #ffefe8, #ffefe8);
+  background-size: auto 40%;
+  background-attachment: fixed;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
+/* Nav bar links */
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #ff4800;
+}
+#content {
+  background-color: rgba(255, 239, 232, 0.85);
+}
+/* Content links */
+a {
+  color: rgba(255, 72, 0, 0.5);
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #ff4800;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #ff4800;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #ff4800;
+}

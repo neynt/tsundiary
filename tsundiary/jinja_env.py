@@ -3,15 +3,17 @@ from tsundiary import app
 
 app.jinja_env.globals.update(theme_nicename = {
     'classic': 'Classic Orange',
+    'tsun-chan': 'Classic Orange w/ Tsundiary-chan',
     'minimal': 'Minimal Black/Grey',
     'misato-tachibana': 'Misato Tachibana',
     'rei-ayanami': 'Rei Ayanami',
     'saya': 'Saya',
     'yuno': 'Yuno Gasai',
+    'hitagi': 'Hitagi Senjougahara',
     'kyoko-sakura': 'Kyoko Sakura',
     'colorful': 'Based on favorite color'
 })
-app.jinja_env.globals.update(themes = ['classic', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno', 'colorful'])
+app.jinja_env.globals.update(themes = ['classic', 'tsun-chan', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno', 'colorful'])
 
 app.jinja_env.globals.update(theme_creds = {
     'misato-tachibana': 'Misato Tachibana source: Nichijou OP1.',
@@ -32,6 +34,4 @@ app.jinja_env.globals.update(theme_colors = [
     ('Black', '0,0,0'),
     ('Grey', '0,0,70'),
     ('White', '0,0,100'),
-    ('Saya Green', '152,100,100'),
-    ('Tsundiary Orange', '17,100,100'),
 ])
