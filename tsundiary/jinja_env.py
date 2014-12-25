@@ -16,6 +16,7 @@ app.jinja_env.globals.update(theme_nicename = {
 app.jinja_env.globals.update(themes = ['classic', 'tsun-chan', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno', 'colorful'])
 
 app.jinja_env.globals.update(theme_creds = {
+    'tsun-chan': 'Artist: <span title="<3">bdgtard</span>',
     'misato-tachibana': 'Misato Tachibana source: Nichijou OP1.',
     'rei-ayanami': '<a href="http://megadud20.deviantart.com/art/Rei-Ayanami-Vector-214547575">Rei source</a>.',
     'saya': u'<a href="http://e-shuushuu.net/image/34277/">Saya source</a>. Artist: 中央東口 (Chuuou Higashiguchi).',
