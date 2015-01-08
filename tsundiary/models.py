@@ -16,8 +16,8 @@ class User(db.Model):
     sid = db.Column(db.String, primary_key=True, index=True, unique=True)
     name = db.Column(db.String, index=True, unique=True)
     passhash = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
-    invite_key = db.Column(db.String)
+    email = db.Column(db.String, default="")
+    invite_key = db.Column(db.String, default="")
     join_time = db.Column(db.DateTime, index=True)
     num_entries = db.Column(db.Integer, index=True, default=0)
     combo = db.Column(db.Integer, index=True, default=0)
@@ -63,8 +63,8 @@ class Post(db.Model):
                          primary_key=True,
                          index=True)
     posted_date = db.Column(db.Date, primary_key=True, index=True)
-    update_time = db.Column(db.DateTime)
-    content = db.Column(db.String)
+    update_time = db.Column(db.DateTime, default=datetime(1901, 1, 1))
+    content = db.Column(db.String, default="")
     hidden = db.Column(db.Integer, default=0)
     user = db.relationship('User',
                            backref=db.backref('posts', lazy='dynamic'))
