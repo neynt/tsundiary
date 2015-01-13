@@ -25,7 +25,7 @@ class User(db.Model):
     secret_days = db.Column(db.Integer, default=0)
 
     # 0: completely hidden  1: anyone with the link  2. link in user list
-    publicity = db.Column(db.Integer, default=0)
+    publicity = db.Column(db.Integer, default=2)
     theme = db.Column(db.String, default='classic')
     color = db.Column(db.String, default='0,100,100')
     stalks = db.Column(db.String, default='')
