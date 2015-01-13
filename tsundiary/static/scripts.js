@@ -1,13 +1,13 @@
 
 // Writing script. Automatically pushes changes to server.
 
-var save_timer = null;
-window.update_interval = null;
-window.dc_check_interval = null;
+var save_timer = -1;
+window.dc_check_interval = -1;
 window.old_content = null;
 window.cur_date = "";
 window.last_timestamp = null;
 var last_write_time = 0;
+var start_write_time = 0;
 
 var CHAR_LIMIT = 10000;
 
@@ -15,33 +15,41 @@ function currently_writing() {
   return (new Date().getTime() - last_write_time < 3000)
 }
 
+// Received response from server after confession.
+function confession_response(data) {
+  response = JSON.parse(data);
+  // saved!
+  $('#save_status').html(response['message']);
+  clearTimeout(dc_check_interval);
+  last_timestamp = response['timestamp'];
+}
+
 // Posts current entry to the server.
 function confess() {
     $('#save_status').html('saving...');
     content = textarea.val();
+    clearTimeout(dc_check_interval);
     dc_check_interval = setTimeout(function() {
         $('#save_status').html('disconnected? <a id="tryagain">try again</span>');
         $('#tryagain').click(confess);
-    }, 5000);
+    }, 8000);
     $.post('/confess', { content: content, cur_date: cur_date },
-        function (data) {
-            d = JSON.parse(data);
-            // saved!
-            $('#save_status').html(d['message']);
-            clearTimeout(dc_check_interval);
-            last_timestamp = d['timestamp'];
-            //$('#num_entries').html(d['num_entries']);
-            console.log('last timestamp updated to ', last_timestamp);
-        }
-    );
+        confession_response);
 }
 
 function prime_update() {
     $('#save_status').html('writing...')
     last_write_time = new Date().getTime();
+    if (save_timer == -1) {
+      start_write_time = new Date().getTime();
+    }
+    if (new Date().getTime() - start_write_time > 5000) {
+      // Save every 5 seconds, even if the user is still typing.
+    }
+    clearTimeout(save_timer);
     save_timer = setTimeout(function() {
-        $('#save_status').html('saving...')
         confess();
+        save_timer = -1;
     }, 500);
 }
 
@@ -64,7 +72,6 @@ function update_char_count() {
 
 window.content_changed = function() {
     var count = update_char_count();
-    update_char_count();
     clearTimeout(save_timer);
 
     if (count <= CHAR_LIMIT) {
@@ -100,7 +107,6 @@ window.get_updates = function() {
         }
     });
 
-    // for good measure
     update_char_count();
 }
 
