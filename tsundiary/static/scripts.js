@@ -3,6 +3,7 @@
 
 var save_timer = null;
 window.update_interval = null;
+window.dc_check_interval = null;
 window.old_content = null;
 window.cur_date = "";
 window.last_timestamp = null;
@@ -18,11 +19,16 @@ function currently_writing() {
 function confess() {
     $('#save_status').html('saving...');
     content = textarea.val();
+    dc_check_interval = setTimeout(function() {
+        $('#save_status').html('disconnected? <a id="tryagain">try again</span>');
+        $('#tryagain').click(confess);
+    }, 5000);
     $.post('/confess', { content: content, cur_date: cur_date },
         function (data) {
             d = JSON.parse(data);
             // saved!
             $('#save_status').html(d['message']);
+            clearTimeout(dc_check_interval);
             last_timestamp = d['timestamp'];
             //$('#num_entries').html(d['num_entries']);
             console.log('last timestamp updated to ', last_timestamp);
