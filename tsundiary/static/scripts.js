@@ -6,28 +6,33 @@ window.update_interval = null;
 window.old_content = null;
 window.cur_date = "";
 window.last_timestamp = null;
-var writing = false;
+var last_write_time = 0;
 
 var CHAR_LIMIT = 10000;
 
+function currently_writing() {
+  return (new Date().getTime() - last_write_time < 3000)
+}
+
+// Posts current entry to the server.
 function confess() {
     $('#save_status').html('saving...');
     content = textarea.val();
     $.post('/confess', { content: content, cur_date: cur_date },
         function (data) {
             d = JSON.parse(data);
+            // saved!
             $('#save_status').html(d['message']);
             last_timestamp = d['timestamp'];
             //$('#num_entries').html(d['num_entries']);
             console.log('last timestamp updated to ', last_timestamp);
-            writing = false;
         }
     );
 }
 
 function prime_update() {
     $('#save_status').html('writing...')
-    writing = true;
+    last_write_time = new Date().getTime();
     save_timer = setTimeout(function() {
         $('#save_status').html('saving...')
         confess();
@@ -71,7 +76,7 @@ window.content_changed = function() {
 
 window.get_updates = function() {
     $.getJSON('/api/my_current_entry', function(data) {
-        if (!writing) {
+        if (!currently_writing()) {
             if ('datestamp' in data) {
                 if (data['datestamp'] != cur_date) {
                   // automatically reload at 4am, when day flips over
