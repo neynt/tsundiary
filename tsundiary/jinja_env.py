@@ -7,13 +7,14 @@ app.jinja_env.globals.update(theme_nicename = {
     'minimal': 'Minimal Black/Grey',
     'misato-tachibana': 'Misato Tachibana',
     'rei-ayanami': 'Rei Ayanami',
+    'rei-ayanami-2': 'Rei Ayanami 2',
     'saya': 'Saya',
     'yuno': 'Yuno Gasai',
     'hitagi': 'Hitagi Senjougahara',
     'kyoko-sakura': 'Kyoko Sakura',
     'colorful': 'Based on favorite color'
 })
-app.jinja_env.globals.update(themes = ['classic', 'tsun-chan', 'minimal', 'misato-tachibana', 'rei-ayanami', 'saya', 'yuno', 'colorful'])
+app.jinja_env.globals.update(themes = ['classic', 'tsun-chan', 'minimal', 'misato-tachibana', 'rei-ayanami', 'rei-ayanami-2', 'saya', 'yuno', 'colorful'])
 
 app.jinja_env.globals.update(theme_creds = {
     'tsun-chan': 'Artist: <span title="<3">bdgtard</span>',

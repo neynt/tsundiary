@@ -227,9 +227,11 @@ input {
   padding: 5px;
   margin: 0 auto;
   /* First item in a form. */
+
 }
 .input_box input {
   /* Last item in a form. */
+
 }
 .input_box input .first {
   padding-top: 10px;

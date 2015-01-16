@@ -2,7 +2,7 @@
 // Writing script. Automatically pushes changes to server.
 
 var save_timer = -1;
-window.dc_check_interval = -1;
+window.dc_check_timer = -1;
 window.old_content = null;
 window.cur_date = "";
 window.last_timestamp = null;
@@ -20,7 +20,7 @@ function confession_response(data) {
   response = JSON.parse(data);
   // saved!
   $('#save_status').html(response['message']);
-  clearTimeout(dc_check_interval);
+  clearTimeout(dc_check_timer);
   last_timestamp = response['timestamp'];
 }
 
@@ -28,8 +28,8 @@ function confession_response(data) {
 function confess() {
     $('#save_status').html('saving...');
     content = textarea.val();
-    clearTimeout(dc_check_interval);
-    dc_check_interval = setTimeout(function() {
+    clearTimeout(dc_check_timer);
+    dc_check_timer = setTimeout(function() {
         $('#save_status').html('disconnected? <a id="tryagain">try again</span>');
         $('#tryagain').click(confess);
     }, 8000);

@@ -1,0 +1,39 @@
+/* Base */
+body {
+  color: #2e3033;
+  background: url('/static/img/rei-ayanami-2.jpg') no-repeat bottom right, linear-gradient(to right, #e8edfc, #e8edfc);
+  background-size: auto 50%;
+  background-attachment: fixed;
+}
+.cloud,
+.post,
+input,
+select {
+  background-color: #ffffff;
+}
+/* Nav bar links */
+div#nav a:hover,
+div#nav a.cur_page {
+  color: #c93849;
+}
+#content {
+  background-color: rgba(232, 237, 252, 0.85);
+}
+/* Content links */
+a {
+  color: rgba(201, 56, 73, 0.5);
+  outline: none;
+}
+a:hover,
+a.selected_date {
+  color: #c93849;
+}
+.post a:hover,
+.cloud a:hover {
+  color: #c93849;
+}
+/* Quotes */
+blockquote,
+pre {
+  border-color: #c93849;
+}
