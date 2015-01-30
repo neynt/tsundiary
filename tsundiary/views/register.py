@@ -14,19 +14,15 @@ def register_action():
     invite_key = request.form.get('invite_key')
     username = request.form.get('username')
     password = request.form.get('password')
-    password_confirm = request.form.get('password_confirm')
     email = request.form.get('email') or None
 
     # temporary session variables for registration
     session['cur_username'] = username
     session['cur_email'] = email
-    session['cur_password'] = password
 
     # propriety checks
     if User.query.count() > 400 and invite_key != 'koi dorobou':
         flash("Actually, we're out of spots for registrations. Sorry!")
-    elif password != password_confirm:
-        flash("Please make sure that your passwords match.")
     elif len(username) < 2:
         flash("Please enter a username at least 2 characters long.")
     elif len(password) < 3:
@@ -47,7 +43,6 @@ def register_action():
         # clear old session vars
         session['cur_username'] = ''
         session['cur_email'] = ''
-        session['cur_password'] = ''
 
         return redirect('/')
 
