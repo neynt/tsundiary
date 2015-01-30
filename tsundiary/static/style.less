@@ -6,6 +6,7 @@
 @post-bg-color: #fff;
 @post-text-color: inherit;
 @border-color: #b3b3b3;
+@font-family: 'Titillium Web';
 
 /* Measurements */
 @large-space: 20px;
@@ -13,6 +14,8 @@
 @med: 10px;
 @font-size-normal: 12pt;
 @page-width: 600px;
+
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,700);
 
 /* Normalize */
 * {
@@ -90,7 +93,7 @@ code {
 /* Fonts */
 div#wrap, input, textarea {
   font-size: @font-size-normal;
-  font-family: 'Dosis';
+  font-family: @font-family;
 }
 
 h1 {
@@ -283,7 +286,7 @@ select {
   -moz-appearance: none;
   text-indent: 0.01px;
   text-overflow: '';
-  font-family: 'Dosis', sans-serif;
+  font-family: @font-family, sans-serif;
   font-size: 1em;
   background-color: @post-bg-color;
   border: 1px solid transparent;

@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:400,700);
 /* Colors */
 /* Measurements */
 /* Normalize */
@@ -73,7 +74,7 @@ div#wrap,
 input,
 textarea {
   font-size: 12pt;
-  font-family: 'Dosis';
+  font-family: 'Titillium Web';
 }
 h1 {
   padding: 10px 0 5px;
@@ -227,11 +228,9 @@ input {
   padding: 5px;
   margin: 0 auto;
   /* First item in a form. */
-
 }
 .input_box input {
   /* Last item in a form. */
-
 }
 .input_box input .first {
   padding-top: 10px;
@@ -246,7 +245,7 @@ select {
   -moz-appearance: none;
   text-indent: 0.01px;
   text-overflow: '';
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   font-size: 1em;
   background-color: #ffffff;
   border: 1px solid transparent;
