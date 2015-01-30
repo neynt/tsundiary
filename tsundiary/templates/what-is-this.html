@@ -6,18 +6,16 @@
 
 <h1>tsundiary is a place to record your life.</h1>
 
-<p>Every day, you get a blank entry that looks like this. You can write whatever you want in it.</p>
-
 <div class="post">
+  <div class="post_top">
+    <span class="post_date">Today</span>
+  </div>
   <div class="post_body">
-    <p><textarea id="edit_area" placeholder="How was your day? N-not that I care or anything..."></textarea></p>
+    <p><textarea id="edit_area" placeholder="How was your day? N-not that I care or anything..." readonly></textarea></p>
   </div>
 </div>
 
-<p>Every night, at 4 a.m., the previous day's entry is set in stone and you get a new one.</p>
-<p>You are also shown your old entries at certain time intervals, like a week, a month, and a year.</p>
-
-<h1><a href='{{ url_for('register') }}'>start using tsundiary!</a></h1>
+<h1><a href='{{ url_for('register') }}'>Register!</a></h1>
 
 </div>
 {% endblock %}

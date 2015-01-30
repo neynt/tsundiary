@@ -15,16 +15,14 @@
     </p>
     <div id='login_box' class='input_box cloud'>
       <form action='/attempt_login' method='POST'>
-        <input id='username' class='first' name='username' type='text' placeholder="username" /><br />
-        <input id='password' class='last' name='password' type='password' placeholder="password" /><br />
+        <input id='username' class='first' name='username' type='text' placeholder="Username" /><br />
+        <input id='password' class='last' name='password' type='password' placeholder="Password" /><br />
         <hr />
-        <input id='submitbutton' class='submitbutton first last' type='submit' value='enter' />
+        <input id='submitbutton' class='submitbutton first last' type='submit' value='Sign in' />
       </form>
     </div>
-    <p><a href='/register'>register</a></p>
-    <p><a href='{{ url_for('who_am_i') }}'>what is this?</a></p>
+    <p><a href='{{ url_for('who_am_i') }}'>What is this?</a></p>
     <div style='height: 20px'></div>
 </div>
 
 {% endblock %}
-
