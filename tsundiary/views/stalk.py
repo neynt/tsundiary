@@ -1,7 +1,7 @@
 from tsundiary.views import *
 
 # Stalk a list of authors.
-@app.route('/stalk')
+#@app.route('/stalk')
 def stalk_list_given():
     if not g.user:
         return page_not_found()
@@ -34,7 +34,7 @@ def stalk_list_given():
     return render_template('stalk.html', posts_by_date=posts_by_date)
 
 # Add a user to a user's stalk list.
-@app.route('/stalkadd', methods=['POST'])
+#@app.route('/stalkadd', methods=['POST'])
 def stalk_list_add():
     victim = request.form.get('victim')
     if not g.user:
@@ -49,7 +49,7 @@ def stalk_list_add():
     return redirect('/stalk')
 
 # Remove a user from a user's stalk list.
-@app.route('/stalkdel/<victim>', methods=['GET'])
+#@app.route('/stalkdel/<victim>', methods=['GET'])
 def stalk_list_del(victim):
     del_author = victim
     if not g.user:
