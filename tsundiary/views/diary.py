@@ -1,7 +1,8 @@
 from tsundiary.views import *
 
 def render_diary(author, posts, title="", template="diary.html", **kwargs):
-    return render_template('error-disabled.html')
+    if not g.user or author.sid != g.user.sid:
+        return render_template('error-disabled.html')
     hidden_day = calc_hidden_day(author)
     cutoff_day = calc_cutoff_day(author)
 
