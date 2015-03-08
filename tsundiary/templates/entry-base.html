@@ -1,12 +1,7 @@
 <div class='post' data-date='{{ p.posted_date }}'>
 
-{% if p.posted_date > hidden_day or p.posted_date < cutoff_day or (p.user.sid != g.user.sid and p.hidden) %}
-<div class='post_top hidden'>
-  <span class='post_date' title="{{ p.posted_date | prettydate }}">
-    {{ p.posted_date | nicedate }} - hidden
-  </span>
-</div>
-{% else %}
+{% if p.viewable_by(g.user, g.date) %}
+
 <div class='post_top'>
   <span class='post_date' title="{{ p.posted_date | prettydate }}">
     {% block post_date %}
@@ -24,5 +19,14 @@
 </div>
 {% block post_bottomstuff %}
 {% endblock %}
+
+{% else %}
+
+<div class='post_top hidden'>
+  <span class='post_date' title="{{ p.posted_date | prettydate }}">
+    {{ p.posted_date | nicedate }} - hidden
+  </span>
+</div>
+
 {% endif %}
 </div>

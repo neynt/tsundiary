@@ -18,11 +18,7 @@ def stalk_list_given():
             continue
 
         oldest_date = their_date() - timedelta(days=2)
-
-        hidden_day = calc_hidden_day(author)
-        cutoff_day = calc_cutoff_day(author)
         latest_posts = author.posts.order_by(Post.posted_date.desc()).filter(Post.posted_date >= oldest_date).all()
-
         if latest_posts:
             for p in latest_posts:
                 posts[p.posted_date].append((author, p, hidden_day, cutoff_day))

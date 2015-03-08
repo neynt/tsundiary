@@ -69,6 +69,27 @@ class Post(db.Model):
     user = db.relationship('User',
                            backref=db.backref('posts', lazy='dynamic'))
 
+    def viewable_by(self, viewer, today):
+        """ Returns whether or not a certain user should be able to see this
+        post on a certain date.
+        """
+        # Users can always see their own posts
+        if self.user.sid == viewer.sid:
+            return True
+        # Author's whole diary is private
+        if self.user.publicity == 0:
+            return False
+        # This particular post is private
+        if self.hidden:
+            return False
+        # Keep entries hidden for a month
+        hidden_date = today.replace(day=1)
+        if self.posted_date >= hidden_date:
+            return False
+
+        # In all other cases...
+        return True
+
     def __init__(self, user_sid, content, posted_date):
         self.user_sid = user_sid
         self.posted_date = posted_date

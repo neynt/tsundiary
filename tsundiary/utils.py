@@ -97,28 +97,14 @@ def my_markdown(t):
     )
 
 @app.template_filter('render_entry')
-def render_entry(p, hidden_day, cutoff_day):
+def render_entry(p):
     """Renders the HTML for a single tsundiary entry."""
-    print("Rendering with a hidden day of ", hidden_day, " and a cutoff of ", cutoff_day)
-    return render_template('entry.html', p=p, hidden_day=hidden_day, cutoff_day=cutoff_day)
+    return render_template('entry.html', p=p)
 
 app.jinja_env.globals.update(render_entry=render_entry)
 
 def datestamp_today():
     return datestamp(g.date)
-
-def calc_hidden_day(author):
-    """Return the date from which things should be hidden given an author."""
-    # User is the author. Hide nothing.
-    if g.user and author.sid == g.user.sid:
-        return g.date + timedelta(days=2)
-    # Current month is hidden.
-    else:
-        return g.date.replace(day=1) - timedelta(days=1)
-
-def calc_cutoff_day(author):
-    # Hide nothing.
-    return date(1, 1, 1)
 
 def uidify(string):
     """Turn a string (e.g. a username) into a uid for db prettiness."""

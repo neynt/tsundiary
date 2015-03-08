@@ -6,8 +6,6 @@ def fetch_next_post(author_sid, datestamp):
     author = User.query.filter_by(sid = author_sid).first()
     if author:
         y, m, d = map(int, datestamp.split('-'))
-        hidden_day = calc_hidden_day(author)
-        cutoff_day = calc_cutoff_day(author)
         cur_date = date(y, m, d)
         post = (author.posts
                .filter(Post.posted_date < cur_date)

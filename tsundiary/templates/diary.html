@@ -55,7 +55,7 @@
 {% if posts %}
 <div id='posts'>
 {% for p in posts %}
-{{ render_entry(p, hidden_day, cutoff_day) | safe }}
+{{ render_entry(p) | safe }}
 {% endfor %}
 </div>
 

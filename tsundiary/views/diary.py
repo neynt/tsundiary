@@ -1,9 +1,6 @@
 from tsundiary.views import *
 
 def render_diary(author, posts, title="", template="diary.html", **kwargs):
-    hidden_day = calc_hidden_day(author)
-    cutoff_day = calc_cutoff_day(author)
-
     # Generate months/years that the user actually posted something
     # e.g. 2014: Jan Feb Mar May
     dates = defaultdict(set)
@@ -12,14 +9,10 @@ def render_diary(author, posts, title="", template="diary.html", **kwargs):
         d = r[0]
         dates[d.year].add(d.month)
 
-    print("### Someone's trying to look at ", hidden_day)
-
     return render_template(
             template,
             author = author,
             posts = posts,
-            hidden_day = hidden_day,
-            cutoff_day = cutoff_day,
             dates = dates,
             month_name = calendar.month_name,
             title = title,
@@ -96,13 +89,11 @@ def diary_search(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         print(request.form['search_term'])
-        hidden_day = calc_hidden_day(author)
         posts = (author.posts
                  .order_by(Post.posted_date.desc())
-                 .filter(Post.posted_date <= hidden_day)
-                 .filter(Post.hidden == 0)
                  .filter(Post.content.ilike('%%%s%%' % request.form['search_term']))
                  .limit(100).all())
+        posts = [p for p in posts if p.viewable_by(g.user, g.date)]
         return render_diary(author, posts, template="diary-search.html",
                             search_term = request.form['search_term'])
     else:
