@@ -109,29 +109,16 @@ def datestamp_today():
 
 def calc_hidden_day(author):
     """Return the date from which things should be hidden given an author."""
-
     # User is the author. Hide nothing.
     if g.user and author.sid == g.user.sid:
-        hidden_day = g.date + timedelta(days=2)
-    # Author hides everything.
-    elif author.publicity == 0:
-        hidden_day = author.join_time.date() - timedelta(days=2)
-    # Author has no secret days. To ensure worldwide viewability,
-    # add two days to the viewer's day (so that it's in the future
-    # no matter where you are in the world)
-    elif author.secret_days == 0:
-        hidden_day = g.date + timedelta(days=2)
+        return g.date + timedelta(days=2)
+    # Current month is hidden.
     else:
-        hidden_day = g.date - timedelta(days=author.secret_days)
-    return hidden_day
+        return g.date.replace(day=1)
 
 def calc_cutoff_day(author):
     # Hide nothing.
-    if g.user and g.user.sid == author.sid:
-        cutoff_day = date(1, 1, 1)
-    else:
-        cutoff_day = date(1, 1, 1)
-    return cutoff_day
+    return date(1, 1, 1)
 
 def uidify(string):
     """Turn a string (e.g. a username) into a uid for db prettiness."""

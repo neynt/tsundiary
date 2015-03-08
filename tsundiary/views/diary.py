@@ -1,8 +1,6 @@
 from tsundiary.views import *
 
 def render_diary(author, posts, title="", template="diary.html", **kwargs):
-    if not g.user or author.sid != g.user.sid:
-        return render_template('error-disabled.html')
     hidden_day = calc_hidden_day(author)
     cutoff_day = calc_cutoff_day(author)
 
@@ -109,7 +107,6 @@ def diary_search(author_sid):
 
 # Last secret_days + 1 entries of a user's diary.
 @app.route('/~<author_sid>', methods=['GET'])
-@app.route('/~<author_sid>/latest')
 def diary(author_sid):
     # Dict of year: [list months]
     author = User.query.filter_by(sid = uidify(author_sid)).first()
