@@ -114,7 +114,7 @@ def calc_hidden_day(author):
         return g.date + timedelta(days=2)
     # Current month is hidden.
     else:
-        return g.date.replace(day=1)
+        return g.date.replace(day=1) - timedelta(days=1)
 
 def calc_cutoff_day(author):
     # Hide nothing.
