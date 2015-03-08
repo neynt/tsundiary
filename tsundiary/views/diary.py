@@ -96,8 +96,10 @@ def diary_search(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
         print(request.form['search_term'])
+        hidden_day = calc_hidden_day(author)
         posts = (author.posts
                  .order_by(Post.posted_date.desc())
+                 .filter(Post.posted_date > hidden_day)
                  .filter(Post.content.ilike('%%%s%%' % request.form['search_term']))
                  .limit(100).all())
         return render_diary(author, posts, template="diary-search.html",
