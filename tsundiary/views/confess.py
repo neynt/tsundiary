@@ -1,6 +1,6 @@
 from tsundiary.views import *
 
-# Updating content
+# Updating diary content
 @app.route('/confess', methods=['POST'])
 def confess():
     content = request.form.get('content')
