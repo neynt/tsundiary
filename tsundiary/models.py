@@ -73,12 +73,14 @@ class Post(db.Model):
         """ Returns whether or not a certain user should be able to see this
         post on a certain date.
         """
-        # Users can always see their own posts
-        if self.user.sid == viewer.sid:
-            return True
-        # Author's whole diary is private
-        if self.user.publicity == 0:
-            return False
+        # For logged in users...
+        if self.user:
+            # Users can always see their own posts
+            if self.user.sid == viewer.sid:
+                return True
+            # Author's whole diary is private
+            if self.user.publicity == 0:
+                return False
         # This particular post is private
         if self.hidden:
             return False
