@@ -74,7 +74,7 @@ class Post(db.Model):
         post on a certain date.
         """
         # For logged in users...
-        if self.user:
+        if viewer:
             # Users can always see their own posts
             if self.user.sid == viewer.sid:
                 return True
