@@ -25,7 +25,7 @@ app = Flask(__name__)
 # Database URL, or sqlite in-memory database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # Secret key (for sessions/cookies)
-app.secret_key = os.environ.get('SECRET_KEY') or 'yolodesu'
+app.secret_key = os.environ.get('SECRET_KEY')
 
 # Sessions last for 100 years
 app.permanent_session_lifetime = timedelta(days=36500)
