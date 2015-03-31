@@ -16,6 +16,20 @@ def graph_all_posts():
         print("%s, %d" % (d, len([p for p in posts if p.posted_date == d])))
         d += timedelta(days=1)
 
+def get_active_users():
+    users = {}
+    for p in Post.query.filter(Post.posted_date >= date.today() - timedelta(days=6)).all():
+        if p.user_sid not in users:
+            users[p.user_sid] = 0
+        users[p.user_sid] += 1
+
+    upairs = users.items()
+    upairs.sort()
+    upairs.sort(key=lambda x:x[1], reverse=True)
+    print("users by # posts in last 7 days:")
+    for sid,count in upairs:
+        print("%3d: %s" % (count, sid))
+
 def stalk(sid, depth=1):
     entries = user_from_sid(sid).posts.order_by(Post.posted_date.desc()).limit(depth)
     for e in entries:
