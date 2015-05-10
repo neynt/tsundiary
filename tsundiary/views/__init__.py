@@ -1,10 +1,12 @@
 import os
 import random
-from datetime import datetime, date, timedelta
 import calendar
 import json
-from flask import render_template, send_from_directory, redirect, session, request, g, flash
 from collections import defaultdict
+from datetime import datetime, date, timedelta
+
+from flask import render_template, send_from_directory, redirect, session, request, g, flash
+
 from tsundiary import app
 from tsundiary.models import User, Post, db
 from tsundiary.prompts import PROMPTS

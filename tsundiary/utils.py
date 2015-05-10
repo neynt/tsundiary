@@ -4,7 +4,6 @@ from flask import g, render_template
 import bleach
 from markdown import markdown
 from tsundiary import app
-from tsundiary.utils import *
 
 def valid_date(date):
     """Checks if a certain time is a valid time to post an entry now"""
