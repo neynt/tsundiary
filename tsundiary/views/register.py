@@ -1,4 +1,8 @@
-from tsundiary.views import *
+from flask import session, flash, request, render_template, redirect, g
+
+from tsundiary import app
+from tsundiary.utils import uidify
+from tsundiary.models import User, db
 
 # User registration form.
 @app.route('/register')

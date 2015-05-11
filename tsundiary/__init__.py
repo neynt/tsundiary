@@ -28,7 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.secret_key = os.environ.get('SECRET_KEY')
 
 # Sessions last for 100 years
-app.permanent_session_lifetime = timedelta(days=36500)
+app.permanent_session_lifetime = timedelta(days=90)
 
 # Import the rest of the tsundiary stuff
 from tsundiary.views import *

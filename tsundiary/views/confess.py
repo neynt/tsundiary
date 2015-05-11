@@ -1,4 +1,11 @@
-from tsundiary.views import *
+from datetime import datetime, timedelta
+import json
+
+from flask import request, g
+
+from tsundiary import app
+from tsundiary.utils import unix_timestamp, date_from_stamp, valid_date
+from tsundiary.models import Post, db
 
 # Updating diary content
 @app.route('/confess', methods=['POST'])
@@ -6,11 +13,19 @@ def confess():
     content = request.form.get('content')
     try:
         cur_date = date_from_stamp(request.form.get('cur_date'))
-    except:
-        print("h-help!! i can't handle the ", request.form.get('cur_date'), ", onii-chan!!")
-        return json.dumps({'success': 0, 'message': "w-what are you trying to do to me???"})
+    except ValueError:
+        print("h-help!! i can't handle the ",
+              request.form.get('cur_date'),
+              ", onii-chan!!")
+        return json.dumps({
+            'success': 0,
+            'message': "w-what are you trying to do to me???"
+        })
     if not valid_date(cur_date):
-        return json.dumps({'success': 0, 'message': "... you want to go on a DATE with me!?"})
+        return json.dumps({
+            'success': 0,
+            'message': "... you want to go on a DATE with me!?"
+        })
     elif len(content) == 0:
         p = g.user.posts.filter_by(posted_date = cur_date)
         if p:
@@ -23,7 +38,11 @@ def confess():
         return_timestamp = unix_timestamp(datetime.now())
 
     elif len(content) > 20000:
-        return json.dumps({'success': 0, 'message': "onii-chan, it's too big! you're gonna split me in half!"})
+        return json.dumps({
+            'success': 0,
+            'message': "onii-chan, it's too big! "
+                       "you're gonna split me in half!"
+        })
 
     else:
         new_post = Post(g.user.sid, content, cur_date)
@@ -49,4 +68,9 @@ def confess():
     g.user.combo = combo
     db.session.commit()
 
-    return json.dumps({'success': return_success, 'message': return_message, 'timestamp': return_timestamp, 'num_entries': g.user.num_entries})
+    return json.dumps({
+        'success': return_success,
+        'message': return_message,
+        'timestamp': return_timestamp,
+        'num_entries': g.user.num_entries
+    })

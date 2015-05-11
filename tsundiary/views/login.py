@@ -1,4 +1,8 @@
-from tsundiary.views import *
+from flask import request, session, flash, redirect
+
+from tsundiary import app
+from tsundiary.utils import uidify
+from tsundiary.models import User
 
 # Login attempts
 @app.route('/attempt_login', methods=['POST'])
@@ -10,11 +14,8 @@ def attempt_login():
         session['user_sid'] = uidify(u)
         session.permanent = True
         return redirect('/')
-        #return "Oh... welcome back, %s-sama." % u
     elif "'" in u or "'" in p:
         flash('H-honto baka!')
-        #return "H-honto baka! Did you really think that would work?!"
-    flash("I don't recognize you, sorry.")
+    else:
+        flash("I don't recognize you, sorry.")
     return redirect('/')
-    #return "I don't recognize you, sorry."
-
