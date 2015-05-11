@@ -1,15 +1,15 @@
-from tsundiary.views import *
-from tsundiary.prompts import PROMPTS
 import hashlib
+from datetime import timedelta
+
+from flask import g, render_template
+
+from tsundiary import app
+from tsundiary.utils import unix_timestamp, datestamp
+from tsundiary.prompts import PROMPTS
 
 # Index/home!
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # handle logouts
-    submit_action = request.form.get('action')
-    if submit_action == 'logout':
-        return logout()
-
     if g.user:
         current_post = g.user.posts.filter_by(posted_date = g.date).first()
         if current_post:

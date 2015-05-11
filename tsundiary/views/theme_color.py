@@ -1,6 +1,7 @@
-from tsundiary.views import *
 from flask import Response
 import colorsys
+
+from tsundiary import app
 
 class Color():
     def __init__(self, h, s, v):
@@ -50,7 +51,7 @@ def theme_color(theme_name, colors):
         bg.scaleSaturation(0.1)
         btn = Color(h, s, v)
         if btn.getBrightness() > 0.6:
-             btn.scaleBrightness(0.8)
+            btn.scaleBrightness(0.8)
         colors.append("body { background: %s; }" % bg.getHexRGB())
         colors.append("#content { background: %s; }" % bg.getHexRGB())
         colors.append("a { color: %s; }" % btn.getHexRGB())

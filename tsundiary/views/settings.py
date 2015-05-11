@@ -1,4 +1,8 @@
-from tsundiary.views import *
+from flask import g, render_template, request
+
+from tsundiary import app
+from tsundiary.views import page_not_found
+from tsundiary.models import db
 
 @app.route('/settings')
 def edit_settings():

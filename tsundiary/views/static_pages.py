@@ -1,4 +1,8 @@
-from tsundiary.views import *
+import os
+
+from flask import render_template, send_from_directory, request
+
+from tsundiary import app
 
 # Route static files
 static_file_dir = os.path.join(app.root_path, 'static')
