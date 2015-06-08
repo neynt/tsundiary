@@ -12,6 +12,10 @@ def favicon():
     return send_from_directory(static_file_dir, "favicon.ico",
             mimetype='image/vnd.microsoft.icon')
 
+@app.route('/favicon.png')
+def favicon_png():
+    return send_from_directory(static_file_dir, "favicon.png")
+
 @app.route('/static/<path:filename>')
 def static_file(filename):
     return send_from_directory(static_file_dir, filename)
