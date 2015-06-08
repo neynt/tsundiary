@@ -32,7 +32,7 @@ app.permanent_session_lifetime = timedelta(days=90)
 
 # Import the rest of the tsundiary stuff
 from tsundiary.views import *
-from tsundiary.models import User, db
+from tsundiary.models import User, db, ensure_db_exists
 from tsundiary.utils import their_date
 import tsundiary.jinja_env
 

@@ -104,6 +104,9 @@ def init_db():
     db.drop_all()
     db.create_all()
 
+def ensure_db_exists():
+    db.create_all()
+
 def populate_db():
     admin = User("admin", "cake")
     bob = User("bob", "yolo")
