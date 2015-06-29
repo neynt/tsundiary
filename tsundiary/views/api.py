@@ -1,4 +1,10 @@
-from tsundiary.views import *
+import json
+
+from flask import g
+
+from tsundiary import app
+from tsundiary.models import Post
+from tsundiary.utils import unix_timestamp, datestamp
 
 @app.route('/api/my_current_entry')
 def api_my_current_entry():

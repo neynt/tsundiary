@@ -10,7 +10,6 @@ from flask import render_template, send_from_directory, redirect, session, reque
 from tsundiary import app
 from tsundiary.models import User, Post, db
 from tsundiary.prompts import PROMPTS
-from tsundiary.utils import *
 
 @app.errorhandler(404)
 def page_not_found(e=None):
@@ -24,7 +23,7 @@ def raw_dump():
     return render_template('raw_dump.html',
                            posts=g.user.posts)
 
-from tsundiary.views.confess import *
+from tsundiary.views.confess import confess
 from tsundiary.views.diary import *
 from tsundiary.views.fetch_next_post import *
 from tsundiary.views.index import *
