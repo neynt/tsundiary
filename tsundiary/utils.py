@@ -5,15 +5,13 @@ import bleach
 from markdown import markdown
 from tsundiary import app
 
-def valid_date(date):
+def valid_date(cur_date):
     """Checks if a certain time is a valid time to post an entry now"""
-    return abs(date-date.today()).days <= 2
+    return abs(cur_date-date.today()).days <= 2
 
 def their_time():
     """Gets the user's local time based on timezone cookie."""
-    utc_time = datetime.utcnow()
-    their_time = utc_time - timedelta(minutes=g.timezone)
-    return their_time
+    return datetime.utcnow() - timedelta(minutes=g.timezone)
 
 def their_date():
     """Returns the user's date based on timezone cookie."""

@@ -16,9 +16,9 @@ def graph_all_posts():
         print("%s, %d" % (d, len([p for p in posts if p.posted_date == d])))
         d += timedelta(days=1)
 
-def get_active_users():
+def get_active_users(num_days=7):
     users = {}
-    for p in Post.query.filter(Post.posted_date >= date.today() - timedelta(days=6)).all():
+    for p in Post.query.filter(Post.posted_date > date.today() - timedelta(days=num_days)).all():
         if p.user_sid not in users:
             users[p.user_sid] = 0
         users[p.user_sid] += 1
@@ -26,7 +26,7 @@ def get_active_users():
     upairs = users.items()
     upairs.sort()
     upairs.sort(key=lambda x:x[1], reverse=True)
-    print("users by # posts in last 7 days:")
+    print("users by # posts in last %d days:", users)
     for sid,count in upairs:
         print("%3d: %s" % (count, sid))
 
