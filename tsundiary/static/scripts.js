@@ -20,6 +20,8 @@ function confession_response(data) {
   // saved!
   $('#save_status').html(response['message']);
   clearTimeout(dc_check_timer);
+  // start syncing again
+  window.update_interval = setInterval(get_updates, 3000);
   last_timestamp = response['timestamp'];
 }
 
@@ -32,6 +34,8 @@ function confess() {
         $('#save_status').html('disconnected? <a id="tryagain">try again</span>');
         $('#tryagain').click(confess);
     }, 8000);
+    // Do not try to sync while we're trying to push an update.
+    clearTimeout(window.update_interval);
     $.post('/confess', { content: content, cur_date: cur_date },
         confession_response);
 }
