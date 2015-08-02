@@ -3,7 +3,6 @@
 
 var save_timer = -1;
 window.dc_check_timer = -1;
-window.old_content = null;
 window.cur_date = "";
 window.last_timestamp = null;
 var last_write_time = 0;
@@ -55,10 +54,12 @@ function prime_update() {
 
 function update_char_count() {
     var count = unescape(encodeURIComponent(textarea.val())).length;
-    if (count > 0) {
-        $('#char_count').html(count);
+    if (count == 0) {
+      $('#char_count').html('&nbsp;');
+    } else if (count > CHAR_LIMIT) {
+      $('#char_count').html(count + '/' + CHAR_LIMIT);
     } else {
-        $('#char_count').html('&nbsp;');
+      $('#char_count').html(count);
     }
 
     // Scale textarea
@@ -75,16 +76,14 @@ window.content_changed = function() {
     clearTimeout(save_timer);
 
     if (count <= CHAR_LIMIT) {
-        //$('#char_count').removeClass('error');
-        old_content = textarea.val();
+        $('#char_count').removeClass('error');
+        prime_update();
     }
     else {
-        //$('#char_count').addClass('error');
-        //$('#save_status').html('too long');
-        textarea.val(old_content);
+        $('#char_count').addClass('error');
+        $('#save_status').html('too long!');
         update_char_count();
     }
-    prime_update();
 }
 
 window.get_updates = function() {
@@ -174,5 +173,7 @@ InstantClick.on('change', function (isInitialLoad) {
     if ('textarea' in window) {
       update_char_count();
       textarea.focus();
+      var len = textarea.val().length;
+      textarea[0].setSelectionRange(len, len);
     }
 });
