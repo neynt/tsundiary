@@ -54,7 +54,7 @@
   <h2>Privacy</h2>
   <p>
   <select id='option_secret_days'>
-    <option value='0' {% if g.user.publicity == 2 %}selected{% endif %}>Hidden until the end of the month</option>
+    <option value='0' {% if g.user.publicity == 2 %}selected{% endif %}>Hidden until following Sunday</option>
     {% if g.user.publicity == 1 %}<option value='Hidden' selected>Hidden from userlist</option>{% endif %}
     <option value='Forever' {% if g.user.publicity == 0 %}selected{% endif %} >Completely private</option>
   </select>
