@@ -60,7 +60,7 @@ function confession_response(data) {
   // "saved!" ... hopefully
   $('#save_status').html(response['message']);
   clearTimeout(window.disconnected_timeout);
-  last_timestamp = response['timestamp'];
+  window.last_timestamp = response['timestamp'];
   confessing = false;
 }
 
@@ -98,8 +98,8 @@ window.content_changed = function() {
 }
 
 function should_accept_sync() {
-  // User typed something in the last 3 sec.
-  if ((new Date().getTime() - last_write_time < 3000)) {
+  // User typed something in the last 5.5 sec.
+  if ((new Date().getTime() - last_write_time < 5500)) {
     return false;
   }
   // User POSTed an update and has not received a response yet.
@@ -113,18 +113,19 @@ window.get_updates = function() {
   $.getJSON('/api/my_current_entry', function(data) {
     if (should_accept_sync()) {
       if ('datestamp' in data) {
-        if (data['datestamp'] != cur_date) {
+        if (data.datestamp != cur_date) {
           // automatically reload at 4am, when day flips over
           location.reload(true);
         }
       }
 
-      var mydate = new Date(data.timestamp * 1000);
-      var myts = mydate.getTime() / 1000;
-      if (myts > last_timestamp + 0.5) {
-        $('#edit_area').val(data['content']);
+      var synced_date = new Date(data.timestamp * 1000);
+      var synced_timestamp = mydate.getTime() / 1000;
+      if (synced_timestamp > window.last_timestamp + 0.5) {
+        // synced data is at least 0.5 sec fresher than current data
+        $('#edit_area').val(data.content);
         $('#save_status').html('synced!');
-        last_timestamp = myts;
+        window.last_timestamp = synced_timestamp;
         update_char_count();
       }
     }
