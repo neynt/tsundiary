@@ -23,6 +23,7 @@ PROMPTS = [
     "Why would you do that, %s? You are so foolish...",
     "Can you be any more clueless, %s?",
     "It's cute how you have no idea what's going on around you, %s.",
+    "B-baka baka baka!",
 
     # DERE
 
