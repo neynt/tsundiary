@@ -84,8 +84,8 @@ class Post(db.Model):
         # This particular post is private
         if self.hidden:
             return False
-        # Reveal entries every Sunday
-        hidden_date = today - timedelta(days=(today.weekday()+1)%7)
+        # Today's entries are hidden
+        hidden_date = today # - timedelta(days=1)
         if self.posted_date >= hidden_date:
             return False
 

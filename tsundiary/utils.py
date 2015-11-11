@@ -56,8 +56,6 @@ def pretty_date(d):
             return "Tomorrow"
         elif days == 1:
             return "Yesterday"
-        elif 0 < days < 7:
-            return d.strftime("Last %A")
         elif days == 7:
             return "One week ago"
         elif their_date().year == d.year:

@@ -120,7 +120,7 @@ window.get_updates = function() {
       }
 
       var synced_date = new Date(data.timestamp * 1000);
-      var synced_timestamp = mydate.getTime() / 1000;
+      var synced_timestamp = synced_date.getTime() / 1000;
       if (synced_timestamp > window.last_timestamp + 0.5) {
         // synced data is at least 0.5 sec fresher than current data
         $('#edit_area').val(data.content);
