@@ -1,6 +1,6 @@
-@import url(//fonts.googleapis.com/css?family=Titillium+Web:400,700);
 /* Colors */
 /* Measurements */
+@import url(//fonts.googleapis.com/css?family=Titillium+Web:400,700);
 /* Normalize */
 * {
   margin: 0;
@@ -39,7 +39,7 @@ p {
 }
 /* Links, in general */
 a {
-  color: #ff4800;
+  color: #FF4800;
   text-decoration: none;
   border-radius: 3px;
   padding: 0 1px;
@@ -48,12 +48,12 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #ff4800;
+  color: #FF4800;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-left: 3px solid #ff4800;
+  border-left: 3px solid #FF4800;
   padding: 5px 20px;
   margin: 10px 0;
 }
@@ -94,7 +94,7 @@ h3 {
 div#wrap {
   position: relative;
   min-height: 100%;
-  padding-bottom: 300px;
+  padding-bottom: 150px;
   box-sizing: border-box;
 }
 /* Post editing components */
@@ -208,7 +208,7 @@ div#edit_area:focus {
   box-sizing: border-box;
 }
 input {
-  background-color: #ffffff;
+  background-color: #fff;
   border: 0;
 }
 .input_box {
@@ -247,7 +247,7 @@ select {
   text-overflow: '';
   font-family: 'Titillium Web', sans-serif;
   font-size: 1em;
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid transparent;
   border-radius: 0.2em;
   padding: 0.4em;
@@ -264,7 +264,7 @@ option {
   background: transparent;
 }
 .login_box_active {
-  background: #ffffff;
+  background: #fff;
   border-color: #000;
 }
 /* Search box */
@@ -299,7 +299,7 @@ div#nav a {
   text-decoration: none;
 }
 div#nav a.cur_page {
-  color: #ff4800;
+  color: #FF4800;
 }
 /* Content div */
 div#content {
