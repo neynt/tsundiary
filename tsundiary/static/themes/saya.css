@@ -1,7 +1,7 @@
 /* Base */
 body {
-  color: #33302e;
-  background: url('/static/img/saya.jpg') no-repeat bottom right, linear-gradient(to right, #e0efe8, #e0efe8);
+  color: #33302E;
+  background: url('/static/img/saya.jpg') no-repeat bottom right, linear-gradient(to right, #E0EFE8, #E0EFE8);
   background-size: auto 90%;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #4a9572;
+  color: #4A9572;
 }
 #content {
   background-color: rgba(224, 239, 232, 0.85);
@@ -26,14 +26,14 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #4a9572;
+  color: #4A9572;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #4a9572;
+  color: #4A9572;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #4a9572;
+  border-color: #4A9572;
 }

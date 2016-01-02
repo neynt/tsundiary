@@ -6,13 +6,13 @@
 @post-bg-color: #fff;
 @post-text-color: inherit;
 @border-color: #b3b3b3;
-@font-family: 'Titillium Web';
+@font-family: helvetica, arial, sans-serif;
 
 /* Measurements */
 @large-space: 20px;
 @small: 5px;
 @med: 10px;
-@font-size-normal: 12pt;
+@font-size-normal: 14px;
 @page-width: 600px;
 
 @import url(//fonts.googleapis.com/css?family=Titillium+Web:400,700);
@@ -63,8 +63,6 @@ a {
   color: @link-color;
   text-decoration: none;
   border-radius: 3px;
-  padding: 0 1px;
-  margin: 0;
   cursor: pointer;
 }
 a:hover, a.selected_date {
@@ -98,17 +96,18 @@ div#wrap, input, textarea {
 
 h1 {
   padding: @med 0 @small;
-  font-size: 24pt;
+  font-size: 18px;
   font-weight: normal;
 }
 h2 {
   padding: @med 0 @small;
-  font-size: 18pt;
+  font-size: 16px;
   font-weight: normal;
 }
 h3 {
-  font-size: 14pt;
-  font-weight: normal;
+  padding: @med 0 @small;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 /* Wrapper for main content */
@@ -117,6 +116,7 @@ div#wrap {
   min-height: 100%;
   padding-bottom: 150px;
   box-sizing: border-box;
+  line-height: 130%;
 }
 
 /* Post editing components */
@@ -147,7 +147,7 @@ textarea {
 /* User profile elements */
 .stat {
   padding: 2px 6px;
-  margin: 0 2px;
+  margin: 0px 2px;
 }
 .stat i.fa {
   margin-right: @small;
@@ -163,11 +163,13 @@ textarea {
   display: block;
   margin: @med;
   text-align: center;
-  color: fadeout(@text-color, 40%);
+  color: fadeout(@text-color, 60%);
   position: relative;
 }
 .post_date {
   display: inline;
+  font-size: 12px;
+  font-weight: bold;
 }
 .hidden {
   border: 0;
@@ -183,7 +185,6 @@ textarea {
     right: 0;
     a {
       opacity: 0.0;
-      transition: opacity 0.15s;
       display: inline-block;
       padding: @small 5px;
 
@@ -255,16 +256,14 @@ input {
   width: 50%;
   min-width: 10em;
   max-width: 250px;
-  text-align: center;
   padding: @med;
   border-radius: @small;
-  margin: @med auto;
 }
 
 /* Textual-type inputs */
 .input_box input[type="text"], .input_box input[type="email"], .input_box input[type="password"] {
   width: 100%;
-  padding: @small;
+  padding: @small+(2px) @small;
   margin: 0 auto;
   /* First item in a form. */
 }
@@ -275,6 +274,7 @@ input {
   }
   /* Last item in a form. */
   .last {
+    padding-top: @med;
     padding-bottom: @med;
     margin-bottom: 1px;
   }
@@ -300,13 +300,17 @@ option {
 
 /* Submit buttons */
 .submitbutton {
-  padding: @small;
+  padding: @small+(2px) @small @small;
   margin: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
+#login_box {
+  text-align: center;
+  margin: @med auto;
+}
 .login_box_active {
   background: @post-bg-color;
   border-color: #000;

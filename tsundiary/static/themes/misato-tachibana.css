@@ -1,7 +1,7 @@
 /* Base */
 body {
-  color: #33302e;
-  background: url('/static/img/misato-tachibana.jpg') no-repeat bottom right, linear-gradient(to right, #f5eaca, #f5eaca);
+  color: #33302E;
+  background: url('/static/img/misato-tachibana.jpg') no-repeat bottom right, linear-gradient(to right, #F5EACA, #F5EACA);
   background-size: auto 60%;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #c1494b;
+  color: #C1494B;
 }
 #content {
   background-color: rgba(245, 234, 202, 0.85);
@@ -26,14 +26,14 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #c1494b;
+  color: #C1494B;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #c1494b;
+  color: #C1494B;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #c1494b;
+  border-color: #C1494B;
 }

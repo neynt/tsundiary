@@ -1,6 +1,6 @@
 /* Base */
 body {
-  color: #111111;
+  color: #111;
   background: transparent;
   background-size: auto 80%;
   background-attachment: fixed;
@@ -9,12 +9,12 @@ body {
 .post,
 input,
 select {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #000000;
+  color: #000;
 }
 #content {
   background-color: rgba(0, 0, 0, 0);
@@ -26,15 +26,15 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #000000;
+  color: #000;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #000000;
+  color: #000;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #000000;
+  border-color: #000;
 }
 /* will be overridden by color-generated css */

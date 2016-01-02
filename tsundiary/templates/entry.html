@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block post_controls %}
-  <a href="/~{{ p.user.sid }}/{{ p.posted_date.strftime("%Y/%m/%d") }}"><i class="fa fa-link"></i></a>
+  <a href="/~{{ p.user.sid }}/{{ p.posted_date.strftime("%Y/%m/%d") }}" title='Permalink'><i class="fa fa-link"></i></a>
 {% if p.user.sid == g.user.sid %}
-  <a class='hide_button{% if p.hidden %} activated_control{% endif %}'><i class="fa fa-eye" data-no-instant></i><i class="fa fa-eye-slash" data-no-instant></i></a>
+  <a class='hide_button{% if p.hidden %} activated_control{% endif %}' title='Keep private'><i class="fa fa-eye" data-no-instant></i><i class="fa fa-eye-slash" data-no-instant></i></a>
 {% endif %}
 
 {% endblock %}

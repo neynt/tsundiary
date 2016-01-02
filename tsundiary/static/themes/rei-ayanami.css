@@ -1,7 +1,7 @@
 /* Base */
 body {
-  color: #2e3033;
-  background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right, linear-gradient(to right, #e6f3ff, #e6f3ff);
+  color: #2E3033;
+  background: url('/static/img/rei-ayanami.jpg') no-repeat bottom right, linear-gradient(to right, #E6F3FF, #E6F3FF);
   background-size: auto 80%;
   background-attachment: fixed;
 }

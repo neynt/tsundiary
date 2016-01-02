@@ -1,7 +1,7 @@
 /* Base */
 body {
   color: #380517;
-  background: url('/static/img/yuno.jpg') no-repeat bottom right, linear-gradient(to right, #fce3e4, #fce3e4);
+  background: url('/static/img/yuno.jpg') no-repeat bottom right, linear-gradient(to right, #FCE3E4, #FCE3E4);
   background-size: auto 100%;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #e74f79;
+  color: #E74F79;
 }
 #content {
   background-color: rgba(252, 227, 228, 0.85);
@@ -26,16 +26,16 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #e74f79;
+  color: #E74F79;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #e74f79;
+  color: #E74F79;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #e74f79;
+  border-color: #E74F79;
 }
 /* and a little extra */
 .about::after {

@@ -1,7 +1,7 @@
 /* Base */
 body {
-  color: #111111;
-  background: #eeeeee;
+  color: #111;
+  background: #eee;
   background-size: auto 80%;
   background-attachment: fixed;
 }
@@ -9,12 +9,12 @@ body {
 .post,
 input,
 select {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #333333;
+  color: #333;
 }
 #content {
   background-color: rgba(238, 238, 238, 0.85);
@@ -26,14 +26,14 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #333333;
+  color: #333;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #333333;
+  color: #333;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #333333;
+  border-color: #333;
 }

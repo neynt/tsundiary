@@ -1,7 +1,7 @@
 /* Base */
 body {
-  color: #33302e;
-  background: #ffefe8;
+  color: #33302E;
+  background: #FFEFE8;
   background-size: auto 80%;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ select {
 /* Nav bar links */
 div#nav a:hover,
 div#nav a.cur_page {
-  color: #ff4800;
+  color: #FF4800;
 }
 #content {
   background-color: rgba(255, 239, 232, 0.85);
@@ -26,14 +26,14 @@ a {
 }
 a:hover,
 a.selected_date {
-  color: #ff4800;
+  color: #FF4800;
 }
 .post a:hover,
 .cloud a:hover {
-  color: #ff4800;
+  color: #FF4800;
 }
 /* Quotes */
 blockquote,
 pre {
-  border-color: #ff4800;
+  border-color: #FF4800;
 }

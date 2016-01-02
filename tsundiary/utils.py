@@ -59,9 +59,9 @@ def pretty_date(d):
         elif days == 7:
             return "One week ago"
         elif their_date().year == d.year:
-            return d.strftime("%a, %B %-d")
+            return d.strftime("%B %-d")
         else:
-            return d.strftime("%a, %B %-d, %Y")
+            return d.strftime("%B %-d, %Y")
     else:
         return "Never!"
 
