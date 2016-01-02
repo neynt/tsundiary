@@ -22,7 +22,7 @@ def render_diary(author, posts, title="", template="diary.html", **kwargs):
             template,
             author = author,
             posts = posts,
-            dates = dates,
+            dates = sorted(dates.items()),
             month_name = calendar.month_name,
             title = title,
             **kwargs

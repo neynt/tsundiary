@@ -12,7 +12,7 @@
 <div style='float:right; text-align: right'>
 
 {# Dates nav #}
-{% for year, avail_months in dates.items() %}
+{% for year, avail_months in dates %}
 {{ year }}:
 {% for month in range(1, 13) %}
 {% set target = '/~%s/%d/%d' % (author.sid, year, month) %}
