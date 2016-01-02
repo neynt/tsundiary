@@ -73,6 +73,7 @@ input,
 textarea {
   font-size: 14px;
   font-family: helvetica, arial, sans-serif;
+  line-height: 140%;
 }
 h1 {
   padding: 10px 0 5px;
@@ -95,7 +96,6 @@ div#wrap {
   min-height: 100%;
   padding-bottom: 150px;
   box-sizing: border-box;
-  line-height: 130%;
 }
 /* Post editing components */
 #edit_area {
