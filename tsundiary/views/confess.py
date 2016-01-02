@@ -60,12 +60,12 @@ def confess():
     # Update latest post date
     g.user.latest_post_date = cur_date
     # Update combo
-    combo = 1
-    cd = cur_date - timedelta(days = 1)
-    while g.user.posts.filter_by(posted_date = cd).first():
-        combo += 1
-        cd -= timedelta(days = 1)
-    g.user.combo = combo
+    #combo = 1
+    #cd = cur_date - timedelta(days = 1)
+    #while g.user.posts.filter_by(posted_date = cd).first():
+    #    combo += 1
+    #    cd -= timedelta(days = 1)
+    #g.user.combo = combo
     db.session.commit()
 
     return json.dumps({
