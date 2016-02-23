@@ -19,7 +19,9 @@ def index():
             current_content = ""
             update_time = 0
 
-        prompt = PROMPTS[int(hashlib.md5(datestamp(g.date)).hexdigest(), 16) % len(PROMPTS)] % g.user.name
+        prompt = PROMPTS[int(hashlib.md5(datestamp(g.date)).hexdigest(), 16) % len(PROMPTS)]
+        if '%s' in prompt:
+            prompt = prompt % (g.user.name)
 
         old_posts = []
         deltas = [(1, "Yesterday"), (7, "One week ago"), (30, "30 days ago"),
