@@ -11,19 +11,12 @@ from flask.ext.migrate import Migrate, MigrateCommand
 #################
 # Initialization
 
-# Lovable diary prompts!
-#insults = [
-#"moron", "idiot", "fool"
-#]
-
-# The ideal tsundere greeting is cold and hostile while betraying a
-# lingering sense of affection. Constantly search for it.
-
 # Set up Flask app
 app = Flask(__name__)
 
 # Database URL, or sqlite in-memory database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['PROPAGATE_EXCEPTIONS'] = True
 # Secret key (for sessions/cookies)
 app.secret_key = os.environ.get('SECRET_KEY')
 
