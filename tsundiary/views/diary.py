@@ -97,7 +97,7 @@ def diary_search_page(author_sid):
 def diary_search(author_sid):
     author = User.query.filter_by(sid = uidify(author_sid)).first()
     if author:
-        print(request.form['search_term'])
+        #print(request.form['search_term'].encode('utf-8'))
         posts = (author.posts
                  .order_by(Post.posted_date.desc())
                  .filter(Post.content.ilike('%%%s%%' % request.form['search_term']))
