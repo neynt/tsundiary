@@ -19,7 +19,7 @@ def index():
             current_content = ""
             update_time = 0
 
-        prompt = PROMPTS[int(hashlib.md5(datestamp(g.date)).hexdigest(), 16) % len(PROMPTS)]
+        prompt = PROMPTS[int(hashlib.md5(datestamp(g.date).encode('utf-8')).hexdigest(), 16) % len(PROMPTS)]
         if '%s' in prompt:
             prompt = prompt % (g.user.name)
 

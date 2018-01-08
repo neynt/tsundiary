@@ -1,12 +1,12 @@
 # encoding=utf-8
 import os
 import random
-from urlparse import urlparse, urlunparse
+from urllib.parse import urlparse, urlunparse
 from datetime import datetime, date, timedelta
 from flask import Flask, redirect, session, request, g
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.script import Manager
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_sqlalchemy import SQLAlchemy
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 #################
 # Initialization
@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 # Database URL, or sqlite in-memory database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 # Secret key (for sessions/cookies)
 app.secret_key = os.environ.get('SECRET_KEY')

@@ -1,4 +1,4 @@
-from urlparse import urlparse, urlunparse
+from urllib.parse import urlparse, urlunparse
 from datetime import datetime, date, timedelta
 from flask import g, render_template
 import bleach

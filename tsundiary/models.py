@@ -1,7 +1,7 @@
 import uuid
 import hashlib
 from datetime import datetime, date, timedelta
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from tsundiary import app
 from tsundiary.utils import uidify
 
@@ -32,16 +32,16 @@ class User(db.Model):
     latest_post_date = db.Column(db.Date, index=True, default=date(1900,1,1))
 
     def verify_password(self, password):
-        """ Checks whether a user's password is equal to the given string."""
-        salt = self.passhash[:32].encode('utf-8')
-        pas = hashlib.sha512(salt + password.encode('utf-8'))
-        pash = pas.hexdigest().encode('utf-8')
+        """ Checks whether a user's password is equal to the given string. """
+        salt = self.passhash[:32]
+        pas = hashlib.sha512((salt + password).encode('utf-8'))
+        pash = pas.hexdigest()
         return salt + pash == self.passhash
 
     def set_password(self, password):
-        salt = uuid.uuid4().hex.encode('utf-8')
-        pas = hashlib.sha512(salt + password.encode('utf-8'))
-        pash = pas.hexdigest().encode('utf-8')
+        salt = uuid.uuid4().hex
+        pas = hashlib.sha512((salt + password).encode('utf-8'))
+        pash = pas.hexdigest()
         self.passhash = salt + pash
 
     def __init__(self, name, password, email=None, invite_key=""):
