@@ -65,7 +65,7 @@ def pretty_date(d):
     else:
         return "Never!"
 
-def filter_iframe(name, value):
+def filter_iframe(tag, name, value):
     """Returns True if an iframe is allowed."""
     if name in ['allowfullscreen']:
         return True
@@ -79,12 +79,12 @@ def filter_iframe(name, value):
 def my_markdown(t):
     """Turns a tsundiary post into HTML."""
     return bleach.clean(markdown(t, extensions=['nl2br']),
-        [
+        tags = [
             'p', 'strong', 'em', 'br', 'img', 'ul', 'ol', 'li', 'a',
             'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote',
             'pre', 'code', 'hr', 'iframe', 'sup', 'sub'
         ],
-        {
+        attributes = {
             'img': ['src', 'alt', 'title'],
             'a': ['href', 'title'],
             'iframe': filter_iframe
