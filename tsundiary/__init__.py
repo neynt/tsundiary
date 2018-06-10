@@ -41,7 +41,7 @@ manager.add_command('db', MigrateCommand)
 def before_request():
     # Redirect non-www.com requests to www.com
     urlparts = urlparse(request.url)
-    if urlparts.netloc in ['tsundiary.tk', 'www.tsundiary.tk', 'tsundiary.com']:
+    if urlparts.netloc in ['tsundiary.com']:
         urlparts_list = list(urlparts)
         urlparts_list[0] = 'https'
         urlparts_list[1] = 'www.tsundiary.com'
